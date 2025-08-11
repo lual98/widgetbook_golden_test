@@ -10,10 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
+  widgetbook: ^3.8.1
+  mocktail_image_network: ^1.2.0
   flutter_test:
     sdk: flutter
+
+dev_dependencies:
   flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
