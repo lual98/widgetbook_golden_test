@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_golden_test/ignore_network_image_exception.dart';
 import 'package:widgetbook_golden_test/test_utils.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
 
@@ -18,10 +19,7 @@ void processUseCase(
     final previousOnError = FlutterError.onError;
     FlutterError.onError = (FlutterErrorDetails details) {
       // Ignore image loading errors for 'error-network-image' URLs
-      if (details.exceptionAsString().contains(
-            'NetworkImage is an empty file',
-          ) &&
-          details.exceptionAsString().endsWith(properties.errorImageUrl)) {
+      if (details.exception is IgnoreNetworkImageException) {
         return;
       }
       previousOnError?.call(details);
@@ -41,12 +39,7 @@ void processUseCase(
       ),
     );
 
-    await mockGoldenNetworkImage(
-      widgetTester,
-      baseWidget,
-      properties.errorImageUrl,
-    );
-
+    await widgetTester.pumpWidget(baseWidget);
     await widgetTester.pumpAndSettle();
     await precacheImagesAndWait(widgetTester);
     await widgetTester.pumpAndSettle();

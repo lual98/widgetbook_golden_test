@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/process_use_case.dart';
+import 'package:widgetbook_golden_test/test_http_overrides.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
@@ -16,6 +19,18 @@ void runWidgetbookGoldenTests({
   String goldenSnapshotsOutputPath = ".",
 }) {
   group("Widgetbook golden tests", () {
+    late HttpOverrides? originalHttpOverrides;
+
+    setUpAll(() {
+      // Mock the HttpOverrides to ignore network image exceptions.
+      // Sometimes runZoned did not work properly depending on the tests.
+      originalHttpOverrides = HttpOverrides.current;
+      HttpOverrides.global = createHttpOverrides(properties);
+    });
+    tearDownAll(() {
+      HttpOverrides.global = originalHttpOverrides;
+    });
+
     _traverse(nodes, goldenSnapshotsOutputPath, properties);
   });
 }
