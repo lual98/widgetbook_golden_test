@@ -1,39 +1,38 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# golden_widgetbook_tests
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Automatically generate Flutter golden tests from Widgetbook use cases that were generated using the [widgetbook_generator](https://pub.dev/packages/widgetbook_generator).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Overview
+This library automates the creation of golden tests for Flutter widgets using Widgetbook use cases auto-generated in the directories file, which is created using the `widgetbook_generator` package by running `dart run build_runner build -d`. The `runWidgetbookGoldenTests` function traverses these use cases to produce golden files for visual regression testing.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+> **Note:** Only auto-generated directories files are supported. Manually editing or creating `*.directories.g.dart` is not intended or supported.
 
 ## Features
+- **Automatic Golden Test Generation:** All Widgetbook use cases are discovered and tested.
+- **Network Image Mocking:** Handles network images for reliable golden tests. You can simulate a network image loading error by using the special URL `"error-network-image"` in your use case. This will trigger the errorBuilder in your widget, allowing you to test error states. (Still work in progress with images with loading builders).
+- **Easy Integration:** Just add your Widgetbook use cases and run the tests.
+- **Skippable Cases:** Add `[skip-golden]` to a use case name to skip its golden test.
+- **Custom Properties:** Customize properties with a custom `WidgetbookGoldenTestsProperties`.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+## How It Works
+- Widgetbook use cases are defined and auto-generated in the directories file.
+- The directories file is generated using the `widgetbook_generator` package:
+  ```bash
+  dart run build_runner build -d
+  ```
+- The The `runWidgetbookGoldenTests` function traverses all use cases and generates golden files for each use case.
+- Network images are mocked, based on how `mocktail_image_network` does it, for consistent results.
+- To test error handling for network images, use the URL `error-network-image` in your `Image.network` widget. The test runner will mock this URL as a failed image load, so your `errorBuilder` will be triggered. This is useful for verifying error UI in golden tests.
 
-## Getting started
+## Customization
+- To skip a golden test for a specific use case, add `[skip-golden]` to its name. You can customize this tag in `WidgetbookGoldenTestsProperties`.
+- Update your Widgetbook use cases as needed; the test runner will pick them up automatically.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Customizing the Test Runner
+If your app uses a custom theme or localization, you can pass them to the `WidgetbookGoldenTestsProperties` to ensure golden snapshots reflect your actual UI:
 
-## Usage
+## Contributing
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
-```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## License
+[MIT](LICENSE)
