@@ -41,7 +41,7 @@ void processUseCase(
 
     await widgetTester.pumpWidget(baseWidget);
     await widgetTester.pumpAndSettle();
-    await precacheImagesAndWait(widgetTester);
+    await precacheImagesAndWait(widgetTester, properties);
     await widgetTester.pumpAndSettle();
 
     await expectLater(

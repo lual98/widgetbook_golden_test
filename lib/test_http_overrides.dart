@@ -18,31 +18,30 @@ HttpOverrides createHttpOverrides(WidgetbookGoldenTestsProperties properties) {
   var mockHttpOverrides = _MockHttpOverrides();
   when(
     () => mockHttpOverrides.createHttpClient(any()),
-  ).thenAnswer((_) => _createHttpClient(properties.errorImageUrl));
+  ).thenAnswer((_) => _createHttpClient(properties));
   return mockHttpOverrides;
 }
 
-HttpClient _createHttpClient(String errorImageUrl) {
+HttpClient _createHttpClient(WidgetbookGoldenTestsProperties properties) {
   final client = _MockHttpClient();
 
   when(() => client.getUrl(any())).thenAnswer(
-    (invokation) async => _createRequest(
-      invokation.positionalArguments.first as Uri,
-      errorImageUrl,
-    ),
+    (invokation) async =>
+        _createRequest(invokation.positionalArguments.first as Uri, properties),
   );
   when(() => client.openUrl(any(), any())).thenAnswer(
-    (invokation) async => _createRequest(
-      invokation.positionalArguments.last as Uri,
-      errorImageUrl,
-    ),
+    (invokation) async =>
+        _createRequest(invokation.positionalArguments.last as Uri, properties),
   );
 
   return client;
 }
 
-HttpClientRequest _createRequest(Uri uri, String errorImageUrl) {
-  if (uri.toString().contains(errorImageUrl)) {
+HttpClientRequest _createRequest(
+  Uri uri,
+  WidgetbookGoldenTestsProperties properties,
+) {
+  if (uri.toString().contains(properties.errorImageUrl)) {
     throw IgnoreNetworkImageException();
   }
   final request = _MockHttpClientRequest();
@@ -56,12 +55,15 @@ HttpClientRequest _createRequest(Uri uri, String errorImageUrl) {
       (previous, element) => previous..addAll(element),
     );
   });
-  when(request.close).thenAnswer((_) async => _createResponse(uri));
+  when(request.close).thenAnswer((_) async => _createResponse(uri, properties));
 
   return request;
 }
 
-HttpClientResponse _createResponse(Uri uri) {
+HttpClientResponse _createResponse(
+  Uri uri,
+  WidgetbookGoldenTestsProperties properties,
+) {
   final response = _MockHttpClientResponse();
   final headers = _MockHttpHeaders();
   final data = _transparentPixelPng;
@@ -90,9 +92,14 @@ HttpClientResponse _createResponse(Uri uri) {
     final onData =
         invocation.positionalArguments.first as void Function(List<int>);
     final onDone = invocation.namedArguments[#onDone] as void Function()?;
-    return Stream<List<int>>.fromIterable(<List<int>>[
-      data,
-    ]).listen(onData, onDone: onDone);
+    return Stream<List<int>>.fromIterable(<List<int>>[data]).listen(
+      onData,
+      onDone: () {
+        if (!uri.toString().endsWith(properties.loadingImageUrl)) {
+          onDone?.call();
+        }
+      },
+    );
   });
   return response;
 }

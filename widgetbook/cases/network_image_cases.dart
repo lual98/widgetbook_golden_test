@@ -12,7 +12,9 @@ Widget buildImageNetworkUseCase(BuildContext context) {
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.cover,
-        loadingBuilder: (_, _, _) => Text("Loading..."),
+        loadingBuilder: (_, child, loadingProgress) {
+          return loadingProgress == null ? child : Text("Loading...");
+        },
       ),
     ),
   );
@@ -27,6 +29,9 @@ Widget buildImageNetworkErrorUseCase(BuildContext context) {
       child: Image.network(
         "error-network-image",
         fit: BoxFit.cover,
+        loadingBuilder: (_, child, loadingProgress) {
+          return loadingProgress == null ? child : Text("Loading...");
+        },
         errorBuilder: (context, error, stackTrace) {
           return const Center(
             child: Text(
@@ -49,30 +54,9 @@ Widget buildImageNetworkLoadingUseCase(BuildContext context) {
       child: Image.network(
         "loading-network-image",
         fit: BoxFit.cover,
-        loadingBuilder: (_, _, _) => Text("Loading..."),
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(
-            child: Text(
-              'Error loading image',
-              style: TextStyle(color: Colors.red),
-            ),
-          );
+        loadingBuilder: (_, child, loadingProgress) {
+          return loadingProgress == null ? child : Text("Loading...");
         },
-      ),
-    ),
-  );
-}
-
-@widgetbook.UseCase(name: 'Frame builder', type: NetworkImage)
-Widget buildImageNetworkFrameBuilderUseCase(BuildContext context) {
-  return Container(
-    color: Colors.blue,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        "loading-network-image",
-        fit: BoxFit.cover,
-        frameBuilder: (_, _, _, _) => Text("Loading..."),
         errorBuilder: (context, error, stackTrace) {
           return const Center(
             child: Text(

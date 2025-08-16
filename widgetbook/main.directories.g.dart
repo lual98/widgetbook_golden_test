@@ -12,10 +12,10 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
-import 'cases/network_image.dart'
-    as _asset_widgetbook_golden_test_widgetbook_cases_network_image;
-import 'cases/sized_box.dart'
-    as _asset_widgetbook_golden_test_widgetbook_cases_sized_box;
+import 'cases/network_image_cases.dart'
+    as _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases;
+import 'cases/sized_box_cases.dart'
+    as _asset_widgetbook_golden_test_widgetbook_cases_sized_box_cases;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
@@ -27,25 +27,19 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Default',
             builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_network_image
+                _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases
                     .buildImageNetworkUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Error',
             builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_network_image
+                _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases
                     .buildImageNetworkErrorUseCase,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: 'Frame builder',
-            builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_network_image
-                    .buildImageNetworkFrameBuilderUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Loading',
             builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_network_image
+                _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases
                     .buildImageNetworkLoadingUseCase,
           ),
         ],
@@ -61,13 +55,13 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Blue',
             builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_sized_box
+                _asset_widgetbook_golden_test_widgetbook_cases_sized_box_cases
                     .buildBlueSizedBoxUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Red',
             builder:
-                _asset_widgetbook_golden_test_widgetbook_cases_sized_box
+                _asset_widgetbook_golden_test_widgetbook_cases_sized_box_cases
                     .buildRedSizedBoxUseCase,
           ),
         ],

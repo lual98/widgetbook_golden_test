@@ -7,6 +7,7 @@ class WidgetbookGoldenTestsProperties {
   final Iterable<Locale>? supportedLocales;
   final String skipTag;
   final String errorImageUrl;
+  final String loadingImageUrl;
 
   const WidgetbookGoldenTestsProperties({
     this.theme,
@@ -15,5 +16,6 @@ class WidgetbookGoldenTestsProperties {
     this.supportedLocales,
     this.skipTag = "[skip-golden]",
     this.errorImageUrl = "error-network-image",
+    this.loadingImageUrl = "loading-network-image",
   });
 }
