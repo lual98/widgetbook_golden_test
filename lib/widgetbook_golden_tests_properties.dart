@@ -8,6 +8,7 @@ class WidgetbookGoldenTestsProperties {
   final String skipTag;
   final String errorImageUrl;
   final String loadingImageUrl;
+  final String testGroupName;
 
   const WidgetbookGoldenTestsProperties({
     this.theme,
@@ -17,5 +18,6 @@ class WidgetbookGoldenTestsProperties {
     this.skipTag = "[skip-golden]",
     this.errorImageUrl = "error-network-image",
     this.loadingImageUrl = "loading-network-image",
+    this.testGroupName = "Widgetbook golden tests",
   });
 }

@@ -18,7 +18,7 @@ void runWidgetbookGoldenTests({
   required WidgetbookGoldenTestsProperties properties,
   String goldenSnapshotsOutputPath = ".",
 }) {
-  group("Widgetbook golden tests", () {
+  group(properties.testGroupName, () {
     late HttpOverrides? originalHttpOverrides;
 
     setUpAll(() {
