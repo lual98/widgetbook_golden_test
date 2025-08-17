@@ -1,9 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/ignore_network_image_exception.dart';
 import 'package:widgetbook_golden_test/test_utils.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
+
+class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 
 void processUseCase(
   WidgetbookUseCase node,
@@ -25,16 +28,24 @@ void processUseCase(
       previousOnError?.call(details);
     };
 
-    Widget baseWidget = MaterialApp(
-      locale: properties.locale,
-      localizationsDelegates: properties.localizationsDelegates,
-      theme: properties.theme,
-      home: Scaffold(
-        body: Builder(
-          builder: (context) {
-            widgetToTest = node.builder(context);
-            return widgetToTest;
-          },
+    var widgetbookStateMock = _WidgetbookStateMock();
+    when(() => widgetbookStateMock.queryParams).thenReturn({});
+    when(
+      () => widgetbookStateMock.knobs,
+    ).thenReturn(KnobsRegistry(onLock: () {}));
+    Widget baseWidget = WidgetbookScope(
+      state: widgetbookStateMock,
+      child: MaterialApp(
+        locale: properties.locale,
+        localizationsDelegates: properties.localizationsDelegates,
+        theme: properties.theme,
+        home: Scaffold(
+          body: Builder(
+            builder: (context) {
+              widgetToTest = node.builder(context);
+              return widgetToTest;
+            },
+          ),
         ),
       ),
     );
