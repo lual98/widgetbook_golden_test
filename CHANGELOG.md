@@ -1,3 +1,6 @@
+## 0.0.2
+- Bump minimal widgetbook version required.
+
 ## 0.0.1
 * Initial release
   - Support running all test cases in the auto generated widgetbook file as golden tests.
