@@ -32,7 +32,7 @@ void main() {
 ## How It Works
 - Widgetbook use cases are defined and auto-generated in the directories file.
 - The directories file is generated using the `widgetbook_generator` package:
-  ```bash
+```bash
 dart run build_runner build -d
 ```
 - The The `runWidgetbookGoldenTests` function traverses all use cases and generates golden files for each use case.
