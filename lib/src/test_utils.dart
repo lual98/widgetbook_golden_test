@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 
 Future<void> precacheImagesAndWait(
   WidgetTester widgetTester,

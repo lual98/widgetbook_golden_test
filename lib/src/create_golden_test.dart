@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/ignore_network_image_exception.dart';
-import 'package:widgetbook_golden_test/test_utils.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
+import 'package:widgetbook_golden_test/src/test_utils.dart';
+import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 
 class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 

@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/create_golden_test.dart';
-import 'package:widgetbook_golden_test/test_http_overrides.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test/src/create_golden_test.dart';
+import 'package:widgetbook_golden_test/src/test_http_overrides.dart';
+import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
 /// inside the provided [nodes].
