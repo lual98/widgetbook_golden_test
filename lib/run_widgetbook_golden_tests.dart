@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/process_use_case.dart';
+import 'package:widgetbook_golden_test/create_golden_test.dart';
 import 'package:widgetbook_golden_test/test_http_overrides.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_tests_properties.dart';
 
@@ -42,7 +42,7 @@ void _traverse(
 ) {
   for (var node in nodes) {
     if (node is WidgetbookUseCase) {
-      processUseCase(node, path, properties);
+      createGoldenTest(node, path, properties);
     } else if (node.children != null) {
       group(node.name, () {
         _traverse(node.children!, "$path/${node.name}", properties);
