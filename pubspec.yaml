@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook: ^3.8.1
+  widgetbook: ^3.16.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
