@@ -31,3 +31,9 @@ migrate_working_dir/
 build/
 
 test/failures
+
+# FVM Version Cache
+.fvm/
+
+.directory
+coverage/

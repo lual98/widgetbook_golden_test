@@ -1,0 +1,32 @@
+name: Analyze code
+
+on:
+  pull_request:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  ensure-formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+
+    - name: Set up FVM
+      run: |
+        dart pub global activate fvm
+
+    - name: Install Flutter version via FVM
+      run: fvm install
+
+    - name: Install dependencies
+      run: fvm flutter pub get
+
+    - name: Analyze flutter code
+      run: fvm flutter analyze
