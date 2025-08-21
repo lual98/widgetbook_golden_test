@@ -34,3 +34,6 @@ test/failures
 
 # FVM Version Cache
 .fvm/
+
+.directory
+coverage/
