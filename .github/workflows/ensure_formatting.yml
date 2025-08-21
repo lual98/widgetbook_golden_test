@@ -25,5 +25,8 @@ jobs:
     - name: Install Flutter version via FVM
       run: fvm install
 
+    - name: Install dependencies
+      run: fvm flutter pub get
+
     - name: Ensure that files are formatted
       run: fvm dart format . -o none --set-exit-if-changed
