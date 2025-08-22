@@ -26,6 +26,28 @@ class WidgetbookGoldenTestsProperties {
   /// Name of the group of tests being run.
   final String testGroupName;
 
+  /// Creates a set of properties to configure Widgetbook golden tests.
+  ///
+  /// This constructor allows you to customize the appearance, localization,
+  /// and network image behavior for your golden test runs.
+  ///
+  /// * [theme] – Optional theme data applied to the widgets under test.
+  /// * [locale] – Locale to use for localization; defaults to English (US) if not provided.
+  /// * [localizationsDelegates] – Delegates to load localized resources.
+  /// * [supportedLocales] – List of supported locales (defaults to `[Locale('en', 'US')]`).
+  /// * [skipTag] – Tag used to skip tests when present (defaults to `"[skip-golden]"`).
+  /// * [errorImageUrl] – Placeholder URL for failed network images (defaults to `'error-network-image'`).
+  /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
+  /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
+  ///
+  /// Example:
+  /// ```dart
+  /// final properties = WidgetbookGoldenTestsProperties(
+  ///   theme: ThemeData.dark(),
+  ///   locale: const Locale('es'),
+  ///   testGroupName: 'Custom Golden Tests',
+  /// );
+  /// ```
   const WidgetbookGoldenTestsProperties({
     this.theme,
     this.locale,
