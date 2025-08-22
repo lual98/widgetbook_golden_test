@@ -20,6 +20,7 @@ void main() {
       testGroupName: "Widgetbook golden tests with custom properties",
       locale: Locale("es"),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     ),
   );
 }
