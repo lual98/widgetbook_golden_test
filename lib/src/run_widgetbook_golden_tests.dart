@@ -35,6 +35,8 @@ void runWidgetbookGoldenTests({
   });
 }
 
+/// Executes a recursive traversal of the [nodes] and calls [createGoldenTest]
+/// when the node is a [WidgetbookUseCase].
 void _traverse(
   List<WidgetbookNode> nodes,
   String path,

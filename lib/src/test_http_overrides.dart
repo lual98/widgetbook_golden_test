@@ -14,6 +14,7 @@ class _MockHttpHeaders extends Mock implements HttpHeaders {}
 
 class _MockHttpOverrides extends Mock implements HttpOverrides {}
 
+/// Creates a mocked [HttpOverrides] to simulate network requests.
 HttpOverrides createHttpOverrides(WidgetbookGoldenTestsProperties properties) {
   var mockHttpOverrides = _MockHttpOverrides();
   when(
