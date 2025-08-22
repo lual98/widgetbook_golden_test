@@ -43,8 +43,10 @@ extension WidgetTesterExtension on WidgetTester {
   }
 
   Future<void> precacheImagesAndWait(
-    WidgetbookGoldenTestsProperties properties,
-  ) async {
+    WidgetbookGoldenTestsProperties properties, {
+    Future<void> Function(ImageProvider<Object>, Element)?
+    customPrecacheImage, // Mainly used for testing purposes
+  }) async {
     await runAsync(() async {
       // Find all Image widgets and precache their images
       final imageElements = find.byType(Image).evaluate();
@@ -57,7 +59,13 @@ extension WidgetTesterExtension on WidgetTester {
             provider.url == properties.loadingImageUrl) {
           continue;
         }
-        await precacheImage(provider, element);
+
+        // Use the custom precacheImage if provided, otherwise fallback to default
+        if (customPrecacheImage != null) {
+          await customPrecacheImage(provider, element);
+        } else {
+          await precacheImage(provider, element);
+        }
       }
 
       await Future.delayed(const Duration(milliseconds: 100));
