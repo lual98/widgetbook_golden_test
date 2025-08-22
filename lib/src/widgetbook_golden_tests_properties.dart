@@ -12,7 +12,7 @@ class WidgetbookGoldenTestsProperties {
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   /// Supported locales that the app supports.
-  final Iterable<Locale>? supportedLocales;
+  final Iterable<Locale> supportedLocales;
 
   /// Tag used to identify tests that should be skipped during golden testing.
   final String skipTag;
@@ -30,7 +30,7 @@ class WidgetbookGoldenTestsProperties {
     this.theme,
     this.locale,
     this.localizationsDelegates,
-    this.supportedLocales,
+    this.supportedLocales = const [Locale('en', 'US')],
     this.skipTag = "[skip-golden]",
     this.errorImageUrl = "error-network-image",
     this.loadingImageUrl = "loading-network-image",
