@@ -6,7 +6,11 @@ import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.da
 
 class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 
+/// Extension to add custom functionality to [WidgetTester] required by the widgetbook golden tests.
 extension WidgetTesterExtension on WidgetTester {
+  /// Pumps the builder in the [useCase] and returns the pumped widget.
+  /// The built widget is wrapped with the necessary parents to be pumped properly
+  /// like a [WidgetbookScope], a [MaterialApp] and a [Scaffold].
   Future<Widget> pumpWidgetbookCase(
     WidgetbookGoldenTestsProperties properties,
     WidgetbookUseCase useCase,
@@ -42,6 +46,8 @@ extension WidgetTesterExtension on WidgetTester {
     return widgetToTest;
   }
 
+  /// Precaches the images detected in the currently built widget to make sure
+  /// they are shown in the saved golden file.
   Future<void> precacheImagesAndWait(
     WidgetbookGoldenTestsProperties properties, {
     Future<void> Function(ImageProvider<Object>, Element)?
