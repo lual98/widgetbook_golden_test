@@ -25,9 +25,9 @@ void main() {
 
 ## Features
 - **Automatic Golden Test Generation:** All Widgetbook use cases are discovered and tested.
-- **Network Image Mocking:** Handles network images for reliable golden tests. You can simulate a network image loading errors and loading state by using the special URLs `"error-network-image"` and `"loading-network-image"` respectively by default. These will trigger the errorBuilder in your `Image.network` widget, or an indefinite loadingBuilder. The special URLs can also be customized.
+- **Network Image Mocking:** Handles network images for reliable golden tests. You can simulate a network image loading errors and loading state by using the special URLs `"error-network-image"` and `"loading-network-image"` respectively by default. These will trigger the errorBuilder in your `Image.network` widget, or an indefinite loadingBuilder.
 - **Easy Integration:** Simply add your Widgetbook use cases and run the tests. Knob values are supported as well.
-- **Skippable Cases:** To skip a golden test for a specific use case, add `[skip-golden]` to its name. You can customize this tag in `WidgetbookGoldenTestsProperties`.
+- **Skippable Cases:** To skip a golden test for a specific use case, add `[skip-golden]` to its name.
 - **Custom Properties:** Customize properties with a custom `WidgetbookGoldenTestsProperties` (see more below).
 
 ## How It Works
@@ -36,15 +36,17 @@ void main() {
 ```bash
 dart run build_runner build -d
 ```
-- The The `runWidgetbookGoldenTests` function traverses all use cases and generates golden files for each use case.
+- The `runWidgetbookGoldenTests` function traverses all use cases and generates golden files for each use case.
 - Network images are mocked, based on `mocktail_image_network`'s implementation to ensure consistent results.
 - Widgetbook state is mocked so knobs work properly even if they are being used.
 
 ## Customization
 Use the properties in `WidgetbookGoldenTestsProperties` to customize the properties used in the test execution.
-- To skip a golden test for a specific use case, add `[skip-golden]` to its name. This special string tag can be customized as needed.
+- Modify `skipTag` to change the default tag used to skip golden test execution.
 - You can pass your app's theme to `WidgetbookGoldenTestsProperties` to make sure the cases are run with proper theming.
 - You can setup a default locale inside the properties.
+- The special URLs for error and loading network images can be changed to custom ones.
+> **Note:** If you want to call `runWidgetbookGoldenTests` twice with different special URLs in each call, do it on separate main functions. The HttpOverrides may conflict on each other and cause hang-ups if they are ran in the same main function. If they share the same URLs, then they can be called in the same main function without issues.
 
 ## Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
