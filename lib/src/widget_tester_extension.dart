@@ -21,6 +21,7 @@ extension WidgetTesterExtension on WidgetTester {
     when(
       () => widgetbookStateMock.knobs,
     ).thenReturn(KnobsRegistry(onLock: () {}));
+    when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
     Widget baseWidget = WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(

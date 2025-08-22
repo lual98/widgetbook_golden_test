@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook/widgetbook.dart';
 
 /// Properties for configuring widgetbook golden tests.
 class WidgetbookGoldenTestsProperties {
+  /// The list of addons that are available in the Widgetbook.
+  final List<WidgetbookAddon>? addons;
+
   /// The theme data used to customize the appearance of widgets in the app.
   final ThemeData? theme;
 
@@ -49,6 +53,7 @@ class WidgetbookGoldenTestsProperties {
   /// );
   /// ```
   const WidgetbookGoldenTestsProperties({
+    this.addons,
     this.theme,
     this.locale,
     this.localizationsDelegates,
