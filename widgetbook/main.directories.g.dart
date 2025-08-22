@@ -94,6 +94,12 @@ final directories = <_widgetbook.WidgetbookNode>[
                 _asset_widgetbook_golden_test_widgetbook_cases_text_cases
                     .buildTextWithoutInitialValueUseCase,
           ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Localized text',
+            builder:
+                _asset_widgetbook_golden_test_widgetbook_cases_text_cases
+                    .buildTextLocalizedUseCase,
+          ),
         ],
       ),
     ],

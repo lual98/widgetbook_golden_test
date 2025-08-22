@@ -1,0 +1,4 @@
+{
+  "@@locale": "es",
+  "ambiguosLengthText": "Sin razón alguna, este mensaje en español será mucho más largo que su versión en inglés para que sea evidente en los casos de prueba que se utilizó este texto"
+}

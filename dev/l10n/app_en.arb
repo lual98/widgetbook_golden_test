@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "ambiguosLengthText": "Short text",
+  "@ambiguosLengthText": {
+    "description": "A text for testing purposes that will have different lengths depending on the language"
+  }
+}
