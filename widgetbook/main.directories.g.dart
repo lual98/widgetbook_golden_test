@@ -12,6 +12,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
+import 'cases/image_cases.dart'
+    as _asset_widgetbook_golden_test_widgetbook_cases_image_cases;
 import 'cases/network_image_cases.dart'
     as _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases;
 import 'cases/sized_box_cases.dart'
@@ -51,6 +53,15 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'widgets',
     children: [
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'Image',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'ResizeCover200x200',
+          builder:
+              _asset_widgetbook_golden_test_widgetbook_cases_image_cases
+                  .buildResizeImageUseCase,
+        ),
+      ),
       _widgetbook.WidgetbookComponent(
         name: 'SizedBox',
         useCases: [
@@ -82,6 +93,12 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder:
                 _asset_widgetbook_golden_test_widgetbook_cases_text_cases
                     .buildTextWithoutInitialValueUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Localized text',
+            builder:
+                _asset_widgetbook_golden_test_widgetbook_cases_text_cases
+                    .buildTextLocalizedUseCase,
           ),
         ],
       ),
