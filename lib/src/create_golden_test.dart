@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
@@ -35,6 +35,7 @@ void createGoldenTest(
     when(
       () => widgetbookStateMock.knobs,
     ).thenReturn(KnobsRegistry(onLock: () {}));
+    when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
     Widget baseWidget = WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(
