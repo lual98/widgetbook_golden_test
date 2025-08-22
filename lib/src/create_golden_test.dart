@@ -40,6 +40,7 @@ void createGoldenTest(
       child: MaterialApp(
         locale: properties.locale,
         localizationsDelegates: properties.localizationsDelegates,
+        supportedLocales: properties.supportedLocales,
         theme: properties.theme,
         home: Scaffold(
           body: Builder(
