@@ -1,3 +1,7 @@
+## 0.0.3
+- Fix property supportedLocales in WidgetbookGoldenTestsProperties not being when running the test cases.
+- Improve documentation (both Readme and dart docs).
+
 ## 0.0.2
 - Bump minimal widgetbook version required.
 
