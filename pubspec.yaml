@@ -1,6 +1,6 @@
 name: widgetbook_golden_test
 description: "Utility for running golden tests on Widgetbook use cases."
-version: 0.0.2
+version: 0.0.3
 repository: https://github.com/lual98/widgetbook_golden_test
 
 environment:
