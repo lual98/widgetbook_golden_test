@@ -16,12 +16,28 @@ import 'cases/image_cases.dart'
     as _asset_widgetbook_golden_test_widgetbook_cases_image_cases;
 import 'cases/network_image_cases.dart'
     as _asset_widgetbook_golden_test_widgetbook_cases_network_image_cases;
+import 'cases/popup_menu_button.dart'
+    as _asset_widgetbook_golden_test_widgetbook_cases_popup_menu_button;
 import 'cases/sized_box_cases.dart'
     as _asset_widgetbook_golden_test_widgetbook_cases_sized_box_cases;
 import 'cases/text_cases.dart'
     as _asset_widgetbook_golden_test_widgetbook_cases_text_cases;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'material',
+    children: [
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'PopupMenuButton',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'Default',
+          builder:
+              _asset_widgetbook_golden_test_widgetbook_cases_popup_menu_button
+                  .buildTextUseCase,
+        ),
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'painting',
     children: [
