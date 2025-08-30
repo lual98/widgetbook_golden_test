@@ -11,7 +11,6 @@ Widget buildTextUseCase(BuildContext context) {
         name: "clicked",
         callback: (tester) async {
           await tester.tap(find.byType(PopupMenuButton));
-          await tester.pump(Duration(milliseconds: 5000));
           await tester.pumpAndSettle();
         },
       ),
