@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
+import 'package:widgetbook_golden_test/src/widgetbook_golden_test_builder.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 
 /// Creates and runs a golden test of the given Widgetbook [useCase].
@@ -35,6 +36,20 @@ void createGoldenTest(
       find.byType(widgetToTest.runtimeType).first,
       matchesGoldenFile("$goldenSnapshotsOutputPath/${useCase.name}.png"),
     );
+
+    if (widgetToTest is WidgetbookGoldenTestBuilder &&
+        widgetToTest.goldenActions != null) {
+      for (final play in widgetToTest.goldenActions!) {
+        await widgetTester.pumpWidgetbookCase(properties, useCase);
+        await play.callback(widgetTester);
+        await expectLater(
+          find.byType(MaterialApp).first,
+          matchesGoldenFile(
+            "$goldenSnapshotsOutputPath/${useCase.name}_${play.name}.png",
+          ),
+        );
+      }
+    }
 
     // Restore the previous error handler
     FlutterError.onError = previousOnError;

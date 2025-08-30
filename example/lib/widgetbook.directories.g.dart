@@ -13,12 +13,26 @@
 import 'package:example/cases/image_cases.dart' as _example_cases_image_cases;
 import 'package:example/cases/network_image_cases.dart'
     as _example_cases_network_image_cases;
+import 'package:example/cases/popup_menu_button.dart'
+    as _example_cases_popup_menu_button;
 import 'package:example/cases/sized_box_cases.dart'
     as _example_cases_sized_box_cases;
 import 'package:example/cases/text_cases.dart' as _example_cases_text_cases;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'material',
+    children: [
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'PopupMenuButton',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'Default',
+          builder: _example_cases_popup_menu_button.buildTextUseCase,
+        ),
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'painting',
     children: [
