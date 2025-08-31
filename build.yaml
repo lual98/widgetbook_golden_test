@@ -3,4 +3,4 @@ targets:
     sources:
       include:
         - lib/**
-        - widgetbook/**
+        - widgetbook_testing_stuff/**

@@ -11,13 +11,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
-import 'package:widgetbook_cases/cases/image_cases.dart'
+import 'package:example/cases/image_cases.dart'
     as _widgetbook_cases_cases_image_cases;
-import 'package:widgetbook_cases/cases/network_image_cases.dart'
+import 'package:example/cases/network_image_cases.dart'
     as _widgetbook_cases_cases_network_image_cases;
-import 'package:widgetbook_cases/cases/sized_box_cases.dart'
+import 'package:example/cases/sized_box_cases.dart'
     as _widgetbook_cases_cases_sized_box_cases;
-import 'package:widgetbook_cases/cases/text_cases.dart'
+import 'package:example/cases/text_cases.dart'
     as _widgetbook_cases_cases_text_cases;
 
 final directories = <_widgetbook.WidgetbookNode>[

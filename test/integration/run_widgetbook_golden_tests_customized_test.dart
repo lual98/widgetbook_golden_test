@@ -1,10 +1,7 @@
-import 'dart:ui' show Locale;
-
-import 'package:flutter/material.dart' show ThemeData;
-import 'package:widgetbook_cases/l10n/app_localizations.dart';
-import 'package:widgetbook_cases/main.directories.g.dart';
-import 'package:widgetbook_golden_test/src/run_widgetbook_golden_tests.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+import 'package:flutter/material.dart';
+import 'package:example/l10n/app_localizations.dart';
+import 'package:example/main.directories.g.dart';
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 void main() {
   runWidgetbookGoldenTests(

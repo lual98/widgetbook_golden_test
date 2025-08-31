@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
-import 'package:widgetbook_cases/l10n/app_localizations.dart';
+import 'package:example/l10n/app_localizations.dart';
 
 @widgetbook.UseCase(name: 'Custom text with initial value', type: Text)
 Widget buildTextUseCase(BuildContext context) {

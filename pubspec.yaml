@@ -17,12 +17,15 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^5.0.0
+  widgetbook_annotation: ^3.7.0
+  widgetbook_generator: ^3.9.0
+  build_runner: ^2.4.9
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
   mocktail_image_network: ^1.2.0
-  widgetbook_cases:
-    path: widgetbook_cases
+  example:
+    path: example
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
