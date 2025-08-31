@@ -17,8 +17,6 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^5.0.0
-  flutter_localizations:
-    sdk: flutter
   mocktail_image_network: ^1.2.0
   example:
     path: example
