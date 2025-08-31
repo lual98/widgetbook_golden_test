@@ -10,15 +10,13 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:widgetbook/widgetbook.dart' as _widgetbook;
-import 'package:example/cases/image_cases.dart'
-    as _widgetbook_cases_cases_image_cases;
+import 'package:example/cases/image_cases.dart' as _example_cases_image_cases;
 import 'package:example/cases/network_image_cases.dart'
-    as _widgetbook_cases_cases_network_image_cases;
+    as _example_cases_network_image_cases;
 import 'package:example/cases/sized_box_cases.dart'
-    as _widgetbook_cases_cases_sized_box_cases;
-import 'package:example/cases/text_cases.dart'
-    as _widgetbook_cases_cases_text_cases;
+    as _example_cases_sized_box_cases;
+import 'package:example/cases/text_cases.dart' as _example_cases_text_cases;
+import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
@@ -30,19 +28,18 @@ final directories = <_widgetbook.WidgetbookNode>[
           _widgetbook.WidgetbookUseCase(
             name: 'Default',
             builder:
-                _widgetbook_cases_cases_network_image_cases
-                    .buildImageNetworkUseCase,
+                _example_cases_network_image_cases.buildImageNetworkUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Error',
             builder:
-                _widgetbook_cases_cases_network_image_cases
+                _example_cases_network_image_cases
                     .buildImageNetworkErrorUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Loading',
             builder:
-                _widgetbook_cases_cases_network_image_cases
+                _example_cases_network_image_cases
                     .buildImageNetworkLoadingUseCase,
           ),
         ],
@@ -56,7 +53,7 @@ final directories = <_widgetbook.WidgetbookNode>[
         name: 'Image',
         useCase: _widgetbook.WidgetbookUseCase(
           name: 'ResizeCover200x200',
-          builder: _widgetbook_cases_cases_image_cases.buildResizeImageUseCase,
+          builder: _example_cases_image_cases.buildResizeImageUseCase,
         ),
       ),
       _widgetbook.WidgetbookComponent(
@@ -64,14 +61,11 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Blue',
-            builder:
-                _widgetbook_cases_cases_sized_box_cases
-                    .buildBlueSizedBoxUseCase,
+            builder: _example_cases_sized_box_cases.buildBlueSizedBoxUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Red',
-            builder:
-                _widgetbook_cases_cases_sized_box_cases.buildRedSizedBoxUseCase,
+            builder: _example_cases_sized_box_cases.buildRedSizedBoxUseCase,
           ),
         ],
       ),
@@ -80,18 +74,16 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCases: [
           _widgetbook.WidgetbookUseCase(
             name: 'Custom text with initial value',
-            builder: _widgetbook_cases_cases_text_cases.buildTextUseCase,
+            builder: _example_cases_text_cases.buildTextUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Custom text without initial value',
             builder:
-                _widgetbook_cases_cases_text_cases
-                    .buildTextWithoutInitialValueUseCase,
+                _example_cases_text_cases.buildTextWithoutInitialValueUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
             name: 'Localized text',
-            builder:
-                _widgetbook_cases_cases_text_cases.buildTextLocalizedUseCase,
+            builder: _example_cases_text_cases.buildTextLocalizedUseCase,
           ),
         ],
       ),
