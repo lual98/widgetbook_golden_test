@@ -24,6 +24,7 @@ extension WidgetTesterExtension on WidgetTester {
     Widget baseWidget = WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         locale: properties.locale,
         localizationsDelegates: properties.localizationsDelegates,
         supportedLocales: properties.supportedLocales,

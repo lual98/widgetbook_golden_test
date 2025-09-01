@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
@@ -9,10 +8,9 @@ Widget buildTextUseCase(BuildContext context) {
     goldenActions: [
       GoldenPlayAction(
         name: "clicked",
-        callback: (tester) async {
-          await tester.tap(find.byType(PopupMenuButton));
-          await tester.pumpAndSettle();
-        },
+        callback:
+            (tester, find) async => tester.tap(find.byType(PopupMenuButton)),
+        targetFinder: (find) => find.byType(MaterialApp).first,
       ),
     ],
     child: PopupMenuButton(
