@@ -8,11 +8,11 @@ typedef WidgetFinderCallback = Finder Function(CommonFinders find);
 class GoldenPlayAction {
   final String name;
   final WidgetPlayCallback callback;
-  final WidgetFinderCallback? targetFinder;
+  final WidgetFinderCallback? goldenFinder;
 
   const GoldenPlayAction({
     required this.name,
     required this.callback,
-    this.targetFinder,
+    this.goldenFinder,
   });
 }

@@ -11,6 +11,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/cases/image_cases.dart' as _example_cases_image_cases;
+import 'package:example/cases/list_view.dart' as _example_cases_list_view;
 import 'package:example/cases/network_image_cases.dart'
     as _example_cases_network_image_cases;
 import 'package:example/cases/popup_menu_button.dart'
@@ -27,8 +28,8 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookLeafComponent(
         name: 'PopupMenuButton',
         useCase: _widgetbook.WidgetbookUseCase(
-          name: 'Default',
-          builder: _example_cases_popup_menu_button.buildTextUseCase,
+          name: 'Menu Button',
+          builder: _example_cases_popup_menu_button.buildPopupMenuButtonUseCase,
         ),
       ),
     ],
@@ -68,6 +69,13 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCase: _widgetbook.WidgetbookUseCase(
           name: 'ResizeCover200x200',
           builder: _example_cases_image_cases.buildResizeImageUseCase,
+        ),
+      ),
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'ListView',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'Long list with a button',
+          builder: _example_cases_list_view.buildListViewUseCase,
         ),
       ),
       _widgetbook.WidgetbookComponent(

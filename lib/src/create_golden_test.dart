@@ -43,14 +43,14 @@ void createGoldenTest(
         await widgetTester.pumpWidgetbookCase(properties, useCase);
         await play.callback(widgetTester, find);
         await widgetTester.pumpAndSettle();
-        Finder snapshotFinder =
-            play.targetFinder == null
+        Finder goldenFinder =
+            play.goldenFinder == null
                 ? find.byType(widgetToTest.runtimeType).first
-                : play.targetFinder!.call(find);
+                : play.goldenFinder!.call(find);
         await expectLater(
-          snapshotFinder,
+          goldenFinder,
           matchesGoldenFile(
-            "$goldenSnapshotsOutputPath/${useCase.name}_${play.name}.png",
+            "$goldenSnapshotsOutputPath/${useCase.name} - ${play.name}.png",
           ),
         );
       }
