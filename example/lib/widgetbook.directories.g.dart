@@ -11,14 +11,29 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:example/cases/image_cases.dart' as _example_cases_image_cases;
+import 'package:example/cases/list_view.dart' as _example_cases_list_view;
 import 'package:example/cases/network_image_cases.dart'
     as _example_cases_network_image_cases;
+import 'package:example/cases/popup_menu_button.dart'
+    as _example_cases_popup_menu_button;
 import 'package:example/cases/sized_box_cases.dart'
     as _example_cases_sized_box_cases;
 import 'package:example/cases/text_cases.dart' as _example_cases_text_cases;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
+    name: 'material',
+    children: [
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'PopupMenuButton',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'Menu Button',
+          builder: _example_cases_popup_menu_button.buildPopupMenuButtonUseCase,
+        ),
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'painting',
     children: [
@@ -54,6 +69,13 @@ final directories = <_widgetbook.WidgetbookNode>[
         useCase: _widgetbook.WidgetbookUseCase(
           name: 'ResizeCover200x200',
           builder: _example_cases_image_cases.buildResizeImageUseCase,
+        ),
+      ),
+      _widgetbook.WidgetbookLeafComponent(
+        name: 'ListView',
+        useCase: _widgetbook.WidgetbookUseCase(
+          name: 'Long list with a button',
+          builder: _example_cases_list_view.buildListViewUseCase,
         ),
       ),
       _widgetbook.WidgetbookComponent(
