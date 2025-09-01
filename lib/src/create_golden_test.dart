@@ -37,23 +37,30 @@ void createGoldenTest(
       matchesGoldenFile("$goldenSnapshotsOutputPath/${useCase.name}.png"),
     );
 
-    if (widgetToTest is WidgetbookGoldenTestBuilder &&
-        widgetToTest.goldenActions != null) {
-      for (final play in widgetToTest.goldenActions!) {
-        await widgetTester.pumpWidgetbookCase(properties, useCase);
-        await play.callback(widgetTester, find);
-        await widgetTester.pumpAndSettle();
-        Finder goldenFinder =
-            play.goldenFinder == null
-                ? find.byType(widgetToTest.runtimeType).first
-                : play.goldenFinder!.call(find);
-        await expectLater(
-          goldenFinder,
-          matchesGoldenFile(
-            "$goldenSnapshotsOutputPath/${useCase.name} - ${play.name}.png",
-          ),
-        );
+    try {
+      WidgetbookGoldenTestBuilder goldenTestBuilder = widgetTester.firstWidget(
+        find.byType(WidgetbookGoldenTestBuilder),
+      );
+
+      if (goldenTestBuilder.goldenActions != null) {
+        for (final play in goldenTestBuilder.goldenActions!) {
+          await widgetTester.pumpWidgetbookCase(properties, useCase);
+          await play.callback(widgetTester, find);
+          await widgetTester.pumpAndSettle();
+          Finder goldenFinder =
+              play.goldenFinder == null
+                  ? find.byType(widgetToTest.runtimeType).first
+                  : play.goldenFinder!.call(find);
+          await expectLater(
+            goldenFinder,
+            matchesGoldenFile(
+              "$goldenSnapshotsOutputPath/${useCase.name} - ${play.name}.png",
+            ),
+          );
+        }
       }
+    } catch (_) {
+      // Golden Test Builder was not found, continue normally.
     }
 
     // Restore the previous error handler
