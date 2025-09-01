@@ -35,6 +35,7 @@ class WidgetbookGoldenTestsProperties {
   /// This constructor allows you to customize the appearance, localization,
   /// and network image behavior for your golden test runs.
   ///
+  /// * [addons] - Optional Widgetbook addons that will be applied to the golden snapshots by using their default values.
   /// * [theme] – Optional theme data applied to the widgets under test.
   /// * [locale] – Locale to use for localization; defaults to English (US) if not provided.
   /// * [localizationsDelegates] – Delegates to load localized resources.

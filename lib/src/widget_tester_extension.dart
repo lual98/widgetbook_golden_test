@@ -22,6 +22,7 @@ extension WidgetTesterExtension on WidgetTester {
       () => widgetbookStateMock.knobs,
     ).thenReturn(KnobsRegistry(onLock: () {}));
     when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
+    when(() => widgetbookStateMock.previewMode).thenReturn(true);
     Widget baseWidget = WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(
@@ -34,6 +35,16 @@ extension WidgetTesterExtension on WidgetTester {
           body: Builder(
             builder: (context) {
               widgetToTest = useCase.builder(context);
+              if (properties.addons != null) {
+                for (final addon in properties.addons!.reversed) {
+                  final newSetting = addon.valueFromQueryGroup({});
+                  widgetToTest = addon.buildUseCase(
+                    context,
+                    widgetToTest,
+                    newSetting,
+                  );
+                }
+              }
               return widgetToTest;
             },
           ),
