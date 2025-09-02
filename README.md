@@ -49,6 +49,7 @@ Use the properties in `WidgetbookGoldenTestsProperties` to customize the propert
 - Modify `skipTag` to change the default tag used to skip golden test execution.
 - You can pass your app's theme to `WidgetbookGoldenTestsProperties` to make sure the cases are run with proper theming.
 - Use the `addons` property to apply Widgetbook Addons. With these addons, you can change the text scale, add grid guidelines, and more.
+- Use a `onTestError` to handle modify the default behavior when a test fails. This can be used to ignore certain errors or add additional functionality like logging.
 - You can setup a default locale inside the properties.
 - The special URLs for error and loading network images can be changed to custom ones.
 > **Note:** If you want to call `runWidgetbookGoldenTests` twice with different special URLs in each call, do it on separate main functions. The HttpOverrides may conflict on each other and cause hang-ups if they are ran in the same main function. If they share the same URLs, then they can be called in the same main function without issues.
