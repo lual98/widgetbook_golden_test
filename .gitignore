@@ -37,3 +37,4 @@ test/integration/failures
 
 .directory
 coverage/
+test/unit/failures/

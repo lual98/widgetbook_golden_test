@@ -20,6 +20,7 @@ dev_dependencies:
   mocktail_image_network: ^1.2.0
   example:
     path: example
+  provider: ^6.1.5+1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
