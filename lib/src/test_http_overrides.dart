@@ -12,18 +12,8 @@ class _MockHttpClientResponse extends Mock implements HttpClientResponse {}
 
 class _MockHttpHeaders extends Mock implements HttpHeaders {}
 
-class _MockHttpOverrides extends Mock implements HttpOverrides {}
-
-/// Creates a mocked [HttpOverrides] to simulate network requests.
-HttpOverrides createHttpOverrides(WidgetbookGoldenTestsProperties properties) {
-  var mockHttpOverrides = _MockHttpOverrides();
-  when(
-    () => mockHttpOverrides.createHttpClient(any()),
-  ).thenAnswer((_) => _createHttpClient(properties));
-  return mockHttpOverrides;
-}
-
-HttpClient _createHttpClient(WidgetbookGoldenTestsProperties properties) {
+/// Creates a mocked [HttpClient] to simulate network requests.
+HttpClient createHttpClient(WidgetbookGoldenTestsProperties properties) {
   final client = _MockHttpClient();
 
   when(() => client.getUrl(any())).thenAnswer(

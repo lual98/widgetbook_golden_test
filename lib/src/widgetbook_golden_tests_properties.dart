@@ -30,6 +30,14 @@ class WidgetbookGoldenTestsProperties {
   /// Name of the group of tests being run.
   final String testGroupName;
 
+  /// Custom function that handles errors during golden tests.
+  /// It has access to the original OnError function.
+  final Function(
+    FlutterErrorDetails,
+    Function(FlutterErrorDetails)? originalOnError,
+  )?
+  onTestError;
+
   /// Creates a set of properties to configure Widgetbook golden tests.
   ///
   /// This constructor allows you to customize the appearance, localization,
@@ -44,6 +52,7 @@ class WidgetbookGoldenTestsProperties {
   /// * [errorImageUrl] – Placeholder URL for failed network images (defaults to `'error-network-image'`).
   /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
   /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
+  /// * [onTestError] - Function to be called when there is an error during the golden tests.
   ///
   /// Example:
   /// ```dart
@@ -63,5 +72,6 @@ class WidgetbookGoldenTestsProperties {
     this.errorImageUrl = "error-network-image",
     this.loadingImageUrl = "loading-network-image",
     this.testGroupName = "Widgetbook golden tests",
+    this.onTestError,
   });
 }
