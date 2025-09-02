@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -34,10 +35,8 @@ void main() {
     expect(find.text("Hello world"), findsOneWidget);
   });
 
-  group("precacheImagesAndWait", () {
-    testWidgets('precacheImagesAndWait precaches all but excluded images', (
-      tester,
-    ) async {
+  group("precacheImages", () {
+    testWidgets('precaches all but excluded images', (tester) async {
       final properties = WidgetbookGoldenTestsProperties(
         loadingImageUrl: 'https://example.com/loading.png',
       );
@@ -65,13 +64,35 @@ void main() {
         return;
       }
 
-      await tester.precacheImagesAndWait(
+      await tester.precacheImages(
         properties,
         customPrecacheImage: fakePrecache,
       );
 
       // Assert it tried to precache correct images
       expect(precacheCalls, equals(2)); // Only two should be precached
+    });
+
+    testWidgets('continues normally on timeout of 10 seconds', (tester) async {
+      var completed = false;
+      var magentaPixel = base64Decode(
+        """iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAD0lEQVR4AQEEAPv/AP8A/wQAAf/2bp8NAAAAAElFTkSuQmCC""",
+      );
+      final properties = WidgetbookGoldenTestsProperties();
+      Future<void> fakePrecache(
+        ImageProvider provider, [
+        BuildContext? context,
+      ]) async {
+        await Completer().future;
+        return;
+      }
+
+      await tester.pumpWidget(Column(children: [Image.memory(magentaPixel)]));
+      tester
+          .precacheImages(properties, customPrecacheImage: fakePrecache)
+          .then((_) => completed = true);
+      await tester.pump(const Duration(seconds: 11));
+      expect(completed, true);
     });
   });
 }

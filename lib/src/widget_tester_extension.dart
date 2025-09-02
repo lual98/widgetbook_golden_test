@@ -54,40 +54,49 @@ extension WidgetTesterExtension on WidgetTester {
 
     await pumpWidget(baseWidget);
     await pumpAndSettle();
-    await precacheImagesAndWait(properties);
+    await _precacheImagesAndWait(properties);
     await pumpAndSettle();
     return widgetToTest;
   }
 
   /// Precaches the images detected in the currently built widget to make sure
   /// they are shown in the saved golden file.
-  Future<void> precacheImagesAndWait(
+  Future<void> _precacheImagesAndWait(
+    WidgetbookGoldenTestsProperties properties,
+  ) async {
+    await runAsync(() async {
+      await precacheImages(properties);
+      await Future.delayed(const Duration(milliseconds: 100));
+    });
+  }
+
+  @visibleForTesting
+  Future<void> precacheImages(
     WidgetbookGoldenTestsProperties properties, {
     Future<void> Function(ImageProvider<Object>, Element)?
     customPrecacheImage, // Mainly used for testing purposes
   }) async {
-    await runAsync(() async {
-      // Find all Image widgets and precache their images
-      final imageElements = find.byType(Image).evaluate();
-      for (var element in imageElements) {
-        final Image image = element.widget as Image;
-        ImageProvider<Object> provider = image.image;
-        if (provider is ResizeImage) {
-          provider = provider.imageProvider;
-        } else if (provider is NetworkImage &&
-            provider.url == properties.loadingImageUrl) {
-          continue;
-        }
-
-        // Use the custom precacheImage if provided, otherwise fallback to default
-        if (customPrecacheImage != null) {
-          await customPrecacheImage(provider, element);
-        } else {
-          await precacheImage(provider, element);
-        }
+    // Find all Image widgets and precache their images
+    final imageElements = find.byType(Image).evaluate();
+    for (var element in imageElements) {
+      final Image image = element.widget as Image;
+      ImageProvider<Object> provider = image.image;
+      if (provider is ResizeImage) {
+        provider = provider.imageProvider;
+      } else if (provider is NetworkImage &&
+          provider.url == properties.loadingImageUrl) {
+        continue;
       }
 
-      await Future.delayed(const Duration(milliseconds: 100));
-    });
+      // Use the custom precacheImage if provided, otherwise fallback to default
+      var precacheFunction = customPrecacheImage ?? precacheImage;
+      await precacheFunction(provider, element).timeout(
+        Duration(seconds: 10),
+        onTimeout: () {
+          // If timed out, perhaps there was some kind of unsupported Image Provider.
+          return;
+        },
+      );
+    }
   }
 }
