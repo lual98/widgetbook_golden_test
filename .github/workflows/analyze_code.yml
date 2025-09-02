@@ -6,7 +6,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  ensure-formatting:
+  analyze-code:
     runs-on: ubuntu-latest
 
     steps:
