@@ -38,3 +38,4 @@ test/integration/failures
 .directory
 coverage/
 test/unit/failures/
+LATEST_CHANGELOG.md

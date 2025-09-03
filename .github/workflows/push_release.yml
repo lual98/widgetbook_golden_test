@@ -1,0 +1,34 @@
+name: Push release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. 1.2.3)'
+        required: true
+
+jobs:
+  push_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update version in pubspec.yaml and CHANGELOG.md
+        run: |
+          version="${{ github.event.inputs.version }}"
+          sed -i "s/^version: .*/version: $version/" pubspec.yaml
+          today=$(date +%Y-%m-%d)
+          sed -i "0,/## Unreleased/{s/## Unreleased/## $version - $today/}" CHANGELOG.md
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pubspec.yaml CHANGELOG.md
+          git commit -m "chore: release ${{ github.event.inputs.version }}"
+          git push
+
+      - name: Create tag
+        run: |
+          git tag ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
