@@ -1,0 +1,29 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+
+  github_release:
+    runs-on: ubuntu-latest
+    needs: publish
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract latest changelog section
+        run: |
+          chmod +x .github/scripts/extract_latest_changelog.sh
+          .github/scripts/extract_latest_changelog.sh
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          body_path: LATEST_CHANGELOG.md
