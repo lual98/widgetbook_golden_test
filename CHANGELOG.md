@@ -1,4 +1,4 @@
-## Unreleased
+## 0.1.0 - 2025-09-03
 ### Added
 - New `WidgetbookGoldenTestBuilder` which provides additional functionality to the golden tests generated.
   * This builder has an option to provide play functions through the `goldenActions` property. Additional snapshots will be generated after the execution of each play function provided.
