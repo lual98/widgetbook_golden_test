@@ -1,5 +1,8 @@
 name: Push release
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,7 +11,32 @@ on:
         required: true
 
 jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Set up FVM
+        run: |
+          dart pub global activate fvm
+
+      - name: Install Flutter version via FVM
+        run: fvm install
+
+      - name: Install dependencies
+        run: fvm flutter pub get
+
+      - name: Run tests with coverage
+        run: fvm flutter test
   push_release:
+    needs: run-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +52,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
           git add pubspec.yaml CHANGELOG.md
           git commit -m "chore: release ${{ github.event.inputs.version }}"
           git push
@@ -32,3 +61,8 @@ jobs:
         run: |
           git tag ${{ github.event.inputs.version }}
           git push origin ${{ github.event.inputs.version }}
+      - name: Trigger publish workflow
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh workflow run publish.yml --ref ${{ github.event.inputs.version }} -f version=${{ github.event.inputs.version }}
