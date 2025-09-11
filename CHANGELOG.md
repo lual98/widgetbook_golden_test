@@ -1,3 +1,6 @@
+## Unreleased
+- Move `'[skip-golden]'`, `'error-network-image'`, `'loading-network-image'` as constants so they are easier to access and use.
+
 ## 0.1.0 - 2025-09-03
 ### Added
 - New `WidgetbookGoldenTestBuilder` which provides additional functionality to the golden tests generated.

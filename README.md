@@ -27,9 +27,9 @@ void main() {
 
 ## Features
 - **Automatic Golden Test Generation:** All Widgetbook use cases are discovered and tested.
-- **Network Image Mocking:** Handles network images for reliable golden tests. You can simulate a network image loading errors and loading state by using the special URLs `"error-network-image"` and `"loading-network-image"` respectively by default. These will trigger the errorBuilder in your `Image.network` widget, or an indefinite loadingBuilder.
+- **Network Image Mocking:** Handles network images for reliable golden tests. You can simulate a network image loading errors and loading state by using specific values as the image URLs. These are constants declared in `WidgetbookGoldenTestsProperties` as `WidgetbookGoldenTestsProperties.defaultErrorImageUrl` and `WidgetbookGoldenTestsProperties.defaultLoadingImageUrl` respectively by default. These will trigger the errorBuilder in your `Image.network` widget, or an indefinite loadingBuilder.
 - **Easy Integration:** Simply add your Widgetbook use cases and run the tests. Knob values are supported as well.
-- **Skippable Cases:** To skip a golden test for a specific use case, add `[skip-golden]` to its name.
+- **Skippable Cases:** To skip a golden test for a specific use case, add `WidgetbookGoldenTestsProperties.defaultSkipTag` to its name.
 - **Custom Properties:** Customize properties with a custom `WidgetbookGoldenTestsProperties` (see more below).
 - **Play functions:** Use [WidgetbookGoldenTestBuilder](lib/src/widgetbook_golden_test_builder.dart) at the top level of your use case to provide a list of `goldenActions`. A golden snapshot will be taken after each goldenAction. This allows you to capture snapshots after certain user interactions like scrolling or tapping a button menu.
 - **Apply Widgetbook Addons:** Use the Widgetbook Addons to further customize your generated snapshots. **Note:** The order in which addons are declared affects the result.
@@ -51,7 +51,7 @@ Use the properties in `WidgetbookGoldenTestsProperties` to customize the propert
 - Use the `addons` property to apply Widgetbook Addons. With these addons, you can change the text scale, add grid guidelines, and more.
 - Use a `onTestError` to handle modify the default behavior when a test fails. This can be used to ignore certain errors or add additional functionality like logging.
 - You can setup a default locale inside the properties.
-- The special URLs for error and loading network images can be changed to custom ones.
+- The special URLs for error and loading network images can be changed to custom ones if necessary.
 > **Note:** If you want to call `runWidgetbookGoldenTests` twice with different special URLs in each call, do it on separate main functions. The HttpOverrides may conflict on each other and cause hang-ups if they are ran in the same main function. If they share the same URLs, then they can be called in the same main function without issues.
 
 ## Contributing

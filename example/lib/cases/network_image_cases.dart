@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Default', type: NetworkImage)
 Widget buildImageNetworkUseCase(BuildContext context) {
@@ -27,7 +28,7 @@ Widget buildImageNetworkErrorUseCase(BuildContext context) {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        "error-network-image",
+        WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
         fit: BoxFit.cover,
         loadingBuilder: (_, child, loadingProgress) {
           return loadingProgress == null ? child : Text("Loading...");
@@ -52,7 +53,7 @@ Widget buildImageNetworkLoadingUseCase(BuildContext context) {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        "loading-network-image",
+        WidgetbookGoldenTestsProperties.defaultLoadingImageUrl,
         fit: BoxFit.cover,
         loadingBuilder: (_, child, loadingProgress) {
           return loadingProgress == null ? child : Text("Loading...");
