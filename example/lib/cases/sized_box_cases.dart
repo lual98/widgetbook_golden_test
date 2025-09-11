@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Red', type: SizedBox)
 Widget buildRedSizedBoxUseCase(BuildContext context) {
@@ -12,5 +13,17 @@ Widget buildBlueSizedBoxUseCase(BuildContext context) {
     height: 200,
     width: 200,
     child: Container(color: Colors.blue),
+  );
+}
+
+@widgetbook.UseCase(
+  name: '${WidgetbookGoldenTestsProperties.defaultSkipTag}Green',
+  type: SizedBox,
+)
+Widget buildGreenSizedBoxUseCase(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    width: 200,
+    child: Container(color: Colors.green),
   );
 }

@@ -3,6 +3,15 @@ import 'package:widgetbook/widgetbook.dart';
 
 /// Properties for configuring widgetbook golden tests.
 class WidgetbookGoldenTestsProperties {
+  /// Default string tag to skip golden tests execution
+  static const String defaultSkipTag = "[skip-golden]";
+
+  /// Default string url to handle network images as error images.
+  static const String defaultErrorImageUrl = "error-network-image";
+
+  /// Default string url to load network images indefinitely.
+  static const String defaultLoadingImageUrl = "loading-network-image";
+
   /// The list of addons that are available in the Widgetbook.
   final List<WidgetbookAddon>? addons;
 
@@ -68,9 +77,9 @@ class WidgetbookGoldenTestsProperties {
     this.locale,
     this.localizationsDelegates,
     this.supportedLocales = const [Locale('en', 'US')],
-    this.skipTag = "[skip-golden]",
-    this.errorImageUrl = "error-network-image",
-    this.loadingImageUrl = "loading-network-image",
+    this.skipTag = defaultSkipTag,
+    this.errorImageUrl = defaultErrorImageUrl,
+    this.loadingImageUrl = defaultLoadingImageUrl,
     this.testGroupName = "Widgetbook golden tests",
     this.onTestError,
   });
