@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/create_golden_test.dart';
@@ -15,8 +17,12 @@ void runWidgetbookGoldenTests({
   required WidgetbookGoldenTestsProperties properties,
   String goldenSnapshotsOutputPath = ".",
 }) {
+  var finalProperties = properties.copyWith(
+    networkImageResolver:
+        properties.networkImageResolver ?? _defaultImageResolver,
+  );
   group(properties.testGroupName, () {
-    _traverse(nodes, goldenSnapshotsOutputPath, properties);
+    _traverse(nodes, goldenSnapshotsOutputPath, finalProperties);
   });
 }
 
@@ -37,3 +43,18 @@ void _traverse(
     }
   }
 }
+
+NetworkImageResolver _defaultImageResolver = (uri) {
+  final extension = uri.path.split('.').last;
+  return _mockedResponses[extension] ?? _transparentPixelPng;
+};
+
+final _mockedResponses = <String, List<int>>{
+  'png': _transparentPixelPng,
+  'svg': _emptySvg,
+};
+
+final _emptySvg = '<svg viewBox="0 0 10 10" />'.codeUnits;
+final _transparentPixelPng = base64Decode(
+  '''iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==''',
+);

@@ -1,5 +1,11 @@
 ## Unreleased
-- Move `'[skip-golden]'`, `'error-network-image'`, `'loading-network-image'` as constants so they are easier to access and use.
+### Added
+- Constant values for `'[skip-golden]'`, `'error-network-image'`, `'loading-network-image'` so they are easier to access and use.
+- Custom `networkImageResolver` in WidgetbookGoldenTestsProperties that allows to show custom images for mocked network images depending on the URL.
+- `copyWith` method in WidgetbookGoldenTestsProperties;
+
+### Fixed
+- Network SVG images not being properly handled during the image mocking.
 
 ## 0.1.0 - 2025-09-03
 ### Added

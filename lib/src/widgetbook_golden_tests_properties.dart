@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
+typedef NetworkImageResolver = List<int> Function(Uri uri);
+
 /// Properties for configuring widgetbook golden tests.
 class WidgetbookGoldenTestsProperties {
   /// Default string tag to skip golden tests execution
@@ -47,6 +49,9 @@ class WidgetbookGoldenTestsProperties {
   )?
   onTestError;
 
+  /// Custom function that resolves images from URIs for the Widgetbook golden tests.
+  final NetworkImageResolver? networkImageResolver;
+
   /// Creates a set of properties to configure Widgetbook golden tests.
   ///
   /// This constructor allows you to customize the appearance, localization,
@@ -62,6 +67,7 @@ class WidgetbookGoldenTestsProperties {
   /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
   /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
   /// * [onTestError] - Function to be called when there is an error during the golden tests.
+  /// * [networkImageResolver] - Custom function that resolves images from a given URI.
   ///
   /// Example:
   /// ```dart
@@ -82,5 +88,36 @@ class WidgetbookGoldenTestsProperties {
     this.loadingImageUrl = defaultLoadingImageUrl,
     this.testGroupName = "Widgetbook golden tests",
     this.onTestError,
+    this.networkImageResolver,
   });
+
+  /// Creates a copy of this object with the specified fields overridden.
+  WidgetbookGoldenTestsProperties copyWith({
+    List<WidgetbookAddon>? addons,
+    ThemeData? theme,
+    Locale? locale,
+    Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates,
+    Iterable<Locale>? supportedLocales,
+    String? skipTag,
+    String? errorImageUrl,
+    String? loadingImageUrl,
+    String? testGroupName,
+    Function(FlutterErrorDetails, Function(FlutterErrorDetails)?)? onTestError,
+    NetworkImageResolver? networkImageResolver,
+  }) {
+    return WidgetbookGoldenTestsProperties(
+      addons: addons ?? this.addons,
+      theme: theme ?? this.theme,
+      locale: locale ?? this.locale,
+      localizationsDelegates:
+          localizationsDelegates ?? this.localizationsDelegates,
+      supportedLocales: supportedLocales ?? this.supportedLocales,
+      skipTag: skipTag ?? this.skipTag,
+      errorImageUrl: errorImageUrl ?? this.errorImageUrl,
+      loadingImageUrl: loadingImageUrl ?? this.loadingImageUrl,
+      testGroupName: testGroupName ?? this.testGroupName,
+      onTestError: onTestError ?? this.onTestError,
+      networkImageResolver: networkImageResolver ?? this.networkImageResolver,
+    );
+  }
 }

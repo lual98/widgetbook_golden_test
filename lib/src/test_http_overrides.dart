@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
@@ -57,7 +56,8 @@ HttpClientResponse _createResponse(
 ) {
   final response = _MockHttpClientResponse();
   final headers = _MockHttpHeaders();
-  final data = _transparentPixelPng;
+  final imageResolver = properties.networkImageResolver;
+  final data = imageResolver!.call(uri);
 
   when(() => response.headers).thenReturn(headers);
   when(() => response.contentLength).thenReturn(data.length);
@@ -102,7 +102,3 @@ class _MockHttpClient extends Mock implements HttpClient {
     registerFallbackValue(const Stream<List<int>>.empty());
   }
 }
-
-final _transparentPixelPng = base64Decode(
-  '''iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==''',
-);
