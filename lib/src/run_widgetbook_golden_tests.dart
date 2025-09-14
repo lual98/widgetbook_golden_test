@@ -18,7 +18,8 @@ void runWidgetbookGoldenTests({
   String goldenSnapshotsOutputPath = ".",
 }) {
   var finalProperties = properties.copyWith(
-    imageResolver: properties.imageResolver ?? _defaultImageResolver,
+    networkImageResolver:
+        properties.networkImageResolver ?? _defaultImageResolver,
   );
   group(properties.testGroupName, () {
     _traverse(nodes, goldenSnapshotsOutputPath, finalProperties);
@@ -43,7 +44,7 @@ void _traverse(
   }
 }
 
-ImageResolver _defaultImageResolver = (uri) {
+NetworkImageResolver _defaultImageResolver = (uri) {
   final extension = uri.path.split('.').last;
   return _mockedResponses[extension] ?? _transparentPixelPng;
 };

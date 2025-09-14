@@ -30,7 +30,7 @@ void main() async {
         AlignmentAddon(initialAlignment: Alignment.center),
         TextScaleAddon(initialScale: 2),
       ],
-      imageResolver: (uri) {
+      networkImageResolver: (uri) {
         if (uri.path.toLowerCase().endsWith(".svg")) {
           return androidSvg;
         }

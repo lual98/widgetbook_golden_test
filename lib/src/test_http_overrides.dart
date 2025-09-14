@@ -56,7 +56,7 @@ HttpClientResponse _createResponse(
 ) {
   final response = _MockHttpClientResponse();
   final headers = _MockHttpHeaders();
-  final imageResolver = properties.imageResolver;
+  final imageResolver = properties.networkImageResolver;
   final data = imageResolver!.call(uri);
 
   when(() => response.headers).thenReturn(headers);

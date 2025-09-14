@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
-typedef ImageResolver = List<int> Function(Uri uri);
+typedef NetworkImageResolver = List<int> Function(Uri uri);
 
 /// Properties for configuring widgetbook golden tests.
 class WidgetbookGoldenTestsProperties {
@@ -50,7 +50,7 @@ class WidgetbookGoldenTestsProperties {
   onTestError;
 
   /// Custom function that resolves images from URIs for the Widgetbook golden tests.
-  final ImageResolver? imageResolver;
+  final NetworkImageResolver? networkImageResolver;
 
   /// Creates a set of properties to configure Widgetbook golden tests.
   ///
@@ -67,7 +67,7 @@ class WidgetbookGoldenTestsProperties {
   /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
   /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
   /// * [onTestError] - Function to be called when there is an error during the golden tests.
-  /// * [imageResolver] - Custom function that resolves images from a given URI.
+  /// * [networkImageResolver] - Custom function that resolves images from a given URI.
   ///
   /// Example:
   /// ```dart
@@ -88,7 +88,7 @@ class WidgetbookGoldenTestsProperties {
     this.loadingImageUrl = defaultLoadingImageUrl,
     this.testGroupName = "Widgetbook golden tests",
     this.onTestError,
-    this.imageResolver,
+    this.networkImageResolver,
   });
 
   /// Creates a copy of this object with the specified fields overridden.
@@ -103,7 +103,7 @@ class WidgetbookGoldenTestsProperties {
     String? loadingImageUrl,
     String? testGroupName,
     Function(FlutterErrorDetails, Function(FlutterErrorDetails)?)? onTestError,
-    ImageResolver? imageResolver,
+    NetworkImageResolver? networkImageResolver,
   }) {
     return WidgetbookGoldenTestsProperties(
       addons: addons ?? this.addons,
@@ -117,7 +117,7 @@ class WidgetbookGoldenTestsProperties {
       loadingImageUrl: loadingImageUrl ?? this.loadingImageUrl,
       testGroupName: testGroupName ?? this.testGroupName,
       onTestError: onTestError ?? this.onTestError,
-      imageResolver: imageResolver ?? this.imageResolver,
+      networkImageResolver: networkImageResolver ?? this.networkImageResolver,
     );
   }
 }
