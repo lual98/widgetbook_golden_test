@@ -18,10 +18,28 @@ import 'package:example/cases/popup_menu_button.dart'
     as _example_cases_popup_menu_button;
 import 'package:example/cases/sized_box_cases.dart'
     as _example_cases_sized_box_cases;
+import 'package:example/cases/svg_picture.dart' as _example_cases_svg_picture;
 import 'package:example/cases/text_cases.dart' as _example_cases_text_cases;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookComponent(
+    name: 'SvgPicture',
+    useCases: [
+      _widgetbook.WidgetbookUseCase(
+        name: 'Error Network SVG',
+        builder: _example_cases_svg_picture.buildErrorNetworkSvgUseCase,
+      ),
+      _widgetbook.WidgetbookUseCase(
+        name: 'Loading Network SVG',
+        builder: _example_cases_svg_picture.buildLoadingNetworkSvgUseCase,
+      ),
+      _widgetbook.WidgetbookUseCase(
+        name: 'Network SVG',
+        builder: _example_cases_svg_picture.buildNetworkSvgUseCase,
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookFolder(
     name: 'material',
     children: [
