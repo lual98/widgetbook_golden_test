@@ -57,7 +57,8 @@ HttpClientResponse _createResponse(
 ) {
   final response = _MockHttpClientResponse();
   final headers = _MockHttpHeaders();
-  final data = _transparentPixelPng;
+  final imageResolver = properties.imageResolver;
+  final data = imageResolver?.call(uri) ?? _transparentPixelPng;
 
   when(() => response.headers).thenReturn(headers);
   when(() => response.contentLength).thenReturn(data.length);
