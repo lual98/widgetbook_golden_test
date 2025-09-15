@@ -69,10 +69,10 @@ Widget buildRedSizedBoxUseCase(BuildContext context) {
 ```
 
 #### Generated snapshots
-![Snapshot generated for red Sized Box](../../test/integration/widgets/SizedBox/Red.png)
+![Snapshot generated for red Sized Box](../test/integration/widgets/SizedBox/Red.png)
 
 If you are using the customization like the one mentioned in [above](#customized-widgetbookgoldentestsproperties), it will generate this instead:
-![Snapshot generated for red Sized Box with customizations](../../test/integration/customized/widgets/SizedBox/Red.png)
+![Snapshot generated for red Sized Box with customizations](../test/integration/customized/widgets/SizedBox/Red.png)
 
 ### Error builder of NetworkImage
 Use `WidgetbookGoldenTestsProperties.defaultErrorImageUrl` as the URL of the Image.network widget to generate a snapshot of its errorBuilder.
@@ -106,7 +106,7 @@ Widget buildImageNetworkErrorUseCase(BuildContext context) {
 ```
 
 #### Generated snapshot
-![Snapshot generated for error builder of NetworkImage](../../test/integration/painting/NetworkImage/Error.png)
+![Snapshot generated for error builder of NetworkImage](../test/integration/painting/NetworkImage/Error.png)
 
 ### Loading builder of NetworkImage
 Use `WidgetbookGoldenTestsProperties.defaultLoadingImageUrl` as the URL of the Image.network widget to generate a snapshot of its loadingBuilder.
@@ -140,7 +140,7 @@ Widget buildImageNetworkLoadingUseCase(BuildContext context) {
 ```
 
 #### Generated snapshot
-![Snapshot generated for loading builder of NetworkImage](../../test/integration/painting/NetworkImage/Loading.png)
+![Snapshot generated for loading builder of NetworkImage](../test/integration/painting/NetworkImage/Loading.png)
 
 ### Pop up menu button with tap interaction
 Wrap the widget in the use case in a `WidgetbookGoldenTestBuilder`. This will allow you to interact with the widget through the `goldenActions` you add to it before generating the snapshot.
@@ -173,7 +173,7 @@ Widget buildPopupMenuButtonUseCase(BuildContext context) {
 The previous case will generate the following 2 snapshots, one for its default state and one for the `clicked` golden action:
 
 ##### Closed
-![Snapshot generated for the PopupMenuButton closed](<../../test/integration/material/PopupMenuButton/Menu Button.png>)
+![Snapshot generated for the PopupMenuButton closed](<../test/integration/material/PopupMenuButton/Menu Button.png>)
 
 ##### Opened
-![Snapshot generated for PopupMenuButton opened](<../../test/integration/material/PopupMenuButton/Menu Button - clicked.png>)
+![Snapshot generated for PopupMenuButton opened](<../test/integration/material/PopupMenuButton/Menu Button - clicked.png>)
