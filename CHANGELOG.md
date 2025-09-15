@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.0 - 2025-09-15
 ### Added
 - Constant values for `'[skip-golden]'`, `'error-network-image'`, `'loading-network-image'` so they are easier to access and use.
 - Custom `networkImageResolver` in WidgetbookGoldenTestsProperties that allows to show custom images for mocked network images depending on the URL.
