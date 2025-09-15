@@ -68,7 +68,7 @@ Widget buildRedSizedBoxUseCase(BuildContext context) {
 }
 ```
 
-**Generated snapshot**
+#### Generated snapshots
 ![Snapshot generated for red Sized Box](../../test/integration/widgets/SizedBox/Red.png)
 
 If you are using the customization like the one mentioned in [above](#customized-widgetbookgoldentestsproperties), it will generate this instead:
@@ -76,7 +76,8 @@ If you are using the customization like the one mentioned in [above](#customized
 
 ### Error builder of NetworkImage
 Use `WidgetbookGoldenTestsProperties.defaultErrorImageUrl` as the URL of the Image.network widget to generate a snapshot of its errorBuilder.
-**Use case code snippet**
+
+#### Use case code snippet
 ```dart
 @widgetbook.UseCase(name: 'Error', type: NetworkImage)
 Widget buildImageNetworkErrorUseCase(BuildContext context) {
@@ -104,13 +105,13 @@ Widget buildImageNetworkErrorUseCase(BuildContext context) {
 }
 ```
 
-**Generated snapshot**
+#### Generated snapshot
 ![Snapshot generated for error builder of NetworkImage](../../test/integration/painting/NetworkImage/Error.png)
 
 ### Loading builder of NetworkImage
 Use `WidgetbookGoldenTestsProperties.defaultLoadingImageUrl` as the URL of the Image.network widget to generate a snapshot of its loadingBuilder.
 
-**Use case code snippet**
+#### Use case code snippet
 ```dart
 @widgetbook.UseCase(name: 'Loading', type: NetworkImage)
 Widget buildImageNetworkLoadingUseCase(BuildContext context) {
@@ -138,13 +139,13 @@ Widget buildImageNetworkLoadingUseCase(BuildContext context) {
 }
 ```
 
-**Generated snapshot**
+#### Generated snapshot
 ![Snapshot generated for loading builder of NetworkImage](../../test/integration/painting/NetworkImage/Loading.png)
 
 ### Pop up menu button with tap interaction
 Wrap the widget in the use case in a `WidgetbookGoldenTestBuilder`. This will allow you to interact with the widget through the `goldenActions` you add to it before generating the snapshot.
 
-**Use case code snippet**
+#### Use case code snippet
 ```dart
 @widgetbook.UseCase(name: 'Menu Button', type: PopupMenuButton)
 Widget buildPopupMenuButtonUseCase(BuildContext context) {
@@ -168,12 +169,11 @@ Widget buildPopupMenuButtonUseCase(BuildContext context) {
 }
 ```
 
-**Generated snapshots**
-
+#### Generated snapshots
 The previous case will generate the following 2 snapshots, one for its default state and one for the `clicked` golden action:
 
-**Closed**
+##### Closed
 ![Snapshot generated for the PopupMenuButton closed](<../../test/integration/material/PopupMenuButton/Menu Button.png>)
 
-**Opened**
+##### Opened
 ![Snapshot generated for PopupMenuButton opened](<../../test/integration/material/PopupMenuButton/Menu Button - clicked.png>)
