@@ -1,3 +1,6 @@
+## Unreleased
+- No actual changes in the library. Just a small fix to properly show example.md in the pub.dev Example tab.
+
 ## 0.2.0 - 2025-09-15
 ### Added
 - Constant values for `'[skip-golden]'`, `'error-network-image'`, `'loading-network-image'` so they are easier to access and use.
