@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.1 - 2025-09-15
 - No actual changes in the library. Just a small fix to properly show example.md in the pub.dev Example tab.
 
 ## 0.2.0 - 2025-09-15
