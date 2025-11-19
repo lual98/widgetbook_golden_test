@@ -130,6 +130,12 @@ final directories = <_widgetbook.WidgetbookNode>[
                 _example_cases_text_cases.buildTextWithoutInitialValueUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
+            name: 'Custom theme extension text',
+            builder:
+                _example_cases_text_cases
+                    .buildTextWithCustomThemeExtensionUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
             name: 'Localized text',
             builder: _example_cases_text_cases.buildTextLocalizedUseCase,
           ),
