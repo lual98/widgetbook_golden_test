@@ -36,3 +36,12 @@ Widget buildPurpleSizedBoxUseCase(BuildContext context) {
     child: Container(color: Colors.purple),
   );
 }
+
+@widgetbook.UseCase(name: 'Yellow', type: SizedBox)
+Widget buildPurpleSizedBoxUseCaseYellow(BuildContext context) {
+  return SizedBox(
+    height: 200,
+    width: 200,
+    child: Container(color: Colors.yellow),
+  );
+}
