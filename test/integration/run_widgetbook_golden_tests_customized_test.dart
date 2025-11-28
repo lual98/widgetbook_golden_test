@@ -1,8 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:example/cases/text_cases.dart';
 import 'package:example/l10n/app_localizations.dart';
 import 'package:example/widgetbook.directories.g.dart';
+import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
@@ -29,6 +30,19 @@ void main() async {
         GridAddon(),
         AlignmentAddon(initialAlignment: Alignment.center),
         TextScaleAddon(initialScale: 2),
+        ThemeAddon(
+          themes: [
+            WidgetbookTheme(
+              name: 'Dark',
+              data: ThemeData.dark().copyWith(
+                extensions: [MyCustomTheme.dark()],
+              ),
+            ),
+          ],
+          themeBuilder: (BuildContext context, theme, Widget child) {
+            return Theme(data: theme, child: child);
+          },
+        ),
       ],
       networkImageResolver: (uri) {
         if (uri.path.toLowerCase().endsWith(".svg")) {
