@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:alchemist/alchemist.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/create_golden_test.dart';
@@ -58,3 +60,60 @@ final _emptySvg = '<svg viewBox="0 0 10 10" />'.codeUnits;
 final _transparentPixelPng = base64Decode(
   '''iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==''',
 );
+
+// Alchemist poc
+
+void runWidgetbookGoldenTestsAlchemist({
+  required List<WidgetbookNode> nodes,
+  required WidgetbookGoldenTestsProperties properties,
+  String goldenSnapshotsOutputPath = ".",
+}) {
+  var finalProperties = properties.copyWith(
+    networkImageResolver:
+        properties.networkImageResolver ?? _defaultImageResolver,
+  );
+  group(properties.testGroupName, () {
+    _traverseAlchemist(nodes, goldenSnapshotsOutputPath, finalProperties);
+  });
+}
+
+void _traverseAlchemist(
+  List<WidgetbookNode> nodes,
+  String path,
+  WidgetbookGoldenTestsProperties properties,
+) {
+  for (var node in nodes) {
+    if (node is WidgetbookUseCase) {
+      goldenTest(
+        node.name,
+        fileName: "$path/${node.name}",
+        builder: () {
+          return GoldenTestScenario(
+            name: node.name,
+            child: Builder(
+              builder: (context) {
+                final widgetToTest = node.builder(context);
+                // if (properties.addons != null) {
+                //   for (final addon in properties.addons!.reversed) {
+                //     final newSetting = addon.valueFromQueryGroup({});
+                //     widgetToTest = addon.buildUseCase(
+                //       context,
+                //       widgetToTest,
+                //       newSetting,
+                //     );
+                //   }
+                // }
+                return widgetToTest;
+              },
+            ),
+          );
+        },
+      );
+      // createGoldenTest(node, path, properties);
+    } else if (node.children != null) {
+      group(node.name, () {
+        _traverseAlchemist(node.children!, "$path/${node.name}", properties);
+      });
+    }
+  }
+}

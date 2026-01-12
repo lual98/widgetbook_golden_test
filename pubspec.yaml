@@ -14,6 +14,7 @@ dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
+  alchemist: ^0.13.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0
