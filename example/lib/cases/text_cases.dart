@@ -29,7 +29,8 @@ Widget buildTextWithCustomThemeExtensionUseCase(BuildContext context) {
 }
 
 extension MyCustomThemeExtension on ThemeData {
-  MyCustomTheme get myCustomTheme => extension<MyCustomTheme>()!;
+  MyCustomTheme get myCustomTheme =>
+      extension<MyCustomTheme>() ?? MyCustomTheme(const TextStyle());
 }
 
 class MyCustomTheme extends ThemeExtension<MyCustomTheme> {
