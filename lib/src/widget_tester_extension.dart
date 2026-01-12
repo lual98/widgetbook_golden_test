@@ -1,6 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+// ignore: implementation_imports
+import 'package:widgetbook/src/addons/addons.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 
@@ -31,22 +33,19 @@ extension WidgetTesterExtension on WidgetTester {
         localizationsDelegates: properties.localizationsDelegates,
         supportedLocales: properties.supportedLocales,
         theme: properties.theme,
-        home: Scaffold(
-          body: Builder(
-            builder: (context) {
-              widgetToTest = useCase.builder(context);
-              if (properties.addons != null) {
-                for (final addon in properties.addons!.reversed) {
-                  final newSetting = addon.valueFromQueryGroup({});
-                  widgetToTest = addon.buildUseCase(
-                    context,
-                    widgetToTest,
-                    newSetting,
-                  );
-                }
-              }
-              return widgetToTest;
+        home: Material(
+          child: MultiAddonBuilder(
+            addons: properties.addons,
+            builder: (context, addon, child) {
+              final newSetting = addon.valueFromQueryGroup({});
+              return addon.buildUseCase(context, child, newSetting);
             },
+            child: Builder(
+              builder: (context) {
+                widgetToTest = useCase.builder(context);
+                return widgetToTest;
+              },
+            ),
           ),
         ),
       ),
