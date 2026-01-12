@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/golden_play_action.dart';
 import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
@@ -11,6 +12,10 @@ import 'package:widgetbook_golden_test/src/test_http_overrides.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_test_builder.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+// ignore: implementation_imports
+import 'package:widgetbook/src/addons/addons.dart';
+
+class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 
 /// Creates and runs a golden test of the given Widgetbook [useCase].
 /// The golden snapshot is saved in [goldenSnapshotsOutputPath]
@@ -132,23 +137,29 @@ void createGoldenTestAlchemist(
     useCase.name,
     fileName: "$goldenSnapshotsOutputPath/${useCase.name}",
     builder: () {
+      var widgetbookStateMock = _WidgetbookStateMock();
+      when(() => widgetbookStateMock.queryParams).thenReturn({});
+      when(
+        () => widgetbookStateMock.knobs,
+      ).thenReturn(KnobsRegistry(onLock: () {}));
+      when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
+      when(() => widgetbookStateMock.previewMode).thenReturn(true);
       return GoldenTestScenario(
         name: useCase.name,
-        child: Builder(
-          builder: (context) {
-            final widgetToTest = useCase.builder(context);
-            // if (properties.addons != null) {
-            //   for (final addon in properties.addons!.reversed) {
-            //     final newSetting = addon.valueFromQueryGroup({});
-            //     widgetToTest = addon.buildUseCase(
-            //       context,
-            //       widgetToTest,
-            //       newSetting,
-            //     );
-            //   }
-            // }
-            return widgetToTest;
-          },
+        child: WidgetbookScope(
+          state: widgetbookStateMock,
+          child: MultiAddonBuilder(
+            addons: properties.addons,
+            builder: (context, addon, child) {
+              final newSetting = addon.valueFromQueryGroup({});
+              return addon.buildUseCase(context, child, newSetting);
+            },
+            child: Builder(
+              builder: (context) {
+                return useCase.builder(context);
+              },
+            ),
+          ),
         ),
       );
     },
