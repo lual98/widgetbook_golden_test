@@ -53,14 +53,14 @@ extension WidgetTesterExtension on WidgetTester {
 
     await pumpWidget(baseWidget);
     await pumpAndSettle();
-    await _precacheImagesAndWait(properties);
+    await precacheImagesAndWait(properties);
     await pumpAndSettle();
     return widgetToTest;
   }
 
   /// Precaches the images detected in the currently built widget to make sure
   /// they are shown in the saved golden file.
-  Future<void> _precacheImagesAndWait(
+  Future<void> precacheImagesAndWait(
     WidgetbookGoldenTestsProperties properties,
   ) async {
     await runAsync(() async {
