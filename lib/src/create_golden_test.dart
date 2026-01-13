@@ -137,24 +137,14 @@ void createGoldenTestAlchemist(
 ) {
   bool shouldSkip = useCase.name.contains(properties.skipTag);
   WidgetbookGoldenTestBuilder? goldenTestBuilder;
+  final mockContext = _BuildContextMock();
   try {
-    var widgetbookStateMock = _WidgetbookStateMock();
-    when(() => widgetbookStateMock.queryParams).thenReturn({});
-    when(
-      () => widgetbookStateMock.knobs,
-    ).thenReturn(KnobsRegistry(onLock: () {}));
-    when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
-    when(() => widgetbookStateMock.previewMode).thenReturn(true);
-    final widget = WidgetbookScope(
-      state: widgetbookStateMock,
-      child: useCase.builder(_BuildContextMock()),
-    );
-    if (widget.child is WidgetbookGoldenTestBuilder) {
-      goldenTestBuilder = widget.child as WidgetbookGoldenTestBuilder;
+    final widget = useCase.build(mockContext);
+    if (widget is WidgetbookGoldenTestBuilder) {
+      goldenTestBuilder = widget;
     }
   } catch (e) {
-    print(e);
-    print(useCase.name);
+    // Not a WidgetbookGoldenTestBuilder.
   }
 
   goldenTest(
