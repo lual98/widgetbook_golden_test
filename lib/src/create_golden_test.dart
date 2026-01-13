@@ -145,6 +145,10 @@ void createGoldenTestAlchemist(
       when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
       when(() => widgetbookStateMock.previewMode).thenReturn(true);
       return GoldenTestScenario(
+        constraints: BoxConstraints(
+          maxWidth: 200,
+          maxHeight: 200,
+        ), // TODO: This will have to be parametrized
         name: useCase.name,
         child: WidgetbookScope(
           state: widgetbookStateMock,
