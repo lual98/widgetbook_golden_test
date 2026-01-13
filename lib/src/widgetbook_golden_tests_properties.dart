@@ -22,12 +22,15 @@ class WidgetbookGoldenTestsProperties {
   final ThemeData? theme;
 
   /// The locale used for localization purposes.
+  @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
   final Locale? locale;
 
   /// Delegates that provide localized resources for the app.
+  @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   /// Supported locales that the app supports.
+  @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
   final Iterable<Locale> supportedLocales;
 
   /// Tag used to identify tests that should be skipped during golden testing.
@@ -82,8 +85,11 @@ class WidgetbookGoldenTestsProperties {
   const WidgetbookGoldenTestsProperties({
     this.addons,
     this.theme,
+    @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
     this.locale,
+    @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
     this.localizationsDelegates,
+    @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
     this.supportedLocales = const [Locale('en', 'US')],
     @Deprecated("Use 'skip' property in WidgetbookGoldenTestBuilder instead")
     this.skipTag = defaultSkipTag,
@@ -110,10 +116,15 @@ class WidgetbookGoldenTestsProperties {
   }) {
     return WidgetbookGoldenTestsProperties(
       addons: addons ?? this.addons,
+      // ignore: deprecated_member_use_from_same_package
       theme: theme ?? this.theme,
+      // ignore: deprecated_member_use_from_same_package
       locale: locale ?? this.locale,
+      // ignore: deprecated_member_use_from_same_package
       localizationsDelegates:
+          // ignore: deprecated_member_use_from_same_package
           localizationsDelegates ?? this.localizationsDelegates,
+      // ignore: deprecated_member_use_from_same_package
       supportedLocales: supportedLocales ?? this.supportedLocales,
       // ignore: deprecated_member_use_from_same_package
       skipTag: skipTag ?? this.skipTag,

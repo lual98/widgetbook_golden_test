@@ -21,13 +21,15 @@ void main() async {
       errorImageUrl: "loading-network-image",
       loadingImageUrl: "error-network-image",
       testGroupName: "Widgetbook golden tests with custom properties",
-      locale: Locale("es"),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       addons: [
         ViewportAddon([AndroidViewports.samsungGalaxyA50]),
         GridAddon(),
         AlignmentAddon(initialAlignment: Alignment.center),
+        LocalizationAddon(
+          locales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          initialLocale: Locale("es"),
+        ),
         TextScaleAddon(initialScale: 2),
         ThemeAddon(
           themes: [
