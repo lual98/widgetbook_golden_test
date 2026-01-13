@@ -7,15 +7,16 @@ Widget buildRedSizedBoxUseCase(BuildContext context) {
   return SizedBox(height: 20, width: 20, child: Container(color: Colors.red));
 }
 
-@widgetbook.UseCase(
-  name: '${WidgetbookGoldenTestsProperties.defaultSkipTag}Green',
-  type: SizedBox,
-)
+@widgetbook.UseCase(name: 'Green', type: SizedBox)
 Widget buildGreenSizedBoxUseCase(BuildContext context) {
-  return SizedBox(
-    height: 200,
-    width: 200,
-    child: Container(color: Colors.green),
+  return WidgetbookGoldenTestBuilder(
+    skip: true,
+    builder:
+        (context) => SizedBox(
+          height: 200,
+          width: 200,
+          child: Container(color: Colors.green),
+        ),
   );
 }
 
@@ -25,14 +26,5 @@ Widget buildBlueSizedBoxUseCase(BuildContext context) {
     height: 200,
     width: 200,
     child: Container(color: Colors.blue),
-  );
-}
-
-@widgetbook.UseCase(name: '[skip-other]Purple', type: SizedBox)
-Widget buildPurpleSizedBoxUseCase(BuildContext context) {
-  return SizedBox(
-    height: 200,
-    width: 200,
-    child: Container(color: Colors.purple),
   );
 }

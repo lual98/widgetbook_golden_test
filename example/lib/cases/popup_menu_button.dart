@@ -13,12 +13,13 @@ Widget buildPopupMenuButtonUseCase(BuildContext context) {
         goldenFinder: (find) => find.byType(MaterialApp).first,
       ),
     ],
-    child: PopupMenuButton(
-      itemBuilder:
-          (context) => [
-            PopupMenuItem(child: Text("First option")),
-            PopupMenuItem(child: Icon(Icons.share)),
-          ],
-    ),
+    builder:
+        (context) => PopupMenuButton(
+          itemBuilder:
+              (context) => [
+                PopupMenuItem(child: Text("First option")),
+                PopupMenuItem(child: Icon(Icons.share)),
+              ],
+        ),
   );
 }

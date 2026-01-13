@@ -10,10 +10,17 @@ import 'package:widgetbook_golden_test/src/golden_play_action.dart';
 /// provided to define custom play actions for the test.
 class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// The widget to be wrapped and tested.
-  final Widget child;
+  @Deprecated('Use builder instead')
+  final Widget? child;
+
+  /// The builder function to be used to build the widget to be tested.
+  final WidgetBuilder? builder;
 
   /// Optional list of actions to perform during golden tests.
   final List<GoldenPlayAction>? goldenActions;
+
+  /// Optional flag to skip the golden test.
+  final bool skip;
 
   /// Creates a [WidgetbookGoldenTestBuilder].
   ///
@@ -21,12 +28,18 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// [goldenActions] is an optional list of actions to execute during the test.
   const WidgetbookGoldenTestBuilder({
     super.key,
-    required this.child,
+    @Deprecated('Use builder instead') this.child,
+    this.builder,
     this.goldenActions,
-  });
+    this.skip = false,
+  }) : assert(
+         child != null || builder != null,
+         'child or builder must be provided',
+       );
 
   @override
   Widget build(BuildContext context) {
-    return child;
+    // ignore: deprecated_member_use_from_same_package
+    return builder?.call(context) ?? child!;
   }
 }

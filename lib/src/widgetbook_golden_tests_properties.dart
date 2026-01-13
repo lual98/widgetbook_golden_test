@@ -6,6 +6,7 @@ typedef NetworkImageResolver = List<int> Function(Uri uri);
 /// Properties for configuring widgetbook golden tests.
 class WidgetbookGoldenTestsProperties {
   /// Default string tag to skip golden tests execution
+  @Deprecated("Use 'skip' property in WidgetbookGoldenTestBuilder instead")
   static const String defaultSkipTag = "[skip-golden]";
 
   /// Default string url to handle network images as error images.
@@ -30,6 +31,7 @@ class WidgetbookGoldenTestsProperties {
   final Iterable<Locale> supportedLocales;
 
   /// Tag used to identify tests that should be skipped during golden testing.
+  @Deprecated("Use 'skip' property in WidgetbookGoldenTestBuilder instead")
   final String skipTag;
 
   /// URL of the image to display when a network request fails.
@@ -83,6 +85,7 @@ class WidgetbookGoldenTestsProperties {
     this.locale,
     this.localizationsDelegates,
     this.supportedLocales = const [Locale('en', 'US')],
+    @Deprecated("Use 'skip' property in WidgetbookGoldenTestBuilder instead")
     this.skipTag = defaultSkipTag,
     this.errorImageUrl = defaultErrorImageUrl,
     this.loadingImageUrl = defaultLoadingImageUrl,
@@ -112,6 +115,7 @@ class WidgetbookGoldenTestsProperties {
       localizationsDelegates:
           localizationsDelegates ?? this.localizationsDelegates,
       supportedLocales: supportedLocales ?? this.supportedLocales,
+      // ignore: deprecated_member_use_from_same_package
       skipTag: skipTag ?? this.skipTag,
       errorImageUrl: errorImageUrl ?? this.errorImageUrl,
       loadingImageUrl: loadingImageUrl ?? this.loadingImageUrl,

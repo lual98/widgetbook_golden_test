@@ -16,11 +16,15 @@ Widget buildListViewUseCase(BuildContext context) {
             ),
       ),
     ],
-    child: ListView(
-      children: [
-        ...List.generate(20, (index) => ListTile(title: Text("Tile #$index"))),
-        ElevatedButton(onPressed: () {}, child: Text("Hello World")),
-      ],
-    ),
+    builder:
+        (context) => ListView(
+          children: [
+            ...List.generate(
+              20,
+              (index) => ListTile(title: Text("Tile #$index")),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text("Hello World")),
+          ],
+        ),
   );
 }

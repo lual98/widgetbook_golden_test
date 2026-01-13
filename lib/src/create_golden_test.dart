@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/golden_play_action.dart';
 import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
@@ -10,6 +11,8 @@ import 'package:widgetbook_golden_test/src/test_http_overrides.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_test_builder.dart';
 import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+
+class _BuildContextMock extends Mock implements BuildContext {}
 
 /// Creates and runs a golden test of the given Widgetbook [useCase].
 /// The golden snapshot is saved in [goldenSnapshotsOutputPath]
@@ -19,8 +22,21 @@ void createGoldenTest(
   WidgetbookGoldenTestsProperties properties,
 ) {
   // Skip the golden test case if it contains the [skip-golden] tag.
-  bool shouldSkip = useCase.name.contains(properties.skipTag);
+  WidgetbookGoldenTestBuilder? goldenTestBuilder;
+  final mockContext = _BuildContextMock();
+  try {
+    final widget = useCase.build(mockContext);
+    if (widget is WidgetbookGoldenTestBuilder) {
+      goldenTestBuilder = widget;
+    }
+  } catch (e) {
+    // Not a WidgetbookGoldenTestBuilder.
+  }
 
+  bool shouldSkip =
+      (goldenTestBuilder?.skip ?? false) ||
+      // ignore: deprecated_member_use_from_same_package
+      useCase.name.contains(properties.skipTag);
   // Golden test case of the story.
   testWidgets(useCase.name, (widgetTester) async {
     final previousOnError = FlutterError.onError;

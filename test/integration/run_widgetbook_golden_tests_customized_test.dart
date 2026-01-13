@@ -20,7 +20,6 @@ void main() async {
       // Swap un purpose error and loading URLs for testing purposes
       errorImageUrl: "loading-network-image",
       loadingImageUrl: "error-network-image",
-      skipTag: "[skip-other]",
       testGroupName: "Widgetbook golden tests with custom properties",
       locale: Locale("es"),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
