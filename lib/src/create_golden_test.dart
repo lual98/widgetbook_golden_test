@@ -133,9 +133,12 @@ void createGoldenTestAlchemist(
   String goldenSnapshotsOutputPath,
   WidgetbookGoldenTestsProperties properties,
 ) {
+  bool shouldSkip = useCase.name.contains(properties.skipTag);
+
   goldenTest(
     useCase.name,
     fileName: "$goldenSnapshotsOutputPath/${useCase.name}",
+    skip: shouldSkip,
     pumpWidget: (tester, widget) async {
       final previousOnError = FlutterError.onError;
       await runZonedGuarded<Future<void>>(
