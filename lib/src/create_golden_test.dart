@@ -99,7 +99,7 @@ void testWidgetsGolden(
           stack: stack,
           context: ErrorDescription(error.toString()),
         );
-        handleError(details, properties, previousOnError);
+        handleError(details, properties, null);
       },
     );
   }, skip: skip);
@@ -143,7 +143,9 @@ void handleError(
 
   if (properties.onTestError != null) {
     properties.onTestError!(details, previousOnError);
+  } else if (previousOnError != null) {
+    previousOnError(details);
   } else {
-    previousOnError?.call(details);
+    throw details.exception;
   }
 }
