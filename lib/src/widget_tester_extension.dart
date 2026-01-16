@@ -29,8 +29,11 @@ extension WidgetTesterExtension on WidgetTester {
       state: widgetbookStateMock,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        // ignore: deprecated_member_use_from_same_package
         locale: properties.locale,
+        // ignore: deprecated_member_use_from_same_package
         localizationsDelegates: properties.localizationsDelegates,
+        // ignore: deprecated_member_use_from_same_package
         supportedLocales: properties.supportedLocales,
         theme: properties.theme,
         home: Material(

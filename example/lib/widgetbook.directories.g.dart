@@ -104,16 +104,12 @@ final directories = <_widgetbook.WidgetbookNode>[
             builder: _example_cases_sized_box_cases.buildBlueSizedBoxUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Red',
-            builder: _example_cases_sized_box_cases.buildRedSizedBoxUseCase,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: '[skip-golden]Green',
+            name: 'Green',
             builder: _example_cases_sized_box_cases.buildGreenSizedBoxUseCase,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: '[skip-other]Purple',
-            builder: _example_cases_sized_box_cases.buildPurpleSizedBoxUseCase,
+            name: 'Red',
+            builder: _example_cases_sized_box_cases.buildRedSizedBoxUseCase,
           ),
         ],
       ),
