@@ -1,8 +1,14 @@
 ## Unreleased
-- Fix theme extensions not properly loading. (thanks @Gustl22)
-- Add parameter based skip in WidgetbookGoldenTestBuilder.
+### Added
+- Parameter based skip in WidgetbookGoldenTestBuilder.
   * This will deprecate the `skipTag` property in WidgetbookGoldenTestsProperties.
 - Handle golden tests with interaction as separate test cases.
+
+### Fixed
+- Theme extensions not properly loading. (thanks @Gustl22)
+- Golden test run indefinitely when the expected image is not found.
+
+### Deprecated
 - Deprecate `locale`, `localizationsDelegates` and `supportedLocales` properties in WidgetbookGoldenTestsProperties.
   * These properties will be handled by the `LocalizationAddon`.
 

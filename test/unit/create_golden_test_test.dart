@@ -53,5 +53,20 @@ void main() {
       FlutterError.onError = previousOnError;
       expect(calledCustomPreviousOnError, true);
     });
+
+    testWidgets('throws when no previousOnError is provided', (tester) async {
+      expect(
+        () => handleError(
+          FlutterErrorDetails(
+            exception: Exception("test"),
+            stack: StackTrace.current,
+            context: ErrorDescription("test"),
+          ),
+          WidgetbookGoldenTestsProperties(),
+          null,
+        ),
+        throwsA(isA<Exception>()),
+      );
+    });
   });
 }
