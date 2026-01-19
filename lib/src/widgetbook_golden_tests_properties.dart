@@ -88,7 +88,7 @@ class WidgetbookGoldenTestsProperties {
   /// ```
   const WidgetbookGoldenTestsProperties({
     this.addons,
-    this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtStart,
+    this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtBeginning,
     this.theme,
     @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
     this.locale,

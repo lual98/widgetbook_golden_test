@@ -10,8 +10,8 @@ enum AddonsMergeStrategy {
   /// Replaces the addons from the properties with the ones from the builder that match the type (maintaining the order) and inserts any additional addons at the end.
   replaceAndInsertAtEnd,
 
-  /// Replaces the addons from the properties with the ones from the builder that match the type (maintaining the order) and inserts any additional addons at the start.
-  replaceAndInsertAtStart,
+  /// Replaces the addons from the properties with the ones from the builder that match the type (maintaining the order) and inserts any additional addons at the beginning.
+  replaceAndInsertAtBeginning,
 }
 
 /// A builder widget that wraps a child widget and provides additional functionality for golden tests
@@ -48,7 +48,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   const WidgetbookGoldenTestBuilder({
     super.key,
     this.addons,
-    this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtStart,
+    this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtBeginning,
     this.builder,
     @Deprecated('Use builder instead') this.child,
     this.goldenActions,

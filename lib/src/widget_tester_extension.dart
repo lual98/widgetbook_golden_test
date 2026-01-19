@@ -141,7 +141,7 @@ List<WidgetbookAddon>? mergeAddons(
     newAddons.addAll(builderAddonsMap.values);
   }
 
-  if (addonsMergeStrategy == AddonsMergeStrategy.replaceAndInsertAtStart) {
+  if (addonsMergeStrategy == AddonsMergeStrategy.replaceAndInsertAtBeginning) {
     return [...builderAddonsMap.values, ...newAddons];
   }
 

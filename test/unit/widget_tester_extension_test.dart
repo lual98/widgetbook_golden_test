@@ -126,7 +126,7 @@ void main() {
       expect(result?[2], gridAddon);
     });
 
-    test("should merge addons with replaceAndInsertAtStart strategy", () {
+    test("should merge addons with replaceAndInsertAtBeginning strategy", () {
       final propertyThemeAddon = MaterialThemeAddon({});
       final builderThemeAddon = MaterialThemeAddon({});
       final gridAddon = GridAddon();
@@ -140,7 +140,7 @@ void main() {
       final result = mergeAddons(
         propertiesAddons,
         builderAddons,
-        AddonsMergeStrategy.replaceAndInsertAtStart,
+        AddonsMergeStrategy.replaceAndInsertAtBeginning,
       );
       expect(result, hasLength(3));
       expect(result, isNot(contains(propertyThemeAddon)));
