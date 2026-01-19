@@ -3,10 +3,12 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:widgetbook/widgetbook.dart' show WidgetbookUseCase;
+import 'package:widgetbook/next.dart';
+import 'package:widgetbook/widgetbook.dart'
+    show WidgetbookUseCase, WidgetbookAddon;
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
 import 'package:flutter/material.dart';
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 void main() {
   group("pumpWidgetbookCase", () {
@@ -17,7 +19,11 @@ void main() {
         builder: (context) => Container(),
       );
 
-      var widgetToTest = await tester.pumpWidgetbookCase(properties, useCase);
+      var widgetToTest = await tester.pumpWidgetbookCase(
+        properties,
+        useCase,
+        null,
+      );
 
       expect(widgetToTest, isA<Container>());
     });
@@ -30,7 +36,7 @@ void main() {
       builder: (context) => Text("Hello world"),
     );
 
-    await tester.pumpWidgetbookCase(properties, useCase);
+    await tester.pumpWidgetbookCase(properties, useCase, null);
 
     expect(find.text("Hello world"), findsOneWidget);
   });
@@ -93,6 +99,74 @@ void main() {
           .then((_) => completed = true);
       await tester.pump(const Duration(seconds: 11));
       expect(completed, true);
+    });
+  });
+
+  group("mergeAddons", () {
+    test("should merge addons with replaceAndInsertAtEnd strategy", () {
+      final propertyThemeAddon = MaterialThemeAddon({});
+      final builderThemeAddon = MaterialThemeAddon({});
+      final gridAddon = GridAddon();
+      final textScaleAddon = TextScaleAddon();
+      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final List<WidgetbookAddon> builderAddons = [
+        textScaleAddon,
+        builderThemeAddon,
+        gridAddon,
+      ];
+      final result = mergeAddons(
+        propertiesAddons,
+        builderAddons,
+        AddonsMergeStrategy.replaceAndInsertAtEnd,
+      );
+      expect(result, hasLength(3));
+      expect(result, isNot(contains(propertyThemeAddon)));
+      expect(result, contains(builderThemeAddon));
+      expect(result?[1], textScaleAddon);
+      expect(result?[2], gridAddon);
+    });
+
+    test("should merge addons with replaceAndInsertAtStart strategy", () {
+      final propertyThemeAddon = MaterialThemeAddon({});
+      final builderThemeAddon = MaterialThemeAddon({});
+      final gridAddon = GridAddon();
+      final textScaleAddon = TextScaleAddon();
+      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final List<WidgetbookAddon> builderAddons = [
+        textScaleAddon,
+        builderThemeAddon,
+        gridAddon,
+      ];
+      final result = mergeAddons(
+        propertiesAddons,
+        builderAddons,
+        AddonsMergeStrategy.replaceAndInsertAtStart,
+      );
+      expect(result, hasLength(3));
+      expect(result, isNot(contains(propertyThemeAddon)));
+      expect(result, contains(builderThemeAddon));
+      expect(result?[0], textScaleAddon);
+      expect(result?[1], gridAddon);
+    });
+
+    test("should merge addons with overrideAll strategy", () {
+      final propertyThemeAddon = MaterialThemeAddon({});
+      final builderThemeAddon = MaterialThemeAddon({});
+      final gridAddon = GridAddon();
+      final textScaleAddon = TextScaleAddon();
+      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final List<WidgetbookAddon> builderAddons = [
+        textScaleAddon,
+        builderThemeAddon,
+        gridAddon,
+      ];
+      final result = mergeAddons(
+        propertiesAddons,
+        builderAddons,
+        AddonsMergeStrategy.overrideAll,
+      );
+      expect(result, hasLength(3));
+      expect(result, [textScaleAddon, builderThemeAddon, gridAddon]);
     });
   });
 }

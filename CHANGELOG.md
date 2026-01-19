@@ -3,6 +3,9 @@
 - Parameter based skip in WidgetbookGoldenTestBuilder.
   * This will deprecate the `skipTag` property in WidgetbookGoldenTestsProperties.
 - Handle golden tests with interaction as separate test cases.
+- `addons` and `addonsMergeStrategy` in `WidgetbookGoldenTestBuilder` to allow overrides of Widgetbook Addons per test case.
+
+- **IMPORTANT**: Use `builder` instead of `child` in `WidgetbookGoldenTestBuilder` to ensure that the information by the builder is obtained correctly. It is recommended to add all the logic of the case in the `builder` function.
 
 ### Fixed
 - Theme extensions not properly loading. (thanks @Gustl22)

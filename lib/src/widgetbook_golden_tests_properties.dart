@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 typedef NetworkImageResolver = List<int> Function(Uri uri);
 
@@ -17,6 +18,9 @@ class WidgetbookGoldenTestsProperties {
 
   /// The list of addons that are available in the Widgetbook.
   final List<WidgetbookAddon>? addons;
+
+  /// The strategy to merge addons.
+  final AddonsMergeStrategy addonsMergeStrategy;
 
   /// The theme data used to customize the appearance of widgets in the app.
   final ThemeData? theme;
@@ -84,6 +88,7 @@ class WidgetbookGoldenTestsProperties {
   /// ```
   const WidgetbookGoldenTestsProperties({
     this.addons,
+    this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtStart,
     this.theme,
     @Deprecated("Use 'LocalizationAddon' in 'addons' property instead")
     this.locale,

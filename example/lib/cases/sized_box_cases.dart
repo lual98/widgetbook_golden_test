@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Red', type: SizedBox)
 Widget buildRedSizedBoxUseCase(BuildContext context) {
   return SizedBox(height: 20, width: 20, child: Container(color: Colors.red));
+}
+
+@widgetbook.UseCase(name: 'Orange', type: SizedBox)
+Widget buildOrangeSizedBoxUseCase(BuildContext context) {
+  return WidgetbookGoldenTestBuilder(
+    addons: [
+      ViewportAddon([LinuxViewports.desktop]),
+    ],
+    builder:
+        (context) => SizedBox(
+          height: 20,
+          width: 20,
+          child: Container(color: Colors.orange),
+        ),
+  );
 }
 
 @widgetbook.UseCase(name: 'Green', type: SizedBox)

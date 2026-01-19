@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 // ignore: implementation_imports
 import 'package:widgetbook/src/addons/addons.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 
@@ -16,6 +16,7 @@ extension WidgetTesterExtension on WidgetTester {
   Future<Widget> pumpWidgetbookCase(
     WidgetbookGoldenTestsProperties properties,
     WidgetbookUseCase useCase,
+    List<WidgetbookAddon>? builderAddons,
   ) async {
     late Widget widgetToTest;
     var widgetbookStateMock = _WidgetbookStateMock();
@@ -38,7 +39,11 @@ extension WidgetTesterExtension on WidgetTester {
         theme: properties.theme,
         home: Material(
           child: MultiAddonBuilder(
-            addons: properties.addons,
+            addons: mergeAddons(
+              properties.addons,
+              builderAddons,
+              properties.addonsMergeStrategy,
+            ),
             builder: (context, addon, child) {
               final newSetting = addon.valueFromQueryGroup({});
               return addon.buildUseCase(context, child, newSetting);
@@ -101,4 +106,44 @@ extension WidgetTesterExtension on WidgetTester {
       );
     }
   }
+}
+
+@visibleForTesting
+List<WidgetbookAddon>? mergeAddons(
+  List<WidgetbookAddon>? propertiesAddons,
+  List<WidgetbookAddon>? builderAddons,
+  AddonsMergeStrategy addonsMergeStrategy,
+) {
+  if (builderAddons == null) {
+    return propertiesAddons;
+  }
+
+  if (addonsMergeStrategy == AddonsMergeStrategy.overrideAll) {
+    return builderAddons;
+  }
+
+  final List<WidgetbookAddon> newAddons = [];
+  final Map<Type, WidgetbookAddon> builderAddonsMap = {};
+  for (var addon in builderAddons) {
+    builderAddonsMap[addon.runtimeType] = addon;
+  }
+  if (propertiesAddons != null) {
+    for (var addon in propertiesAddons) {
+      if (builderAddonsMap.containsKey(addon.runtimeType)) {
+        newAddons.add(builderAddonsMap[addon.runtimeType]!);
+        builderAddonsMap.remove(addon.runtimeType);
+      } else {
+        newAddons.add(addon);
+      }
+    }
+  }
+  if (addonsMergeStrategy == AddonsMergeStrategy.replaceAndInsertAtEnd) {
+    newAddons.addAll(builderAddonsMap.values);
+  }
+
+  if (addonsMergeStrategy == AddonsMergeStrategy.replaceAndInsertAtStart) {
+    return [...builderAddonsMap.values, ...newAddons];
+  }
+
+  return newAddons;
 }
