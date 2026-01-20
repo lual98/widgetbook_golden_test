@@ -34,16 +34,30 @@ void main() async {
       // Swap un purpose error and loading URLs for testing purposes
       errorImageUrl: "loading-network-image",
       loadingImageUrl: "error-network-image",
-      skipTag: "[skip-other]",
       testGroupName: "Widgetbook golden tests with custom properties",
-      locale: Locale("es"),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       addons: [
         ViewportAddon([AndroidViewports.samsungGalaxyA50]),
         GridAddon(),
         AlignmentAddon(initialAlignment: Alignment.center),
+        LocalizationAddon(
+          locales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          initialLocale: Locale("es"),
+        ),
         TextScaleAddon(initialScale: 2),
+        ThemeAddon(
+          themes: [
+            WidgetbookTheme(
+              name: 'Dark',
+              data: ThemeData.dark().copyWith(
+                extensions: [MyCustomTheme.dark()],
+              ),
+            ),
+          ],
+          themeBuilder: (BuildContext context, theme, Widget child) {
+            return Theme(data: theme, child: child);
+          },
+        ),
       ],
       networkImageResolver: (uri) {
         if (uri.path.toLowerCase().endsWith(".svg")) {
@@ -158,13 +172,14 @@ Widget buildPopupMenuButtonUseCase(BuildContext context) {
         goldenFinder: (find) => find.byType(MaterialApp).first,
       ),
     ],
-    child: PopupMenuButton(
-      itemBuilder:
-          (context) => [
-            PopupMenuItem(child: Text("First option")),
-            PopupMenuItem(child: Icon(Icons.share)),
-          ],
-    ),
+    builder:
+        (context) => PopupMenuButton(
+          itemBuilder:
+              (context) => [
+                PopupMenuItem(child: Text("First option")),
+                PopupMenuItem(child: Icon(Icons.share)),
+              ],
+        ),
   );
 }
 ```
