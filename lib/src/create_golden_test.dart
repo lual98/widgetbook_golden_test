@@ -42,6 +42,7 @@ void createGoldenTest(
     final widgetToTest = await widgetTester.pumpWidgetbookCase(
       properties,
       useCase,
+      goldenTestBuilder?.addons,
     );
 
     await expectLater(
@@ -63,6 +64,7 @@ void createGoldenTest(
             useCase,
             play,
             goldenSnapshotsOutputPath,
+            goldenTestBuilder?.addons,
           );
         },
       );
@@ -111,10 +113,12 @@ Future<void> validatePlayFunction(
   WidgetbookUseCase useCase,
   GoldenPlayAction play,
   String goldenSnapshotsOutputPath,
+  List<WidgetbookAddon>? builderAddons,
 ) async {
   final widgetToTest = await widgetTester.pumpWidgetbookCase(
     properties,
     useCase,
+    builderAddons,
   );
   await play.callback(widgetTester, find);
   await widgetTester.pumpAndSettle();
