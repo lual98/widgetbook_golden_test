@@ -1,4 +1,4 @@
-## Unreleased
+## 0.3.0 - 2026-01-20
 ### Added
 - Parameter based skip in WidgetbookGoldenTestBuilder.
   * This will deprecate the `skipTag` property in WidgetbookGoldenTestsProperties.
