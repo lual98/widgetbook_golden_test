@@ -3,9 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
-import 'package:widgetbook/next.dart';
-import 'package:widgetbook/widgetbook.dart'
-    show WidgetbookUseCase, WidgetbookAddon;
+import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
@@ -104,8 +102,12 @@ void main() {
 
   group("mergeAddons", () {
     test("should merge addons with replaceAndInsertAtEnd strategy", () {
-      final propertyThemeAddon = MaterialThemeAddon({});
-      final builderThemeAddon = MaterialThemeAddon({});
+      final propertyThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "property", data: ThemeData())],
+      );
+      final builderThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "builder", data: ThemeData())],
+      );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
       final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
@@ -127,8 +129,12 @@ void main() {
     });
 
     test("should merge addons with replaceAndInsertAtBeginning strategy", () {
-      final propertyThemeAddon = MaterialThemeAddon({});
-      final builderThemeAddon = MaterialThemeAddon({});
+      final propertyThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "property", data: ThemeData())],
+      );
+      final builderThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "builder", data: ThemeData())],
+      );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
       final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
@@ -150,8 +156,12 @@ void main() {
     });
 
     test("should merge addons with overrideAll strategy", () {
-      final propertyThemeAddon = MaterialThemeAddon({});
-      final builderThemeAddon = MaterialThemeAddon({});
+      final propertyThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "property", data: ThemeData())],
+      );
+      final builderThemeAddon = MaterialThemeAddon(
+        themes: [WidgetbookTheme(name: "builder", data: ThemeData())],
+      );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
       final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
