@@ -5,7 +5,34 @@
 - Handle golden tests with interaction as separate test cases.
 - `addons` and `addonsMergeStrategy` in `WidgetbookGoldenTestBuilder` to allow overrides of Widgetbook Addons per test case.
 
-- **IMPORTANT**: Use `builder` instead of `child` in `WidgetbookGoldenTestBuilder` to ensure that the information by the builder is obtained correctly. It is recommended to add all the logic of the case in the `builder` function.
+- **IMPORTANT**: Use `builder` instead of `child` in `WidgetbookGoldenTestBuilder` to ensure that the information in the `WidgetbookGoldenTestBuilder` is obtained correctly, such as the `goldenActions`. It is recommended to add all the logic of the case in the `builder` function. The new implementation might break some existing code.
+
+Example:
+
+Instead of
+```dart
+@widgetbook.UseCase(name: 'Custom text without initial value', type: Text)
+Widget buildTextWithoutInitialValueUseCase(BuildContext context) {
+  final myText = context.knobs.string(label: "My text");
+  return WidgetbookGoldenTestBuilder(
+    skip: true,
+    builder: (context) => Text(myText),
+  );
+}
+```
+The following is preferred:
+```dart
+@widgetbook.UseCase(name: 'Custom text without initial value', type: Text)
+Widget buildTextWithoutInitialValueUseCase(BuildContext context) {
+  return WidgetbookGoldenTestBuilder(
+    skip: true,
+    builder: (context) {
+      final myText = context.knobs.string(label: "My text");
+      return Text(myText);
+    },
+  );
+}
+```
 
 ### Fixed
 - Theme extensions not properly loading. (thanks @Gustl22)
