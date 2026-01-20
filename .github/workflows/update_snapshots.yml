@@ -37,7 +37,7 @@ jobs:
       run: fvm flutter pub get
 
     - name: Update golden snapshots
-      run: fvm flutter test --update-goldens
+      run: melos update-goldens
 
     - name: Commit new snapshots
       if: always()

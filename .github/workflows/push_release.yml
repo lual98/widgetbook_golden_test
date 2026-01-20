@@ -34,7 +34,7 @@ jobs:
         run: fvm flutter pub get
 
       - name: Run tests with coverage
-        run: fvm flutter test
+        run: melos test
   push_release:
     needs: run-tests
     runs-on: ubuntu-latest
@@ -44,16 +44,16 @@ jobs:
       - name: Update version in pubspec.yaml and CHANGELOG.md
         run: |
           version="${{ github.event.inputs.version }}"
-          sed -i "s/^version: .*/version: $version/" pubspec.yaml
+          sed -i "s/^version: .*/version: $version/" ./packages/widgetbook_golden_test/pubspec.yaml
           today=$(date +%Y-%m-%d)
-          sed -i "0,/## Unreleased/{s/## Unreleased/## $version - $today/}" CHANGELOG.md
+          sed -i "0,/## Unreleased/{s/## Unreleased/## $version - $today/}" ./packages/widgetbook_golden_test/CHANGELOG.md
 
       - name: Commit version bump
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
-          git add pubspec.yaml CHANGELOG.md
+          git add ./packages/widgetbook_golden_test/pubspec.yaml ./packages/widgetbook_golden_test/CHANGELOG.md
           git commit -m "chore: release ${{ github.event.inputs.version }}"
           git push
 

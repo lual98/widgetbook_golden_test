@@ -29,11 +29,11 @@ jobs:
         run: fvm flutter pub get
 
       - name: Run tests with coverage
-        run: fvm flutter test --coverage
+        run: melos test-coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/lcov.info
+          file: ./packages/widgetbook_golden_test/coverage/lcov.info
           fail_ci_if_error: true

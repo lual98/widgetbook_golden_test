@@ -7,3 +7,16 @@ workspace:
   - packages/widgetbook_golden_test
 dev_dependencies:
   melos: ^7.3.0
+
+melos:
+  scripts:
+    analyze:
+      run: fvm flutter analyze
+    test:
+      run: melos exec -- fvm flutter test
+    test-coverage:
+      run: melos exec -- fvm flutter test --coverage
+    update-goldens:
+      run: melos exec -- fvm flutter test --update-goldens
+    ensure-format:
+      run: melos exec -- fvm dart format . -o none --set-exit-if-changed
