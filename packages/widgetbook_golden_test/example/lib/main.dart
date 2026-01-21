@@ -1,5 +1,6 @@
 import 'package:example/widgetbook.directories.g.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Main example with minimum customization.
 /// Check out the use cases declared in the cases folder to see some common scenarios that are supported.

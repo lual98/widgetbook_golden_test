@@ -5,12 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/src/golden_play_action.dart';
-import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
-import 'package:widgetbook_golden_test/src/test_http_overrides.dart';
+import 'package:widgetbook_golden_test_core/src/test_http_overrides.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_test_builder.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 class _BuildContextMock extends Mock implements BuildContext {}
 
@@ -35,7 +32,7 @@ void createGoldenTest(
   // Skip the golden test case if it contains the [skip-golden] tag just as a fallback.
   bool shouldSkip =
       (goldenTestBuilder?.skip ?? false) ||
-      // ignore: deprecated_member_use_from_same_package
+      // ignore: deprecated_member_use
       useCase.name.contains(properties.skipTag);
   // Golden test case of the story.
   testWidgetsGolden(useCase.name, properties, shouldSkip, (widgetTester) async {
@@ -122,10 +119,9 @@ Future<void> validatePlayFunction(
   );
   await play.callback(widgetTester, find);
   await widgetTester.pumpAndSettle();
-  Finder goldenFinder =
-      play.goldenFinder == null
-          ? find.byType(widgetToTest.runtimeType).first
-          : play.goldenFinder!.call(find);
+  Finder goldenFinder = play.goldenFinder == null
+      ? find.byType(widgetToTest.runtimeType).first
+      : play.goldenFinder!.call(find);
   await expectLater(
     goldenFinder,
     matchesGoldenFile(

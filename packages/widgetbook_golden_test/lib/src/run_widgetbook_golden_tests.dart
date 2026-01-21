@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/create_golden_test.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
 /// inside the provided [nodes].

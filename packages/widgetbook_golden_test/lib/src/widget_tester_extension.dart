@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 // ignore: implementation_imports
 import 'package:widgetbook/src/addons/addons.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 
@@ -30,11 +30,11 @@ extension WidgetTesterExtension on WidgetTester {
       state: widgetbookStateMock,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use
         locale: properties.locale,
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use
         localizationsDelegates: properties.localizationsDelegates,
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use
         supportedLocales: properties.supportedLocales,
         theme: properties.theme,
         home: Material(

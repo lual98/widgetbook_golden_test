@@ -6,7 +6,7 @@ import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() {
   group("pumpWidgetbookCase", () {

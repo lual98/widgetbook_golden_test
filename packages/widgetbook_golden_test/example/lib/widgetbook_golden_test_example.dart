@@ -2,6 +2,7 @@ import 'package:example/widgetbook.directories.g.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Example with all the custom properties.
 void main() {

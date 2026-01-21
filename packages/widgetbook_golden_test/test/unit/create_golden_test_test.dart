@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() {
   group('createGoldenTest', () {
@@ -22,9 +23,8 @@ void main() {
         builder: (_) {
           // Create on purpose a Consumer without provider to make this widget throw an exception.
           return Consumer<String>(
-            builder:
-                (context, value, child) =>
-                    Container(height: 20, width: 20, color: Colors.green),
+            builder: (context, value, child) =>
+                Container(height: 20, width: 20, color: Colors.green),
           );
         },
       );

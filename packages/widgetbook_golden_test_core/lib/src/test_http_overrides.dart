@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:widgetbook_golden_test/src/ignore_network_image_exception.dart';
-import 'package:widgetbook_golden_test/src/widgetbook_golden_tests_properties.dart';
+import 'package:widgetbook_golden_test_core/src/ignore_network_image_exception.dart';
+import 'package:widgetbook_golden_test_core/src/widgetbook_golden_tests_properties.dart';
 
 class _MockHttpClientRequest extends Mock implements HttpClientRequest {}
 

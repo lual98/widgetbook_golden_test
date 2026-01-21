@@ -6,12 +6,14 @@ import 'package:example/widgetbook.directories.g.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() async {
   // Pre-load assets
   var androidSvg = await File("./test/assets/android.svg").readAsBytes();
-  var sampleJpg =
-      await File("./test/assets/lorem_picsum_sample.jpg").readAsBytes();
+  var sampleJpg = await File(
+    "./test/assets/lorem_picsum_sample.jpg",
+  ).readAsBytes();
   runWidgetbookGoldenTests(
     nodes: directories,
     goldenSnapshotsOutputPath: "./customized/",
