@@ -28,6 +28,10 @@ jobs:
       - name: Install dependencies
         run: fvm flutter pub get
 
+      - name: Set up melos
+        run: |
+          dart pub global activate melos
+
       - name: Run tests with coverage
         run: melos test-coverage
 
