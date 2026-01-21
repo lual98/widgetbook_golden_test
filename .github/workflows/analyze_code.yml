@@ -22,6 +22,10 @@ jobs:
       run: |
         dart pub global activate fvm
 
+    - name: Set up melos
+      run: |
+        dart pub global activate melos
+
     - name: Install Flutter version via FVM
       run: fvm install
 
@@ -29,4 +33,4 @@ jobs:
       run: fvm flutter pub get
 
     - name: Analyze flutter code
-      run: fvm flutter analyze
+      run: melos analyze

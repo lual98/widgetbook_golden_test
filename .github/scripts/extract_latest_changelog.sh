@@ -9,4 +9,4 @@ awk '
     if (!found) found=1;
   }
   found { print }
-' CHANGELOG.md > LATEST_CHANGELOG.md
+' ./packages/widgetbook_golden_test/CHANGELOG.md > LATEST_CHANGELOG.md

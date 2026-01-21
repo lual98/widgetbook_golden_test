@@ -1,0 +1,8 @@
+name: widgetbook_golden_test
+
+packages:
+  - packages/**
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
