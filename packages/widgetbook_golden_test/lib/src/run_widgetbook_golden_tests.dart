@@ -1,8 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/src/create_golden_test.dart';
+import 'package:widgetbook_golden_test/src/widgetbook_golden_flutter_test_renderer.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
@@ -17,44 +14,13 @@ void runWidgetbookGoldenTests({
   required WidgetbookGoldenTestsProperties properties,
   String goldenSnapshotsOutputPath = ".",
 }) {
-  var finalProperties = properties.copyWith(
-    networkImageResolver:
-        properties.networkImageResolver ?? _defaultImageResolver,
+  final generator = WidgetbookGoldenTestGenerator(
+    properties: properties,
+    renderer: WidgetbookGoldenFlutterTestRenderer(),
   );
-  group(properties.testGroupName, () {
-    _traverse(nodes, goldenSnapshotsOutputPath, finalProperties);
-  });
+
+  generator.generate(
+    nodes: nodes,
+    goldenSnapshotsOutputPath: goldenSnapshotsOutputPath,
+  );
 }
-
-/// Executes a recursive traversal of the [nodes] and calls [createGoldenTest]
-/// when the node is a [WidgetbookUseCase].
-void _traverse(
-  List<WidgetbookNode> nodes,
-  String path,
-  WidgetbookGoldenTestsProperties properties,
-) {
-  for (var node in nodes) {
-    if (node is WidgetbookUseCase) {
-      createGoldenTest(node, path, properties);
-    } else if (node.children != null) {
-      group(node.name, () {
-        _traverse(node.children!, "$path/${node.name}", properties);
-      });
-    }
-  }
-}
-
-NetworkImageResolver _defaultImageResolver = (uri) {
-  final extension = uri.path.split('.').last;
-  return _mockedResponses[extension] ?? _transparentPixelPng;
-};
-
-final _mockedResponses = <String, List<int>>{
-  'png': _transparentPixelPng,
-  'svg': _emptySvg,
-};
-
-final _emptySvg = '<svg viewBox="0 0 10 10" />'.codeUnits;
-final _transparentPixelPng = base64Decode(
-  '''iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==''',
-);

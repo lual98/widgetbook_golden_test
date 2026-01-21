@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:mocktail/mocktail.dart';
-import 'package:widgetbook_golden_test_core/src/ignore_network_image_exception.dart';
+import 'package:widgetbook_golden_test_core/src/helpers/ignore_network_image_exception.dart';
 import 'package:widgetbook_golden_test_core/src/widgetbook_golden_tests_properties.dart';
 
 class _MockHttpClientRequest extends Mock implements HttpClientRequest {}
@@ -57,7 +57,7 @@ HttpClientResponse _createResponse(
   final response = _MockHttpClientResponse();
   final headers = _MockHttpHeaders();
   final imageResolver = properties.networkImageResolver;
-  final data = imageResolver!.call(uri);
+  final data = imageResolver.call(uri);
 
   when(() => response.headers).thenReturn(headers);
   when(() => response.contentLength).thenReturn(data.length);
