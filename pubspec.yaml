@@ -1,10 +1,11 @@
 name: widgetbook_golden_test_repo
 publish_to: none
 environment:
-  sdk: ^3.7.0
+  sdk: ^3.9.0
 
 workspace:
   - packages/widgetbook_golden_test
+  - packages/widgetbook_golden_test_core
 dev_dependencies:
   melos: ^7.3.0
 
