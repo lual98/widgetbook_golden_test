@@ -10,6 +10,7 @@ Future<void> goldenTestZoneRunner({
   required WidgetbookGoldenTestsProperties properties,
 }) async {
   final previousOnError = FlutterError.onError;
+  Object? bodyError;
   await runZonedGuarded<Future<void>>(
     () async {
       await HttpOverrides.runZoned(() async {
@@ -19,6 +20,8 @@ Future<void> goldenTestZoneRunner({
         };
         try {
           await testBody();
+        } catch (e) {
+          bodyError = e;
         } finally {
           FlutterError.onError = previousOnError;
         }
@@ -33,6 +36,18 @@ Future<void> goldenTestZoneRunner({
       handleError(details, properties, null);
     },
   );
+
+  if (bodyError != null) {
+    handleError(
+      FlutterErrorDetails(
+        exception: bodyError!,
+        stack: StackTrace.current,
+        context: ErrorDescription(bodyError.toString()),
+      ),
+      properties,
+      null,
+    );
+  }
 }
 
 @visibleForTesting

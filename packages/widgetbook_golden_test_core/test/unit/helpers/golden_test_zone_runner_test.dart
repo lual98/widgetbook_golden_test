@@ -82,6 +82,71 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.byType(SvgPicture), findsOneWidget);
     });
+
+    testWidgets("calls custom onError when there is an error during the test", (
+      tester,
+    ) async {
+      var executed = false;
+      var properties = WidgetbookGoldenTestsProperties(
+        onTestError: (details, originalOnError) {
+          if (details.exception is ProviderNotFoundException) {
+            executed = true;
+            return;
+          }
+          originalOnError?.call(details);
+        },
+      );
+
+      await goldenTestZoneRunner(
+        testBody: () async {
+          await tester.pumpWidget(
+            Consumer<String>(builder: (context, value, child) => Container()),
+          );
+
+          await tester.pumpAndSettle();
+        },
+        properties: properties,
+      );
+
+      expect(executed, true);
+    });
+
+    testWidgets("calls custom onError when testBody throws exception", (
+      tester,
+    ) async {
+      var executed = false;
+      var properties = WidgetbookGoldenTestsProperties(
+        onTestError: (details, originalOnError) {
+          executed = true;
+        },
+      );
+
+      await goldenTestZoneRunner(
+        testBody: () async {
+          throw Exception("test");
+        },
+        properties: properties,
+      );
+
+      expect(executed, true);
+    });
+
+    testWidgets(
+      "throws when testBody throws exception and no onError is provided",
+      (tester) async {
+        var properties = WidgetbookGoldenTestsProperties();
+
+        expect(
+          () async => await goldenTestZoneRunner(
+            testBody: () async {
+              throw Exception("test");
+            },
+            properties: properties,
+          ),
+          throwsA(isA<Exception>()),
+        );
+      },
+    );
   });
 
   group('handleError', () {
