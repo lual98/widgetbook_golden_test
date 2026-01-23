@@ -44,6 +44,13 @@ void main() {
                 Image.network('https://example.com/image1.png'),
                 Image.memory(magentaPixel),
                 Image.network(properties.loadingImageUrl), // should be skipped
+                Image(
+                  image: ResizeImage(
+                    MemoryImage(magentaPixel),
+                    width: 200,
+                    height: 200,
+                  ),
+                ),
               ],
             ),
           ),
@@ -63,7 +70,7 @@ void main() {
         );
 
         // Assert it tried to precache correct images
-        expect(precacheCalls, equals(2)); // Only two should be precached
+        expect(precacheCalls, equals(3)); // Only three should be precached
       });
 
       testWidgets('continues normally on timeout of 10 seconds', (
