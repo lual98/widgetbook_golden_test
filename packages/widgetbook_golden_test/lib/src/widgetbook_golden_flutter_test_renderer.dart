@@ -20,7 +20,10 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
             useCase: useCase,
           );
           await widgetTester.pumpWidgetbookCase(widget, properties);
-          var widgetToTest = widget.widgetToTest!;
+          final state = widgetTester.state<MockedWidgetbookCaseState>(
+            find.byType(MockedWidgetbookCase),
+          );
+          var widgetToTest = state.widgetToTest!;
 
           await expectLater(
             find.byType(widgetToTest.runtimeType).first,
@@ -50,7 +53,10 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
             useCase: useCase,
           );
           await widgetTester.pumpWidgetbookCase(widget, properties);
-          var widgetToTest = widget.widgetToTest!;
+          final state = widgetTester.state<MockedWidgetbookCaseState>(
+            find.byType(MockedWidgetbookCase),
+          );
+          var widgetToTest = state.widgetToTest!;
 
           await action.callback(widgetTester, find);
           await widgetTester.pumpAndSettle();

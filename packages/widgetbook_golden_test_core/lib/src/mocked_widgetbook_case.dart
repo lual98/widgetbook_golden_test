@@ -11,8 +11,8 @@ class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 /// Builds a [WidgetbookUseCase] with mocked dependencies to be used in golden tests.
 /// The built widget is wrapped with the necessary parents to be pumped properly
 /// like a [WidgetbookScope], a [MaterialApp] and a [Scaffold].
-class MockedWidgetbookCase extends StatelessWidget {
-  MockedWidgetbookCase({
+class MockedWidgetbookCase extends StatefulWidget {
+  const MockedWidgetbookCase({
     required this.properties,
     required this.builderAddons,
     required this.useCase,
@@ -22,6 +22,12 @@ class MockedWidgetbookCase extends StatelessWidget {
   final WidgetbookGoldenTestsProperties properties;
   final List<WidgetbookAddon>? builderAddons;
   final WidgetbookUseCase useCase;
+
+  @override
+  State<MockedWidgetbookCase> createState() => MockedWidgetbookCaseState();
+}
+
+class MockedWidgetbookCaseState extends State<MockedWidgetbookCase> {
   Widget? _widgetToTest;
 
   Widget? get widgetToTest => _widgetToTest;
@@ -33,25 +39,25 @@ class MockedWidgetbookCase extends StatelessWidget {
     when(
       () => widgetbookStateMock.knobs,
     ).thenReturn(KnobsRegistry(onLock: () {}));
-    when(() => widgetbookStateMock.addons).thenReturn(properties.addons);
+    when(() => widgetbookStateMock.addons).thenReturn(widget.properties.addons);
     when(() => widgetbookStateMock.previewMode).thenReturn(true);
     return WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         // ignore: deprecated_member_use_from_same_package
-        locale: properties.locale,
+        locale: widget.properties.locale,
         // ignore: deprecated_member_use_from_same_package
-        localizationsDelegates: properties.localizationsDelegates,
+        localizationsDelegates: widget.properties.localizationsDelegates,
         // ignore: deprecated_member_use_from_same_package
-        supportedLocales: properties.supportedLocales,
-        theme: properties.theme,
+        supportedLocales: widget.properties.supportedLocales,
+        theme: widget.properties.theme,
         home: Material(
           child: MultiAddonBuilder(
             addons: mergeAddons(
-              properties.addons,
-              builderAddons,
-              properties.addonsMergeStrategy,
+              widget.properties.addons,
+              widget.builderAddons,
+              widget.properties.addonsMergeStrategy,
             ),
             builder: (context, addon, child) {
               final newSetting = addon.valueFromQueryGroup({});
@@ -59,7 +65,7 @@ class MockedWidgetbookCase extends StatelessWidget {
             },
             child: Builder(
               builder: (context) {
-                _widgetToTest = useCase.builder(context);
+                _widgetToTest = widget.useCase.builder(context);
                 return _widgetToTest!;
               },
             ),
