@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/src/widget_tester_extension.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
@@ -15,11 +14,13 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     testWidgets(useCase.name, (widgetTester) async {
       await goldenTestZoneRunner(
         testBody: () async {
-          final widgetToTest = await widgetTester.pumpWidgetbookCase(
-            properties,
-            useCase,
-            goldenTestBuilder?.addons,
+          final widget = MockedWidgetbookCase(
+            properties: properties,
+            builderAddons: goldenTestBuilder?.addons,
+            useCase: useCase,
           );
+          await widgetTester.pumpWidgetbookCase(widget, properties);
+          var widgetToTest = widget.widgetToTest!;
 
           await expectLater(
             find.byType(widgetToTest.runtimeType).first,
@@ -43,11 +44,13 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     testWidgets(useCase.name, (widgetTester) async {
       await goldenTestZoneRunner(
         testBody: () async {
-          final widgetToTest = await widgetTester.pumpWidgetbookCase(
-            properties,
-            useCase,
-            goldenTestBuilder?.addons,
+          final widget = MockedWidgetbookCase(
+            properties: properties,
+            builderAddons: goldenTestBuilder?.addons,
+            useCase: useCase,
           );
+          await widgetTester.pumpWidgetbookCase(widget, properties);
+          var widgetToTest = widget.widgetToTest!;
 
           await action.callback(widgetTester, find);
           await widgetTester.pumpAndSettle();
