@@ -36,7 +36,7 @@ void main() {
           await tester.pumpWidget(
             MaterialApp(
               home: Image.network(
-                "error",
+                WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
                 errorBuilder: (context, error, stackTrace) {
                   return Text("error loading");
                 },
@@ -46,7 +46,7 @@ void main() {
           await tester.pumpAndSettle();
           expect(find.text("error loading"), findsOneWidget);
         },
-        properties: WidgetbookGoldenTestsProperties(errorImageUrl: "error"),
+        properties: WidgetbookGoldenTestsProperties(),
       );
     });
 
@@ -56,7 +56,7 @@ void main() {
           await tester.pumpWidget(
             MaterialApp(
               home: Image.network(
-                "loading",
+                WidgetbookGoldenTestsProperties.defaultLoadingImageUrl,
                 loadingBuilder: (context, child, loadingProgress) {
                   return Text("loading");
                 },
@@ -66,7 +66,7 @@ void main() {
           await tester.pumpAndSettle();
           expect(find.text("loading"), findsOneWidget);
         },
-        properties: WidgetbookGoldenTestsProperties(loadingImageUrl: "loading"),
+        properties: WidgetbookGoldenTestsProperties(),
       );
     });
 
