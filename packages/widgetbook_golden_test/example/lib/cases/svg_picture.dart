@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
-import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Network SVG', type: SvgPicture)
 Widget buildNetworkSvgUseCase(BuildContext context) {

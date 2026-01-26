@@ -16,8 +16,6 @@ dependencies:
   intl: ^0.20.2
   widgetbook_golden_test:
     path: ../
-  widgetbook_golden_test_core:
-    path: ../../widgetbook_golden_test_core
   flutter_svg: ^2.2.1
 
 dev_dependencies:
