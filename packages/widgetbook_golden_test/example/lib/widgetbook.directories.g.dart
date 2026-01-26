@@ -43,12 +43,15 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'material',
     children: [
-      _widgetbook.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'PopupMenuButton',
-        useCase: _widgetbook.WidgetbookUseCase(
-          name: 'Menu Button',
-          builder: _example_cases_popup_menu_button.buildPopupMenuButtonUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Menu Button',
+            builder:
+                _example_cases_popup_menu_button.buildPopupMenuButtonUseCase,
+          ),
+        ],
       ),
     ],
   ),
@@ -82,19 +85,23 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'widgets',
     children: [
-      _widgetbook.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'Image',
-        useCase: _widgetbook.WidgetbookUseCase(
-          name: 'ResizeCover200x200',
-          builder: _example_cases_image_cases.buildResizeImageUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'ResizeCover200x200',
+            builder: _example_cases_image_cases.buildResizeImageUseCase,
+          ),
+        ],
       ),
-      _widgetbook.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'ListView',
-        useCase: _widgetbook.WidgetbookUseCase(
-          name: 'Long list with a button',
-          builder: _example_cases_list_view.buildListViewUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'Long list with a button',
+            builder: _example_cases_list_view.buildListViewUseCase,
+          ),
+        ],
       ),
       _widgetbook.WidgetbookComponent(
         name: 'SizedBox',
