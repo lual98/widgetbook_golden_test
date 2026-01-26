@@ -83,6 +83,46 @@ void main() {
       expect(find.byType(SvgPicture), findsOneWidget);
     });
 
+    testWidgets('mocks svg network image with error', (tester) async {
+      await goldenTestZoneRunner(
+        testBody: () async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: SvgPicture.network(
+                WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
+                errorBuilder: (context, error, stackTrace) {
+                  return Text("error loading");
+                },
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(find.text("error loading"), findsOneWidget);
+        },
+        properties: WidgetbookGoldenTestsProperties(),
+      );
+    });
+
+    testWidgets('mocks svg network image with loading', (tester) async {
+      await goldenTestZoneRunner(
+        testBody: () async {
+          await tester.pumpWidget(
+            MaterialApp(
+              home: SvgPicture.network(
+                WidgetbookGoldenTestsProperties.defaultLoadingImageUrl,
+                placeholderBuilder: (context) {
+                  return Text("loading");
+                },
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(find.text("loading"), findsOneWidget);
+        },
+        properties: WidgetbookGoldenTestsProperties(),
+      );
+    });
+
     testWidgets("calls custom onError when there is an error during the test", (
       tester,
     ) async {

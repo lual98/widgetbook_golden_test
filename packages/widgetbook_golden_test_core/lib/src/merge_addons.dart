@@ -15,10 +15,9 @@ List<WidgetbookAddon>? mergeAddons(
   }
 
   final List<WidgetbookAddon> newAddons = [];
-  final Map<Type, WidgetbookAddon> builderAddonsMap = {};
-  for (var addon in builderAddons) {
-    builderAddonsMap[addon.runtimeType] = addon;
-  }
+  final Map<Type, WidgetbookAddon> builderAddonsMap = {
+    for (var addon in builderAddons) addon.runtimeType: addon,
+  };
   if (propertiesAddons != null) {
     for (var addon in propertiesAddons) {
       if (builderAddonsMap.containsKey(addon.runtimeType)) {

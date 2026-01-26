@@ -5,7 +5,7 @@ import 'package:widgetbook_golden_test_core/src/merge_addons.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() {
-  group(mergeAddons, () {
+  group("mergeAddons", () {
     test("should merge addons with replaceAndInsertAtEnd strategy", () {
       final propertyThemeAddon = MaterialThemeAddon(
         themes: [WidgetbookTheme(name: "property", data: ThemeData())],
@@ -15,7 +15,11 @@ void main() {
       );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
-      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final viewportAddon = ViewportAddon([]);
+      final List<WidgetbookAddon> propertiesAddons = [
+        viewportAddon,
+        propertyThemeAddon,
+      ];
       final List<WidgetbookAddon> builderAddons = [
         textScaleAddon,
         builderThemeAddon,
@@ -26,11 +30,12 @@ void main() {
         builderAddons,
         AddonsMergeStrategy.replaceAndInsertAtEnd,
       );
-      expect(result, hasLength(3));
-      expect(result, isNot(contains(propertyThemeAddon)));
-      expect(result, contains(builderThemeAddon));
-      expect(result?[1], textScaleAddon);
-      expect(result?[2], gridAddon);
+      expect(result, [
+        viewportAddon,
+        builderThemeAddon,
+        textScaleAddon,
+        gridAddon,
+      ]);
     });
 
     test("should merge addons with replaceAndInsertAtBeginning strategy", () {
@@ -42,7 +47,11 @@ void main() {
       );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
-      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final viewportAddon = ViewportAddon([]);
+      final List<WidgetbookAddon> propertiesAddons = [
+        viewportAddon,
+        propertyThemeAddon,
+      ];
       final List<WidgetbookAddon> builderAddons = [
         textScaleAddon,
         builderThemeAddon,
@@ -53,11 +62,12 @@ void main() {
         builderAddons,
         AddonsMergeStrategy.replaceAndInsertAtBeginning,
       );
-      expect(result, hasLength(3));
-      expect(result, isNot(contains(propertyThemeAddon)));
-      expect(result, contains(builderThemeAddon));
-      expect(result?[0], textScaleAddon);
-      expect(result?[1], gridAddon);
+      expect(result, [
+        textScaleAddon,
+        gridAddon,
+        viewportAddon,
+        builderThemeAddon,
+      ]);
     });
 
     test("should merge addons with overrideAll strategy", () {
@@ -69,7 +79,11 @@ void main() {
       );
       final gridAddon = GridAddon();
       final textScaleAddon = TextScaleAddon();
-      final List<WidgetbookAddon> propertiesAddons = [propertyThemeAddon];
+      final viewportAddon = ViewportAddon([]);
+      final List<WidgetbookAddon> propertiesAddons = [
+        viewportAddon,
+        propertyThemeAddon,
+      ];
       final List<WidgetbookAddon> builderAddons = [
         textScaleAddon,
         builderThemeAddon,
@@ -80,7 +94,6 @@ void main() {
         builderAddons,
         AddonsMergeStrategy.overrideAll,
       );
-      expect(result, hasLength(3));
       expect(result, [textScaleAddon, builderThemeAddon, gridAddon]);
     });
   });
