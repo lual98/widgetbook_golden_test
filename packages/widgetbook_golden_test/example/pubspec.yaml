@@ -29,3 +29,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+dependency_overrides:
+  widgetbook_golden_test:
+    path: ..
+  widgetbook_golden_test_core:
+    path: ../../widgetbook_golden_test_core

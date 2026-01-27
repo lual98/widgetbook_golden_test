@@ -722,7 +722,7 @@ packages:
     source: path
     version: "0.3.0"
   widgetbook_golden_test_core:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "../../widgetbook_golden_test_core"
       relative: true
