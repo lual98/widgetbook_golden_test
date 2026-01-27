@@ -12,6 +12,7 @@ class _WidgetbookStateMock extends Mock implements WidgetbookState {}
 /// The built widget is wrapped with the necessary parents to be pumped properly
 /// like a [WidgetbookScope], a [MaterialApp] and a [Scaffold].
 class MockedWidgetbookCase extends StatefulWidget {
+  /// Creates a [MockedWidgetbookCase].
   const MockedWidgetbookCase({
     required this.properties,
     required this.builderAddons,
@@ -19,8 +20,13 @@ class MockedWidgetbookCase extends StatefulWidget {
     super.key,
   });
 
+  /// Properties for configuring the golden tests.
   final WidgetbookGoldenTestsProperties properties;
+
+  /// Optional list of addons from the [WidgetbookGoldenTestBuilder].
   final List<WidgetbookAddon>? builderAddons;
+
+  /// The Widgetbook use case to be rendered.
   final WidgetbookUseCase useCase;
 
   @override
@@ -30,6 +36,8 @@ class MockedWidgetbookCase extends StatefulWidget {
 class MockedWidgetbookCaseState extends State<MockedWidgetbookCase> {
   Widget? _widgetToTest;
 
+  /// The widget that is currently being tested.
+  /// Used by the renderer to identify the widget for taking the golden snapshot.
   Widget? get widgetToTest => _widgetToTest;
 
   @override

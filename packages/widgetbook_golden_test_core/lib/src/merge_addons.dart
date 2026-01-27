@@ -1,6 +1,7 @@
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
+/// Merges addons from [propertiesAddons] and [builderAddons] based on the specified [addonsMergeStrategy].
 List<WidgetbookAddon>? mergeAddons(
   List<WidgetbookAddon>? propertiesAddons,
   List<WidgetbookAddon>? builderAddons,
