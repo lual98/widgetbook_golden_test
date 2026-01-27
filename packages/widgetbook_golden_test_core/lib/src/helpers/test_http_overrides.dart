@@ -12,6 +12,11 @@ class _MockHttpClientResponse extends Mock implements HttpClientResponse {}
 class _MockHttpHeaders extends Mock implements HttpHeaders {}
 
 /// Creates a mocked [HttpClient] to simulate network requests.
+/// Creates a mocked [HttpClient] to simulate network requests based on [properties].
+///
+/// This client is used during golden tests to handle network image requests
+/// by resolving them using [properties.networkImageResolver] or simulating
+/// errors/loading states.
 HttpClient createHttpClient(WidgetbookGoldenTestsProperties properties) {
   final client = _MockHttpClient();
 

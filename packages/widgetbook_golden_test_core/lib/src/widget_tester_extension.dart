@@ -4,9 +4,10 @@ import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Extension to add custom functionality to [WidgetTester] required by the widgetbook golden tests.
 extension WidgetTesterExtension on WidgetTester {
-  /// Pumps the given widget.
-  /// It also precaches the images detected in the currently built widget to make sure
-  /// they are shown in the saved golden file.
+  /// Pumps the given [widget] and handles network images based on the [properties].
+  ///
+  /// This method calls [pumpWidget], [pumpAndSettle], and [precacheImages] to ensure
+  /// all images are loaded before taking a golden snapshot.
   Future<void> pumpWidgetbookCase(
     Widget widget,
     WidgetbookGoldenTestsProperties properties,
@@ -28,6 +29,13 @@ extension WidgetTesterExtension on WidgetTester {
     });
   }
 
+  /// Finds all [Image] widgets in the current tree and precaches their images.
+  ///
+  /// This ensures that images (especially network images) are fully loaded and rendered
+  /// before a golden snapshot is captured.
+  ///
+  /// [properties] are used to identify special URLs (like loading/error URLs).
+  /// [customPrecacheImage] can be provided for testing purposes.
   @visibleForTesting
   Future<void> precacheImages(
     WidgetbookGoldenTestsProperties properties, {

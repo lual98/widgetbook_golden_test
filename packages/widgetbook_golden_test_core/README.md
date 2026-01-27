@@ -1,39 +1,48 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
 # widgetbook_golden_test_core
 
-Core components for running golden tests on Widgetbook use cases.
+Core engine for generating Flutter golden tests from Widgetbook use cases.
 
-## Features
+## Overview
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+This package provides the fundamental building blocks for automating golden tests in Flutter projects that use Widgetbook. It is designed to be used as a dependency for higher-level packages like `widgetbook_golden_test`, but can also be used directly if you need a custom test runner.
 
-## Getting started
+## Key Components
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### `WidgetbookGoldenTestGenerator`
+The engine that traverses Widgetbook directory nodes and identifies use cases to be tested.
 
-## Usage
+### `MockedWidgetbookCase`
+A wrapper widget that provides a mocked environment for use cases, including:
+- `WidgetbookScope` with mocked state (knobs, query params).
+- `MaterialApp` with theme, locale, and localization support.
+- `MultiAddonBuilder` to apply and merge Widgetbook addons.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### `WidgetbookGoldenTestsProperties`
+A configuration class to define global settings for golden tests, such as:
+- Default addons.
+- Global theme and localization delegates.
+- Custom network image resolution.
+- Error handling strategies.
 
-```dart
-const like = 'sample';
-```
+### `WidgetbookGoldenTestBuilder`
+A widget used in Widgetbook use cases to provide per-case configuration:
+- `skip`: Flag to skip golden test generation.
+- `addons`: Per-case addon overrides.
+- `goldenActions`: A sequence of interactions and snapshots.
 
-## Additional information
+### `GoldenPlayAction`
+Defines an interaction (callback) and an optional finder to capture a specific snapshot during a "play" sequence.
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+### `WidgetTesterExtension`
+Adds `pumpWidgetbookCase` and `precacheImages` to `WidgetTester` to ensure images are fully loaded before capturing snapshots.
+
+## Network Image Mocking
+
+The package includes a built-in `goldenTestZoneRunner` that sets up a mocked `HttpClient`. This allows you to:
+- Provide custom image data for any URL via `networkImageResolver`.
+- Simulate loading states for specific URLs.
+- Simulate and ignore network errors.
+
+## License
+
+[MIT](LICENSE)

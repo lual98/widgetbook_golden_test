@@ -6,13 +6,18 @@ import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 class _BuildContextMock extends Mock implements BuildContext {}
 
+/// A generator that traverses [WidgetbookNode]s to create golden tests.
 class WidgetbookGoldenTestGenerator {
+  /// Creates a [WidgetbookGoldenTestGenerator].
   WidgetbookGoldenTestGenerator({
     required this.properties,
     required this.renderer,
   });
 
+  /// The properties used to configure the golden tests.
   final WidgetbookGoldenTestsProperties properties;
+
+  /// The renderer used to execute the golden tests.
   final WidgetbookGoldenRenderer renderer;
 
   /// Recursively generates golden tests for all [WidgetbookUseCase]s
@@ -49,6 +54,10 @@ class WidgetbookGoldenTestGenerator {
     }
   }
 
+  /// Creates golden tests for a single [WidgetbookUseCase].
+  ///
+  /// This method identifies if the [useCase] is wrapped in a [WidgetbookGoldenTestBuilder]
+  /// and triggers both simple and play action golden tests based on the builder's configuration.
   void createGoldenTests({
     required WidgetbookUseCase useCase,
     required String goldenPath,

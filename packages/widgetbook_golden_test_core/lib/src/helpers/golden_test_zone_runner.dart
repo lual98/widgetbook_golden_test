@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook_golden_test_core/src/helpers/test_http_overrides.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
+/// Runs the [testBody] within a zoned environment that mocks HTTP requests.
+///
+/// This is used to handle network images during golden tests by providing
+/// a mocked [HttpClient] and overriding [FlutterError.onError] to ignore
+/// specific image loading exceptions.
 Future<void> goldenTestZoneRunner({
   required Future<void> Function() testBody,
   required WidgetbookGoldenTestsProperties properties,
@@ -50,6 +55,10 @@ Future<void> goldenTestZoneRunner({
   }
 }
 
+/// Handles errors occurring during golden tests.
+///
+/// It ignores [IgnoreNetworkImageException] and forwards other errors to
+/// [properties.onTestError] if provided, or the [previousOnError] handler.
 @visibleForTesting
 void handleError(
   FlutterErrorDetails details,
