@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
+import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Long list with a button', type: ListView)
 Widget buildListViewUseCase(BuildContext context) {

@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 typedef NetworkImageResolver = List<int> Function(Uri uri);
 
@@ -59,7 +61,7 @@ class WidgetbookGoldenTestsProperties {
   onTestError;
 
   /// Custom function that resolves images from URIs for the Widgetbook golden tests.
-  final NetworkImageResolver? networkImageResolver;
+  final NetworkImageResolver networkImageResolver;
 
   /// Creates a set of properties to configure Widgetbook golden tests.
   ///
@@ -86,7 +88,7 @@ class WidgetbookGoldenTestsProperties {
   ///   testGroupName: 'Custom Golden Tests',
   /// );
   /// ```
-  const WidgetbookGoldenTestsProperties({
+  WidgetbookGoldenTestsProperties({
     this.addons,
     this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtBeginning,
     this.theme,
@@ -102,8 +104,8 @@ class WidgetbookGoldenTestsProperties {
     this.loadingImageUrl = defaultLoadingImageUrl,
     this.testGroupName = "Widgetbook golden tests",
     this.onTestError,
-    this.networkImageResolver,
-  });
+    NetworkImageResolver? networkImageResolver,
+  }) : networkImageResolver = networkImageResolver ?? _defaultImageResolver;
 
   /// Creates a copy of this object with the specified fields overridden.
   WidgetbookGoldenTestsProperties copyWith({
@@ -141,3 +143,18 @@ class WidgetbookGoldenTestsProperties {
     );
   }
 }
+
+NetworkImageResolver _defaultImageResolver = (uri) {
+  final extension = uri.path.split('.').last;
+  return _mockedResponses[extension] ?? _transparentPixelPng;
+};
+
+final _mockedResponses = <String, List<int>>{
+  'png': _transparentPixelPng,
+  'svg': _emptySvg,
+};
+
+final _emptySvg = '<svg viewBox="0 0 10 10" />'.codeUnits;
+final _transparentPixelPng = base64Decode(
+  '''iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==''',
+);

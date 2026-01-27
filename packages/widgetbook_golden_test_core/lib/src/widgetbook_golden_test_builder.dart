@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test/src/golden_play_action.dart';
+import 'package:widgetbook_golden_test_core/src/golden_play_action.dart';
 
 /// Enum to define the strategy to merge addons from the builder and the properties.
 enum AddonsMergeStrategy {
