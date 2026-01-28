@@ -9,9 +9,9 @@ import 'package:widgetbook_samples/main.directories.g.dart';
 
 void main() async {
   // Pre-load assets
-  var androidSvg = await File("./test/assets/android.svg").readAsBytes();
+  var androidSvg = await File("../../assets/android.svg").readAsBytes();
   var sampleJpg = await File(
-    "./test/assets/lorem_picsum_sample.jpg",
+    "../../assets/lorem_picsum_sample.jpg",
   ).readAsBytes();
   runWidgetbookGoldenTests(
     nodes: directories,

@@ -4,10 +4,11 @@ environment:
   sdk: ^3.9.0
 
 workspace:
+  - apps/widgetbook_samples
   - packages/widgetbook_golden_test
   - packages/widgetbook_golden_test/example
+  - packages/widgetbook_golden_test_alchemist
   - packages/widgetbook_golden_test_core
-  - apps/widgetbook_samples
 dev_dependencies:
   melos: ^7.3.0
 
