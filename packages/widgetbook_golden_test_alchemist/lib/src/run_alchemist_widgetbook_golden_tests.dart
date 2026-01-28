@@ -1,5 +1,5 @@
 import 'package:widgetbook/widgetbook.dart';
-import 'package:widgetbook_golden_test_alchemist/src/widgetbook_golden_flutter_test_renderer.dart';
+import 'package:widgetbook_golden_test_alchemist/src/widgetbook_golden_alchemist_renderer.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
