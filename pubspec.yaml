@@ -5,19 +5,21 @@ environment:
 
 workspace:
   - packages/widgetbook_golden_test
+  - packages/widgetbook_golden_test/example
   - packages/widgetbook_golden_test_core
+  - apps/widgetbook_samples
 dev_dependencies:
   melos: ^7.3.0
 
 melos:
   scripts:
     analyze:
-      run: fvm flutter analyze
+      run: melos exec --no-private fvm flutter analyze
     test:
-      run: melos exec -- fvm flutter test
+      run: melos exec --no-private fvm flutter test
     test-coverage:
-      run: melos exec -- fvm flutter test --coverage
+      run: melos exec --no-private fvm flutter test --coverage
     update-goldens:
-      run: melos exec -- fvm flutter test --update-goldens
+      run: melos exec --no-private fvm flutter test --update-goldens
     ensure-format:
-      run: melos exec -- fvm dart format . -o none --set-exit-if-changed
+      run: melos exec --no-private fvm dart format . -o none --set-exit-if-changed
