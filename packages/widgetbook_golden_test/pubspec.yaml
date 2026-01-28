@@ -16,7 +16,6 @@ dependencies:
   widgetbook: ^3.20.2
   flutter_test:
     sdk: flutter
-  mocktail: ^1.0.4
   widgetbook_golden_test_core: 0.0.1
 
 dev_dependencies:
