@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:example/cases/text_cases.dart';
-import 'package:example/l10n/app_localizations.dart';
-import 'package:example/widgetbook.directories.g.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
+import 'package:widgetbook_samples/cases/text_cases.dart';
+import 'package:widgetbook_samples/l10n/app_localizations.dart';
+import 'package:widgetbook_samples/main.directories.g.dart';
 
 void main() async {
   // Pre-load assets

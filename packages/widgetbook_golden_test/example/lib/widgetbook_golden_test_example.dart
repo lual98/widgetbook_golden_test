@@ -1,4 +1,4 @@
-import 'package:example/widgetbook.directories.g.dart';
+import 'package:widgetbook_samples/main.directories.g.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
