@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
@@ -15,28 +16,19 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     required bool skip,
     WidgetbookGoldenTestBuilder? goldenTestBuilder,
   }) {
-    testWidgets(useCase.name, (widgetTester) async {
-      await goldenTestZoneRunner(
-        testBody: () async {
-          final widget = MockedWidgetbookCase(
-            properties: properties,
-            builderAddons: goldenTestBuilder?.addons,
-            useCase: useCase,
-          );
-          await widgetTester.pumpWidgetbookCase(widget, properties);
-          final state = widgetTester.state<MockedWidgetbookCaseState>(
-            find.byType(MockedWidgetbookCase),
-          );
-          var widgetToTest = state.widgetToTest!;
-
-          await expectLater(
-            find.byType(widgetToTest.runtimeType).first,
-            matchesGoldenFile("$goldenPath/${useCase.name}.png"),
-          );
-        },
-        properties: properties,
-      );
-    }, skip: skip);
+    _runTest(
+      testName: useCase.name,
+      useCase: useCase,
+      properties: properties,
+      skip: skip,
+      goldenTestBuilder: goldenTestBuilder,
+      testBody: (widgetTester, widgetToTest) async {
+        await expectLater(
+          find.byType(widgetToTest.runtimeType).first,
+          matchesGoldenFile("$goldenPath/${useCase.name}.png"),
+        );
+      },
+    );
   }
 
   @override
@@ -48,13 +40,43 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     required bool skip,
     WidgetbookGoldenTestBuilder? goldenTestBuilder,
   }) {
-    testWidgets(useCase.name, (widgetTester) async {
+    _runTest(
+      testName: "${useCase.name} - ${action.name}",
+      useCase: useCase,
+      properties: properties,
+      skip: skip,
+      goldenTestBuilder: goldenTestBuilder,
+      testBody: (widgetTester, widgetToTest) async {
+        await action.callback(widgetTester, find);
+        await widgetTester.pumpAndSettle();
+        Finder goldenFinder = action.goldenFinder == null
+            ? find.byType(widgetToTest.runtimeType).first
+            : action.goldenFinder!.call(find);
+        await expectLater(
+          goldenFinder,
+          matchesGoldenFile("$goldenPath/${useCase.name} - ${action.name}.png"),
+        );
+      },
+    );
+  }
+
+  void _runTest({
+    required String testName,
+    required WidgetbookUseCase useCase,
+    required WidgetbookGoldenTestsProperties properties,
+    required bool skip,
+    required WidgetbookGoldenTestBuilder? goldenTestBuilder,
+    required Future<void> Function(WidgetTester tester, Widget widgetToTest)
+    testBody,
+  }) {
+    testWidgets(testName, (widgetTester) async {
       await goldenTestZoneRunner(
         testBody: () async {
           final widget = MockedWidgetbookCase(
             properties: properties,
             builderAddons: goldenTestBuilder?.addons,
             useCase: useCase,
+            constraints: goldenTestBuilder?.constraints,
           );
           await widgetTester.pumpWidgetbookCase(widget, properties);
           final state = widgetTester.state<MockedWidgetbookCaseState>(
@@ -62,17 +84,7 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
           );
           var widgetToTest = state.widgetToTest!;
 
-          await action.callback(widgetTester, find);
-          await widgetTester.pumpAndSettle();
-          Finder goldenFinder = action.goldenFinder == null
-              ? find.byType(widgetToTest.runtimeType).first
-              : action.goldenFinder!.call(find);
-          await expectLater(
-            goldenFinder,
-            matchesGoldenFile(
-              "$goldenPath/${useCase.name} - ${action.name}.png",
-            ),
-          );
+          await testBody(widgetTester, widgetToTest);
         },
         properties: properties,
       );

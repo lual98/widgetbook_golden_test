@@ -1,4 +1,5 @@
 import 'package:alchemist/alchemist.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
@@ -30,11 +31,13 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       },
       builder: () {
         return GoldenTestScenario(
+          constraints: goldenTestBuilder?.constraints ?? const BoxConstraints(),
           name: useCase.name,
           child: MockedWidgetbookCase(
             properties: properties,
             builderAddons: goldenTestBuilder?.addons,
             useCase: useCase,
+            includeScaffold: false,
           ),
         );
       },
@@ -51,7 +54,7 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
     WidgetbookGoldenTestBuilder? goldenTestBuilder,
   }) {
     goldenTest(
-      useCase.name,
+      "${useCase.name} - ${action.name}",
       fileName: "$goldenPath/${useCase.name} - ${action.name}",
       skip: skip,
       pumpWidget: (tester, widget) async {
@@ -66,11 +69,13 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       },
       builder: () {
         return GoldenTestScenario(
+          constraints: goldenTestBuilder?.constraints ?? const BoxConstraints(),
           name: useCase.name,
           child: MockedWidgetbookCase(
             properties: properties,
             builderAddons: goldenTestBuilder?.addons,
             useCase: useCase,
+            includeScaffold: false,
           ),
         );
       },

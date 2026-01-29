@@ -11,6 +11,8 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
   alchemist: ^0.13.0
   widgetbook: ^3.20.2
   widgetbook_golden_test_core: 0.0.1
@@ -18,8 +20,6 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  flutter:
-    sdk: flutter
   flutter_lints: ^5.0.0
   widgetbook_samples: any
 

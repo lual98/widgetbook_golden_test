@@ -35,6 +35,9 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   @Deprecated('Use builder instead')
   final Widget? child;
 
+  /// Optional constraints to be applied to the widget to be tested.
+  final BoxConstraints? constraints;
+
   /// Optional list of actions to perform during golden tests.
   final List<GoldenPlayAction>? goldenActions;
 
@@ -43,14 +46,20 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
 
   /// Creates a [WidgetbookGoldenTestBuilder].
   ///
+  /// [addons] is an optional list of widgetbook addons to be applied to the golden snapshots by using their default values.
+  /// [addonsMergeStrategy] is the strategy to merge addons from the builder and the properties.
+  /// [builder] is the builder function to be used to build the widget to be tested.
   /// [child] is required and represents the widget under test.
+  /// [constraints] is an optional BoxConstraints to be applied to the widget to be tested.
   /// [goldenActions] is an optional list of actions to execute during the test.
+  /// [skip] is an optional flag to skip the golden test.
   const WidgetbookGoldenTestBuilder({
     super.key,
     this.addons,
     this.addonsMergeStrategy = AddonsMergeStrategy.replaceAndInsertAtBeginning,
     this.builder,
     @Deprecated('Use builder instead') this.child,
+    this.constraints,
     this.goldenActions,
     this.skip = false,
   }) : assert(
@@ -61,6 +70,8 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use_from_same_package
-    return builder?.call(context) ?? child!;
+    final child = builder?.call(context) ?? this.child!;
+
+    return child;
   }
 }

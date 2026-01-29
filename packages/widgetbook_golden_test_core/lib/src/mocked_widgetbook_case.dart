@@ -17,6 +17,8 @@ class MockedWidgetbookCase extends StatefulWidget {
     required this.properties,
     required this.builderAddons,
     required this.useCase,
+    this.constraints,
+    this.includeScaffold = true,
     super.key,
   });
 
@@ -26,8 +28,14 @@ class MockedWidgetbookCase extends StatefulWidget {
   /// Optional list of addons from the [WidgetbookGoldenTestBuilder].
   final List<WidgetbookAddon>? builderAddons;
 
+  /// Whether to include a [Scaffold] in the widget tree.
+  final bool includeScaffold;
+
   /// The Widgetbook use case to be rendered.
   final WidgetbookUseCase useCase;
+
+  /// Optional constraints to be applied to the widget.
+  final BoxConstraints? constraints;
 
   @override
   State<MockedWidgetbookCase> createState() => MockedWidgetbookCaseState();
@@ -49,6 +57,26 @@ class MockedWidgetbookCaseState extends State<MockedWidgetbookCase> {
     ).thenReturn(KnobsRegistry(onLock: () {}));
     when(() => widgetbookStateMock.addons).thenReturn(widget.properties.addons);
     when(() => widgetbookStateMock.previewMode).thenReturn(true);
+    final multiAddonBuilder = MultiAddonBuilder(
+      addons: mergeAddons(
+        widget.properties.addons,
+        widget.builderAddons,
+        widget.properties.addonsMergeStrategy,
+      ),
+      builder: (context, addon, child) {
+        final newSetting = addon.valueFromQueryGroup({});
+        return addon.buildUseCase(context, child, newSetting);
+      },
+      child: ConstrainedBox(
+        constraints: widget.constraints ?? const BoxConstraints(),
+        child: Builder(
+          builder: (context) {
+            _widgetToTest = widget.useCase.builder(context);
+            return _widgetToTest!;
+          },
+        ),
+      ),
+    );
     return WidgetbookScope(
       state: widgetbookStateMock,
       child: MaterialApp(
@@ -60,25 +88,9 @@ class MockedWidgetbookCaseState extends State<MockedWidgetbookCase> {
         // ignore: deprecated_member_use_from_same_package
         supportedLocales: widget.properties.supportedLocales,
         theme: widget.properties.theme,
-        home: Material(
-          child: MultiAddonBuilder(
-            addons: mergeAddons(
-              widget.properties.addons,
-              widget.builderAddons,
-              widget.properties.addonsMergeStrategy,
-            ),
-            builder: (context, addon, child) {
-              final newSetting = addon.valueFromQueryGroup({});
-              return addon.buildUseCase(context, child, newSetting);
-            },
-            child: Builder(
-              builder: (context) {
-                _widgetToTest = widget.useCase.builder(context);
-                return _widgetToTest!;
-              },
-            ),
-          ),
-        ),
+        home: widget.includeScaffold
+            ? Scaffold(body: multiAddonBuilder)
+            : Material(child: multiAddonBuilder),
       ),
     );
   }
