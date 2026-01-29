@@ -17,10 +17,10 @@ melos:
     analyze:
       run: melos exec --no-private fvm flutter analyze
     test:
-      run: melos exec --no-private fvm flutter test
+      run: melos exec --no-private fvm flutter test --dart-define=CI=$CI
     test-coverage:
-      run: melos exec --no-private fvm flutter test --coverage
+      run: melos exec --no-private fvm flutter test --coverage --dart-define=CI=$CI
     update-goldens:
-      run: melos exec --no-private fvm flutter test --update-goldens
+      run: melos exec --no-private fvm flutter test --update-goldens --dart-define=CI=$CI
     ensure-format:
       run: melos exec --no-private fvm dart format . -o none --set-exit-if-changed
