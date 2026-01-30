@@ -34,6 +34,16 @@ jobs:
         env:
           CI: true
 
+      - name: Upload Golden Failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: |
+            packages/widgetbook_golden_test_alchemist/test/integration/failures
+            packages/widgetbook_golden_test/test/integration/failures
+          if-no-files-found: ignore
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:

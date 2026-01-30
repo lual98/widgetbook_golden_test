@@ -1,6 +1,7 @@
 ## Unreleased
 - Split into widgetbook_golden_test and widgetbook_golden_test_core.
 - Bumped minimal widgetbook version required to 3.20.2.
+- Add `constraints` property to `WidgetbookGoldenTestBuilder`.
 
 ### Breaking changes
 - Deleted 'create_golden_test.dart' file. Its functionality has been moved to `WidgetbookGoldenFlutterTestRenderer`, `WidgetbookGoldenTestGenerator` and `goldenTestZoneRunner`.
