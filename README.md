@@ -10,6 +10,7 @@ This repository uses a workspace-based monorepo structure:
 | --- | --- |
 | [`widgetbook_golden_test`](packages/widgetbook_golden_test) | The main package for end-users. Provides easy-to-use functions for running golden tests. |
 | [`widgetbook_golden_test_core`](packages/widgetbook_golden_test_core) | The core engine used by `widgetbook_golden_test`. Contains the rendering and mocking logic. |
+| [`widgetbook_golden_test_alchemist`](packages/widgetbook_golden_test_alchemist) | The Alchemist package for end-users. Provides easy-to-use functions for running golden tests. |
 
 ## Getting Started
 
