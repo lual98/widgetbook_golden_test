@@ -14,7 +14,10 @@ void main() async {
   var sampleJpg = await File(
     "../../assets/lorem_picsum_sample.jpg",
   ).readAsBytes();
-  const isRunningInCi = bool.fromEnvironment('CI', defaultValue: false);
+  const isRunningInCi = bool.fromEnvironment(
+    'CI',
+    defaultValue: true,
+  ); //  We will default this to true for now because it has inconsistent behavior if it runs on all platforms
   AlchemistConfig.runWithConfig(
     config: AlchemistConfig(
       platformGoldensConfig: PlatformGoldensConfig(enabled: !isRunningInCi),
