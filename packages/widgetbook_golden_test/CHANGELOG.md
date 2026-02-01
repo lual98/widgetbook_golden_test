@@ -2,6 +2,9 @@
 ### Added
 - Add `constraints` property to `WidgetbookGoldenTestBuilder`.
 
+### Fixed
+- Include Scaffold in the widget tree for golden tests.
+
 ### Updated
 - Bumped minimal widgetbook version required to 3.20.2.
 

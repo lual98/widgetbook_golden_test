@@ -1,4 +1,5 @@
 # Widgetbook Golden Test
+[![codecov](https://codecov.io/github/lual98/widgetbook_golden_test/graph/badge.svg?token=UK9N7GQJ7H)](https://codecov.io/github/lual98/widgetbook_golden_test)
 
 A monorepo containing tools to automatically generate Flutter golden tests from [Widgetbook](https://widgetbook.io) use cases.
 

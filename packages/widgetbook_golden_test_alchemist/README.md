@@ -1,7 +1,7 @@
 # widgetbook_golden_test_alchemist
-<!--
-[![Pub](https://img.shields.io/pub/v/widgetbook_golden_test_alchemist.svg)](https://pub.dev/packages/widgetbook_golden_test_alchemist)
--->
+[![Pub](https://img.shields.io/pub/v/widgetbook_golden_test_alchemist.svg)](https://pub.dev/packages/widgetbook_golden_test_alchemist )
+[![codecov](https://codecov.io/github/lual98/widgetbook_golden_test/graph/badge.svg?token=UK9N7GQJ7H)](https://app.codecov.io/github/lual98/widgetbook_golden_test/tree/main/packages%2Fwidgetbook_golden_test_alchemist%2Flib%2Fsrc)
+
 
 Automatically generate Flutter golden tests from Widgetbook use cases using [Alchemist](https://pub.dev/packages/alchemist).
 
