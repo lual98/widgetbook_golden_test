@@ -70,8 +70,6 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use_from_same_package
-    final child = builder?.call(context) ?? this.child!;
-
-    return child;
+    return builder?.call(context) ?? child!;
   }
 }
