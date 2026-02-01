@@ -13,20 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Get Flutter version from .fvmrc
+        id: fvm-version
+        run: echo "version=$(grep '"flutter":' .fvmrc | cut -d '"' -f 4)" >> $GITHUB_OUTPUT
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
-
-      - name: Set up FVM
-        run: |
-          dart pub global activate fvm
-
-      - name: Install Flutter version via FVM
-        run: fvm install
+          flutter-version: ${{ steps.fvm-version.outputs.version }}
 
       - name: Install dependencies
-        run: fvm flutter pub get
+        run: flutter pub get
 
       - name: Set up melos
         run: |
@@ -34,6 +31,18 @@ jobs:
 
       - name: Run tests with coverage
         run: melos test-coverage
+        env:
+          CI: true
+
+      - name: Upload Golden Failures
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-failures
+          path: |
+            packages/widgetbook_golden_test_alchemist/test/integration/failures
+            packages/widgetbook_golden_test/test/integration/failures
+          if-no-files-found: ignore
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

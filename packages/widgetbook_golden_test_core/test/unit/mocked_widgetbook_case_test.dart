@@ -25,6 +25,41 @@ void main() {
       // Verify basic structure
       expect(find.byType(WidgetbookScope), findsOneWidget);
       expect(find.byType(MaterialApp), findsOneWidget);
+      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Material), findsOneWidget);
+      expect(find.byKey(widgetKey), findsOneWidget);
+
+      // Verify state access
+      final state = tester.state<MockedWidgetbookCaseState>(
+        find.byType(MockedWidgetbookCase),
+      );
+      expect(state.widgetToTest, isNotNull);
+      expect(state.widgetToTest, isA<SizedBox>());
+    });
+
+    testWidgets('does not include Scaffold when includeScaffold is false', (
+      tester,
+    ) async {
+      const widgetKey = Key('target-widget');
+      final useCase = WidgetbookUseCase(
+        name: 'Default',
+        builder: (context) => const SizedBox(key: widgetKey),
+      );
+
+      final properties = WidgetbookGoldenTestsProperties(addons: []);
+
+      await tester.pumpWidget(
+        MockedWidgetbookCase(
+          properties: properties,
+          builderAddons: null,
+          useCase: useCase,
+          includeScaffold: false,
+        ),
+      );
+
+      // Verify basic structure
+      expect(find.byType(WidgetbookScope), findsOneWidget);
+      expect(find.byType(MaterialApp), findsOneWidget);
       expect(find.byType(Scaffold), findsNothing);
       expect(find.byType(Material), findsOneWidget);
       expect(find.byKey(widgetKey), findsOneWidget);

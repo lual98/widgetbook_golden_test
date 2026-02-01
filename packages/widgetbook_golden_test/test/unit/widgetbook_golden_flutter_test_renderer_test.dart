@@ -6,6 +6,7 @@ import 'package:widgetbook_golden_test/src/widgetbook_golden_flutter_test_render
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() {
+  // TODO: REWORK THE TESTS OF THIS FILE
   group(WidgetbookGoldenFlutterTestRenderer, () {
     group("calls custom onError when there is an error during the test", () {
       var properties = WidgetbookGoldenTestsProperties(

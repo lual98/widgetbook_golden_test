@@ -13,24 +13,21 @@ jobs:
     - name: Clone repository
       uses: actions/checkout@v4
 
+    - name: Get Flutter version from .fvmrc
+      id: fvm-version
+      run: echo "version=$(grep '"flutter":' .fvmrc | cut -d '"' -f 4)" >> $GITHUB_OUTPUT
+
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
-        channel: stable
-
-    - name: Set up FVM
-      run: |
-        dart pub global activate fvm
+        flutter-version: ${{ steps.fvm-version.outputs.version }}
 
     - name: Set up melos
       run: |
         dart pub global activate melos
 
-    - name: Install Flutter version via FVM
-      run: fvm install
-
     - name: Install dependencies
-      run: fvm flutter pub get
+      run: flutter pub get
 
     - name: Ensure that files are formatted
       run: melos ensure-format

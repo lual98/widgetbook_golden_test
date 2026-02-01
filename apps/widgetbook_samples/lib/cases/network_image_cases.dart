@@ -4,18 +4,21 @@ import 'package:widgetbook_golden_test/widgetbook_golden_test.dart';
 
 @widgetbook.UseCase(name: 'Default', type: NetworkImage)
 Widget buildImageNetworkUseCase(BuildContext context) {
-  return Container(
-    color: Colors.green,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        "https://placehold.co/320x240.png",
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.cover,
-        loadingBuilder: (_, child, loadingProgress) {
-          return loadingProgress == null ? child : Text("Loading...");
-        },
+  return WidgetbookGoldenTestBuilder(
+    constraints: const BoxConstraints(maxWidth: 320, maxHeight: 240),
+    builder: (context) => Container(
+      color: Colors.green,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.network(
+          "https://placehold.co/320x240.png",
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+          loadingBuilder: (_, child, loadingProgress) {
+            return loadingProgress == null ? child : Text("Loading...");
+          },
+        ),
       ),
     ),
   );
@@ -23,24 +26,27 @@ Widget buildImageNetworkUseCase(BuildContext context) {
 
 @widgetbook.UseCase(name: 'Error', type: NetworkImage)
 Widget buildImageNetworkErrorUseCase(BuildContext context) {
-  return Container(
-    color: Colors.green,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Image.network(
-        WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
-        fit: BoxFit.cover,
-        loadingBuilder: (_, child, loadingProgress) {
-          return loadingProgress == null ? child : Text("Loading...");
-        },
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(
-            child: Text(
-              'Error loading image',
-              style: TextStyle(color: Colors.red),
-            ),
-          );
-        },
+  return WidgetbookGoldenTestBuilder(
+    constraints: const BoxConstraints(maxWidth: 320, maxHeight: 240),
+    builder: (context) => Container(
+      color: Colors.green,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.network(
+          WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
+          fit: BoxFit.cover,
+          loadingBuilder: (_, child, loadingProgress) {
+            return loadingProgress == null ? child : Text("Loading...");
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return const Center(
+              child: Text(
+                'Error loading image',
+                style: TextStyle(color: Colors.red),
+              ),
+            );
+          },
+        ),
       ),
     ),
   );
