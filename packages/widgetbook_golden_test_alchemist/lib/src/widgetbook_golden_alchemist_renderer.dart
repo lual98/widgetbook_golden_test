@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
-/// A renderer that uses `flutter_test` to execute golden tests.
+/// A renderer that uses `alchemist` to execute golden tests.
 ///
-/// This implementation uses [testWidgets] to run each test case and
-/// [expectLater] with [matchesGoldenFile] to verify the visual output.
+/// This implementation uses [goldenTest] to run each test case with
+/// [GoldenTestScenario] to verify the visual output.
 class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
   @override
   void renderSimpleGoldenTest({

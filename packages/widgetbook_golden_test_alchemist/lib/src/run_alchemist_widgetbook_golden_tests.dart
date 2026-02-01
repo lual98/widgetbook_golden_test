@@ -3,7 +3,7 @@ import 'package:widgetbook_golden_test_alchemist/src/widgetbook_golden_alchemist
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 /// Recursively generates golden tests for all [WidgetbookUseCase]s
-/// inside the provided [nodes] using Alchemist.
+/// inside the provided [nodes] using `alchemist`.
 ///
 /// Use this function in your test files to automate visual regression testing
 /// based on your Widgetbook configuration.
