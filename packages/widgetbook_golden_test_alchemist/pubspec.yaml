@@ -1,5 +1,5 @@
 name: widgetbook_golden_test_alchemist
-description: "A new Flutter package project."
+description: "Utility for running golden tests on Widgetbook use cases using Alchemist."
 version: 0.4.0
 repository: https://github.com/lual98/widgetbook_golden_test
 homepage: https://github.com/lual98/widgetbook_golden_test/tree/main/packages/widgetbook_golden_test_alchemist
