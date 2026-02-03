@@ -56,6 +56,10 @@ flutter test <path-to-test-file> --update-goldens
 4. **Execution:** Each use case is pumped into a `MockedWidgetbookCase` which provides the necessary `WidgetbookScope` and theme context.
 5. **Verification:** The `WidgetbookGoldenAlchemistRenderer` uses Alchemist's `goldenTest` to perform the visual comparison.
 
+## Limitations
+- Argument `goldenFinder` in `GoldenPlayAction` is not supported yet.
+- Running non CI tests may affect CI golden tests. This is still under investigation.
+
 ## License
 
 [MIT](LICENSE)

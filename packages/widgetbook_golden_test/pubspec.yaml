@@ -1,6 +1,6 @@
 name: widgetbook_golden_test
 description: "Utility for running golden tests on Widgetbook use cases."
-version: 0.3.0
+version: 0.4.0
 repository: https://github.com/lual98/widgetbook_golden_test
 homepage: https://github.com/lual98/widgetbook_golden_test/tree/main/packages/widgetbook_golden_test
 topics: [test, widgetbook, golden-test]
@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   widgetbook: ^3.20.2
-  widgetbook_golden_test_core: 0.0.1
+  widgetbook_golden_test_core: ^0.4.0
   flutter_test:
     sdk: flutter
 

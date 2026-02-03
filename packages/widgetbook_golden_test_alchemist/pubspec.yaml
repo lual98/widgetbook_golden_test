@@ -1,6 +1,6 @@
 name: widgetbook_golden_test_alchemist
-description: "A new Flutter package project."
-version: 0.0.1
+description: "Utility for running golden tests on Widgetbook use cases using Alchemist."
+version: 0.4.0
 repository: https://github.com/lual98/widgetbook_golden_test
 homepage: https://github.com/lual98/widgetbook_golden_test/tree/main/packages/widgetbook_golden_test_alchemist
 topics: [test, widgetbook, golden-test, alchemist]
@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   alchemist: ^0.13.0
   widgetbook: ^3.20.2
-  widgetbook_golden_test_core: 0.0.1
+  widgetbook_golden_test_core: ^0.4.0  
   flutter_test:
     sdk: flutter
 

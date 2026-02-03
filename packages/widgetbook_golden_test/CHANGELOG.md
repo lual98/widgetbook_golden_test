@@ -1,4 +1,4 @@
-## Unreleased
+## 0.4.0
 ### Added
 - Add `constraints` property to `WidgetbookGoldenTestBuilder`.
 
