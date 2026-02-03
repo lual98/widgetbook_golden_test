@@ -12,29 +12,11 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
     permissions:
       id-token: write # Required for authentication using OIDC
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Get Flutter version from .fvmrc
-        id: fvm-version
-        run: echo "version=$(grep '"flutter":' .fvmrc | cut -d '"' -f 4)" >> $GITHUB_OUTPUT
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ steps.fvm-version.outputs.version }}
-
-      - name: Set up melos
-        run: dart pub global activate melos
-
-      - name: Bootstrap
-        run: melos bootstrap
-
-      - name: Publish to pub.dev
-        run: melos publish --no-dry-run --yes
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      working-directory: packages/widgetbook_golden_test
 
   github_release:
     runs-on: ubuntu-latest
@@ -42,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Extract latest changelog sections
+      - name: Extract latest changelog section
         run: |
           chmod +x .github/scripts/extract_latest_changelog.sh
           .github/scripts/extract_latest_changelog.sh
