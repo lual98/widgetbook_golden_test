@@ -97,4 +97,40 @@ void main() {
     expect(copied.loadingImageUrl, "custom-loading-image");
     expect(copied.testGroupName, "Custom golden tests");
   });
+
+  group("precacheImagesTimeout", () {
+    test("defaults to 10 seconds", () {
+      final properties = WidgetbookGoldenTestsProperties();
+
+      expect(properties.precacheImagesTimeout, const Duration(seconds: 10));
+    });
+
+    test("can be set with a custom duration", () {
+      final properties = WidgetbookGoldenTestsProperties(
+        precacheImagesTimeout: const Duration(milliseconds: 500),
+      );
+
+      expect(properties.precacheImagesTimeout, const Duration(milliseconds: 500));
+    });
+
+    test("copyWith preserves precacheImagesTimeout when not overridden", () {
+      final original = WidgetbookGoldenTestsProperties(
+        precacheImagesTimeout: const Duration(seconds: 30),
+      );
+      final copied = original.copyWith(testGroupName: "New name");
+
+      expect(copied.precacheImagesTimeout, const Duration(seconds: 30));
+    });
+
+    test("copyWith updates precacheImagesTimeout when provided", () {
+      final original = WidgetbookGoldenTestsProperties(
+        precacheImagesTimeout: const Duration(seconds: 10),
+      );
+      final copied = original.copyWith(
+        precacheImagesTimeout: const Duration(minutes: 1),
+      );
+
+      expect(copied.precacheImagesTimeout, const Duration(minutes: 1));
+    });
+  });
 }

@@ -49,6 +49,9 @@ class WidgetbookGoldenTestsProperties {
   /// URL of the image to display while a network request is in progress.
   final String loadingImageUrl;
 
+  /// Duration to wait for precaching images. Default value is 10 seconds.
+  final Duration precacheImagesTimeout;
+
   /// Name of the group of tests being run.
   final String testGroupName;
 
@@ -76,6 +79,7 @@ class WidgetbookGoldenTestsProperties {
   /// * [skipTag] – Tag used to skip tests when present (defaults to `"[skip-golden]"`).
   /// * [errorImageUrl] – Placeholder URL for failed network images (defaults to `'error-network-image'`).
   /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
+  /// * [precacheImagesTimeout] – Duration to wait for precaching images (defaults to `10 seconds`).
   /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
   /// * [onTestError] - Function to be called when there is an error during the golden tests.
   /// * [networkImageResolver] - Custom function that resolves images from a given URI.
@@ -102,6 +106,7 @@ class WidgetbookGoldenTestsProperties {
     this.skipTag = defaultSkipTag,
     this.errorImageUrl = defaultErrorImageUrl,
     this.loadingImageUrl = defaultLoadingImageUrl,
+    this.precacheImagesTimeout = const Duration(seconds: 10),
     this.testGroupName = "Widgetbook golden tests",
     this.onTestError,
     NetworkImageResolver? networkImageResolver,
@@ -117,6 +122,7 @@ class WidgetbookGoldenTestsProperties {
     String? skipTag,
     String? errorImageUrl,
     String? loadingImageUrl,
+    Duration? precacheImagesTimeout,
     String? testGroupName,
     Function(FlutterErrorDetails, Function(FlutterErrorDetails)?)? onTestError,
     NetworkImageResolver? networkImageResolver,
@@ -137,6 +143,8 @@ class WidgetbookGoldenTestsProperties {
       skipTag: skipTag ?? this.skipTag,
       errorImageUrl: errorImageUrl ?? this.errorImageUrl,
       loadingImageUrl: loadingImageUrl ?? this.loadingImageUrl,
+      precacheImagesTimeout:
+          precacheImagesTimeout ?? this.precacheImagesTimeout,
       testGroupName: testGroupName ?? this.testGroupName,
       onTestError: onTestError ?? this.onTestError,
       networkImageResolver: networkImageResolver ?? this.networkImageResolver,
