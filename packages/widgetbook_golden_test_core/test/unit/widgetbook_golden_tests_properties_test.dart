@@ -110,7 +110,10 @@ void main() {
         precacheImagesTimeout: const Duration(milliseconds: 500),
       );
 
-      expect(properties.precacheImagesTimeout, const Duration(milliseconds: 500));
+      expect(
+        properties.precacheImagesTimeout,
+        const Duration(milliseconds: 500),
+      );
     });
 
     test("copyWith preserves precacheImagesTimeout when not overridden", () {

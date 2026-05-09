@@ -8,18 +8,16 @@ Widget buildPopupMenuButtonUseCase(BuildContext context) {
     goldenActions: [
       GoldenPlayAction(
         name: "clicked",
-        callback:
-            (tester, find) async => tester.tap(find.byType(PopupMenuButton)),
+        callback: (tester, find) async =>
+            tester.tap(find.byType(PopupMenuButton)),
         goldenFinder: (find) => find.byType(MaterialApp).first,
       ),
     ],
-    builder:
-        (context) => PopupMenuButton(
-          itemBuilder:
-              (context) => [
-                PopupMenuItem(child: Text("First option")),
-                PopupMenuItem(child: Icon(Icons.share)),
-              ],
-        ),
+    builder: (context) => PopupMenuButton(
+      itemBuilder: (context) => [
+        PopupMenuItem(child: Text("First option")),
+        PopupMenuItem(child: Icon(Icons.share)),
+      ],
+    ),
   );
 }

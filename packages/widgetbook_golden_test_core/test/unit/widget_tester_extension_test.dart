@@ -194,10 +194,7 @@ void main() {
           MaterialApp(home: const Text("No images here")),
         );
 
-        expect(
-          () => tester.precacheImages(properties),
-          returnsNormally,
-        );
+        expect(() => tester.precacheImages(properties), returnsNormally);
       });
     });
   });

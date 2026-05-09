@@ -14,12 +14,8 @@ Widget buildOrangeSizedBoxUseCase(BuildContext context) {
     addons: [
       ViewportAddon([LinuxViewports.desktop]),
     ],
-    builder:
-        (context) => SizedBox(
-          height: 20,
-          width: 20,
-          child: Container(color: Colors.orange),
-        ),
+    builder: (context) =>
+        SizedBox(height: 20, width: 20, child: Container(color: Colors.orange)),
   );
 }
 
@@ -27,12 +23,11 @@ Widget buildOrangeSizedBoxUseCase(BuildContext context) {
 Widget buildGreenSizedBoxUseCase(BuildContext context) {
   return WidgetbookGoldenTestBuilder(
     skip: true,
-    builder:
-        (context) => SizedBox(
-          height: 200,
-          width: 200,
-          child: Container(color: Colors.green),
-        ),
+    builder: (context) => SizedBox(
+      height: 200,
+      width: 200,
+      child: Container(color: Colors.green),
+    ),
   );
 }
 
