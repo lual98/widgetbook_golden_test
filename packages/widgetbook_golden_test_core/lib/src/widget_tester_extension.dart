@@ -57,7 +57,7 @@ extension WidgetTesterExtension on WidgetTester {
       // Use the custom precacheImage if provided, otherwise fallback to default
       var precacheFunction = customPrecacheImage ?? precacheImage;
       await precacheFunction(provider, element).timeout(
-        Duration(seconds: 10),
+        properties.precacheImagesTimeout,
         onTimeout: () {
           // If timed out, perhaps there was some kind of unsupported Image Provider.
           return;

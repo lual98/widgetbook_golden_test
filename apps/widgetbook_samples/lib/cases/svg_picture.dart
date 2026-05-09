@@ -9,9 +9,8 @@ Widget buildNetworkSvgUseCase(BuildContext context) {
     "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/android.svg",
     height: 600,
     width: 400,
-    errorBuilder:
-        (context, _, trace) =>
-            Container(height: 200, width: 200, color: Colors.red),
+    errorBuilder: (context, _, trace) =>
+        Container(height: 200, width: 200, color: Colors.red),
   );
 }
 
@@ -21,9 +20,8 @@ Widget buildErrorNetworkSvgUseCase(BuildContext context) {
     WidgetbookGoldenTestsProperties.defaultErrorImageUrl,
     height: 600,
     width: 400,
-    errorBuilder:
-        (context, _, trace) =>
-            Container(height: 200, width: 200, color: Colors.red),
+    errorBuilder: (context, _, trace) =>
+        Container(height: 200, width: 200, color: Colors.red),
   );
 }
 
@@ -34,8 +32,7 @@ Widget buildLoadingNetworkSvgUseCase(BuildContext context) {
     height: 600,
     width: 400,
     placeholderBuilder: (context) => Text("Loading..."),
-    errorBuilder:
-        (context, _, trace) =>
-            Container(height: 200, width: 200, color: Colors.red),
+    errorBuilder: (context, _, trace) =>
+        Container(height: 200, width: 200, color: Colors.red),
   );
 }
