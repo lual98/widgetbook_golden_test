@@ -47,6 +47,7 @@ void main() {
         addonsMergeStrategy: strategy,
         goldenActions: actions,
         skip: true,
+        tags: ['custom-tag'],
         builder: _dummyBuilder,
       );
 
@@ -54,6 +55,31 @@ void main() {
       expect(builder.addonsMergeStrategy, equals(strategy));
       expect(builder.goldenActions, equals(actions));
       expect(builder.skip, isTrue);
+      expect(builder.tags, equals(['custom-tag']));
+    });
+
+    test('tags defaults to null', () {
+      final builder = WidgetbookGoldenTestBuilder(builder: _dummyBuilder);
+
+      expect(builder.tags, isNull);
+    });
+
+    test('can be created with custom tags list', () {
+      final builder = WidgetbookGoldenTestBuilder(
+        tags: ['smoke', 'ci', 'golden'],
+        builder: _dummyBuilder,
+      );
+
+      expect(builder.tags, equals(['smoke', 'ci', 'golden']));
+    });
+
+    test('can be created with empty tags list', () {
+      final builder = WidgetbookGoldenTestBuilder(
+        tags: [],
+        builder: _dummyBuilder,
+      );
+
+      expect(builder.tags, isEmpty);
     });
   });
 }
