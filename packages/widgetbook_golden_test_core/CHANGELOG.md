@@ -2,6 +2,7 @@
 
 ### Added
 - Added [precacheImagesTimeout] property to [WidgetbookGoldenTestsProperties] to configure the timeout for precaching images.
+- Added [tags] property to [WidgetbookGoldenTestsProperties] to configure the tags for the golden tests. Also added a [tags] property to [WidgetbookGoldenTestBuilder] to configure the tags per use-case.
 
 ### Fixed
 
