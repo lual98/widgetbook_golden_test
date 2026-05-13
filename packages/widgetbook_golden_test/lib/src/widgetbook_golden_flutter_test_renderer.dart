@@ -69,25 +69,33 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     required Future<void> Function(WidgetTester tester, Widget widgetToTest)
     testBody,
   }) {
-    testWidgets(testName, (widgetTester) async {
-      await goldenTestZoneRunner(
-        testBody: () async {
-          final widget = MockedWidgetbookCase(
-            properties: properties,
-            builderAddons: goldenTestBuilder?.addons,
-            useCase: useCase,
-            constraints: goldenTestBuilder?.constraints,
-          );
-          await widgetTester.pumpWidgetbookCase(widget, properties);
-          final state = widgetTester.state<MockedWidgetbookCaseState>(
-            find.byType(MockedWidgetbookCase),
-          );
-          var widgetToTest = state.widgetToTest!;
-
-          await testBody(widgetTester, widgetToTest);
-        },
+    testWidgets(
+      testName,
+      tags: WidgetbookGoldenRenderer.resolveTags(
+        goldenTestBuilder: goldenTestBuilder,
         properties: properties,
-      );
-    }, skip: skip);
+      ),
+      (widgetTester) async {
+        await goldenTestZoneRunner(
+          testBody: () async {
+            final widget = MockedWidgetbookCase(
+              properties: properties,
+              builderAddons: goldenTestBuilder?.addons,
+              useCase: useCase,
+              constraints: goldenTestBuilder?.constraints,
+            );
+            await widgetTester.pumpWidgetbookCase(widget, properties);
+            final state = widgetTester.state<MockedWidgetbookCaseState>(
+              find.byType(MockedWidgetbookCase),
+            );
+            var widgetToTest = state.widgetToTest!;
+
+            await testBody(widgetTester, widgetToTest);
+          },
+          properties: properties,
+        );
+      },
+      skip: skip,
+    );
   }
 }

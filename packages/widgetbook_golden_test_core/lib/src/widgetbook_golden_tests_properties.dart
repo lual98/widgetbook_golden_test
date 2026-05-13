@@ -24,6 +24,9 @@ class WidgetbookGoldenTestsProperties {
   /// The strategy to merge addons.
   final AddonsMergeStrategy addonsMergeStrategy;
 
+  /// Tags used to group golden tests.
+  final List<String> tags;
+
   /// The theme data used to customize the appearance of widgets in the app.
   final ThemeData? theme;
 
@@ -80,6 +83,7 @@ class WidgetbookGoldenTestsProperties {
   /// * [errorImageUrl] – Placeholder URL for failed network images (defaults to `'error-network-image'`).
   /// * [loadingImageUrl] – Placeholder URL while loading network images (defaults to `'loading-network-image'`).
   /// * [precacheImagesTimeout] – Duration to wait for precaching images (defaults to `10 seconds`).
+  /// * [tags] – Tags used to group golden tests (defaults to `['golden']`).
   /// * [testGroupName] – Name of the golden test group (used for grouping tests) (defaults to `'Widgetbook golden tests'`).
   /// * [onTestError] - Function to be called when there is an error during the golden tests.
   /// * [networkImageResolver] - Custom function that resolves images from a given URI.
@@ -104,6 +108,7 @@ class WidgetbookGoldenTestsProperties {
     this.supportedLocales = const [Locale('en', 'US')],
     @Deprecated("Use 'skip' property in WidgetbookGoldenTestBuilder instead")
     this.skipTag = defaultSkipTag,
+    this.tags = const ['golden'],
     this.errorImageUrl = defaultErrorImageUrl,
     this.loadingImageUrl = defaultLoadingImageUrl,
     this.precacheImagesTimeout = const Duration(seconds: 10),
@@ -120,6 +125,7 @@ class WidgetbookGoldenTestsProperties {
     Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates,
     Iterable<Locale>? supportedLocales,
     String? skipTag,
+    List<String>? tags,
     String? errorImageUrl,
     String? loadingImageUrl,
     Duration? precacheImagesTimeout,
@@ -141,6 +147,7 @@ class WidgetbookGoldenTestsProperties {
       supportedLocales: supportedLocales ?? this.supportedLocales,
       // ignore: deprecated_member_use_from_same_package
       skipTag: skipTag ?? this.skipTag,
+      tags: tags ?? this.tags,
       errorImageUrl: errorImageUrl ?? this.errorImageUrl,
       loadingImageUrl: loadingImageUrl ?? this.loadingImageUrl,
       precacheImagesTimeout:

@@ -21,6 +21,10 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       useCase.name,
       fileName: "$goldenPath/${useCase.name}",
       skip: skip,
+      tags: WidgetbookGoldenRenderer.resolveTags(
+        goldenTestBuilder: goldenTestBuilder,
+        properties: properties,
+      ),
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {
@@ -57,6 +61,10 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       "${useCase.name} - ${action.name}",
       fileName: "$goldenPath/${useCase.name} - ${action.name}",
       skip: skip,
+      tags: WidgetbookGoldenRenderer.resolveTags(
+        goldenTestBuilder: goldenTestBuilder,
+        properties: properties,
+      ),
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {

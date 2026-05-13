@@ -136,4 +136,49 @@ void main() {
       expect(copied.precacheImagesTimeout, const Duration(minutes: 1));
     });
   });
+
+  group("tags", () {
+    test("defaults to ['golden']", () {
+      final properties = WidgetbookGoldenTestsProperties();
+
+      expect(properties.tags, equals(['golden']));
+    });
+
+    test("can be set with custom tags", () {
+      final properties = WidgetbookGoldenTestsProperties(
+        tags: ['custom-tag', 'another-tag'],
+      );
+
+      expect(properties.tags, equals(['custom-tag', 'another-tag']));
+    });
+
+    test("can be set with a single tag", () {
+      final properties = WidgetbookGoldenTestsProperties(tags: ['golden-ci']);
+
+      expect(properties.tags, equals(['golden-ci']));
+    });
+
+    test("copyWith preserves tags when not overridden", () {
+      final original = WidgetbookGoldenTestsProperties(
+        tags: ['custom-tag', 'another-tag'],
+      );
+      final copied = original.copyWith(testGroupName: "New name");
+
+      expect(copied.tags, equals(['custom-tag', 'another-tag']));
+    });
+
+    test("copyWith updates tags when provided", () {
+      final original = WidgetbookGoldenTestsProperties(tags: ['golden']);
+      final copied = original.copyWith(tags: ['ci', 'smoke']);
+
+      expect(copied.tags, equals(['ci', 'smoke']));
+    });
+
+    test("copyWith can override to empty list", () {
+      final original = WidgetbookGoldenTestsProperties(tags: ['golden']);
+      final copied = original.copyWith(tags: []);
+
+      expect(copied.tags, isEmpty);
+    });
+  });
 }

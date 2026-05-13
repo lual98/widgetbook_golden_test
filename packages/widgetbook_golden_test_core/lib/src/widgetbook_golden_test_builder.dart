@@ -44,6 +44,11 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// Optional flag to skip the golden test.
   final bool skip;
 
+  /// Optional list of tags to be applied to the golden test.
+  /// When null, falls back to the tags from [WidgetbookGoldenTestsProperties].
+  /// Set to an empty list to explicitly clear all tags.
+  final List<String>? tags;
+
   /// Creates a [WidgetbookGoldenTestBuilder].
   ///
   /// [addons] is an optional list of widgetbook addons to be applied to the golden snapshots by using their default values.
@@ -53,6 +58,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// [constraints] is an optional BoxConstraints to be applied to the widget to be tested.
   /// [goldenActions] is an optional list of actions to execute during the test.
   /// [skip] is an optional flag to skip the golden test.
+  /// [tags] is an optional list of tags for this golden test. When null, falls back to properties.tags. Set to empty list to clear all tags.
   const WidgetbookGoldenTestBuilder({
     super.key,
     this.addons,
@@ -62,6 +68,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
     this.constraints,
     this.goldenActions,
     this.skip = false,
+    this.tags,
   }) : assert(
          child != null || builder != null,
          'child or builder must be provided',
