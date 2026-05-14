@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -65,14 +67,20 @@ class WidgetbookGoldenTestGenerator {
   }) {
     WidgetbookGoldenTestBuilder? goldenTestBuilder;
     final mockContext = _BuildContextMock();
-    try {
-      final widget = useCase.build(mockContext);
-      if (widget is WidgetbookGoldenTestBuilder) {
-        goldenTestBuilder = widget;
-      }
-    } catch (e) {
-      // Not a WidgetbookGoldenTestBuilder.
-    }
+    // For some reason if we use try-catch here, an error will still propagate,
+    // causing tests to not execute without any message logs.
+    // With runZoneGuarded works as expected.
+    runZonedGuarded(
+      () {
+        final widget = useCase.build(mockContext);
+        if (widget is WidgetbookGoldenTestBuilder) {
+          goldenTestBuilder = widget;
+        }
+      },
+      (error, stack) {
+        // Not a WidgetbookGoldenTestBuilder. Ignore.
+      },
+    );
 
     // Skip the golden test case if it contains the [skip-golden] tag just as a fallback.
     bool shouldSkip =

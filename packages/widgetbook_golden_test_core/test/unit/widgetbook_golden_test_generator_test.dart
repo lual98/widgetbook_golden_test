@@ -182,5 +182,33 @@ void main() {
         expect(executedGoldenCallback, true);
       });
     });
+
+    group('should not fail if metadata extraction fails', () {
+      bool executedMainTest = false;
+      final useCase = WidgetbookUseCase(
+        name: "Test use case",
+        builder: (context) => throw Exception("Test exception"),
+      );
+      final renderer = TestWidgetbookGoldenRenderer(
+        renderSimpleGoldenTestCallback:
+            (useCase, goldenPath, properties, skip, goldenTestBuilder) {
+              test('generated main test for use case', () async {
+                executedMainTest = true;
+                expect(goldenPath, ".");
+                expect(skip, false);
+                expect(useCase.name, "Test use case");
+              });
+            },
+      );
+
+      WidgetbookGoldenTestGenerator(
+        properties: WidgetbookGoldenTestsProperties(),
+        renderer: renderer,
+      ).generate(nodes: [useCase]);
+
+      tearDownAll(() {
+        expect(executedMainTest, true);
+      });
+    });
   });
 }

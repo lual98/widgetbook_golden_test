@@ -5,6 +5,7 @@
 - Added [tags] property to [WidgetbookGoldenTestsProperties] to configure the tags for the golden tests. Also added a [tags] property to [WidgetbookGoldenTestBuilder] to configure the tags per use-case.
 
 ### Fixed
+- Use runZonedGuarded instead of simple try catch when trying to extract [WidgetbookGoldenTestBuilder] metadata. This solves an issue where no test were being executed when there was an error during the metadata extraction.
 
 ## 0.4.0
 Initial release.
