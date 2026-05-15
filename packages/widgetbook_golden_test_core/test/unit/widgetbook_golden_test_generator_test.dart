@@ -238,8 +238,9 @@ void main() {
       final renderer = TestWidgetbookGoldenRenderer(
         renderGoldenPlayActionTestCallback:
             (useCase, goldenPath, properties, action, skip, goldenTestBuilder) {
-              testWidgets('generated skipped golden play action test',
-                  (tester) async {
+              testWidgets('generated skipped golden play action test', (
+                tester,
+              ) async {
                 executed = true;
                 expect(goldenPath, ".");
                 expect(skip, true);
@@ -275,15 +276,17 @@ void main() {
       final renderer = TestWidgetbookGoldenRenderer(
         renderGoldenPlayActionTestCallback:
             (useCase, goldenPath, properties, action, skip, goldenTestBuilder) {
-              testWidgets('generated golden play action test with default skip',
-                  (tester) async {
-                executed = true;
-                expect(goldenPath, ".");
-                expect(skip, false);
-                expect(action.name, "action default skip");
-                expect(action.skip, false);
-                expect(useCase.name, "Test use case");
-              });
+              testWidgets(
+                'generated golden play action test with default skip',
+                (tester) async {
+                  executed = true;
+                  expect(goldenPath, ".");
+                  expect(skip, false);
+                  expect(action.name, "action default skip");
+                  expect(action.skip, false);
+                  expect(useCase.name, "Test use case");
+                },
+              );
             },
       );
 
