@@ -42,6 +42,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   final List<GoldenPlayAction>? goldenActions;
 
   /// Optional flag to skip the golden test.
+  /// This won't skip the golden play actions if they are not skipped by themselves.
   final bool skip;
 
   /// Optional list of tags to be applied to the golden test.
