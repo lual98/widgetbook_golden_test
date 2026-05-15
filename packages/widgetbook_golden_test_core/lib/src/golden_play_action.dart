@@ -25,6 +25,9 @@ class GoldenPlayAction {
   /// Optional finder callback to locate the widget for the golden snapshot.
   final WidgetFinderCallback? goldenFinder;
 
+  /// Optional flag to skip the golden action test.
+  final bool skip;
+
   /// Creates a [GoldenPlayAction].
   ///
   /// [name] is required and should describe the action.
@@ -34,5 +37,6 @@ class GoldenPlayAction {
     required this.name,
     required this.callback,
     this.goldenFinder,
+    this.skip = false,
   });
 }

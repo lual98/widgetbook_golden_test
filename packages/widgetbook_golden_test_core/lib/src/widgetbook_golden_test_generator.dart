@@ -104,7 +104,7 @@ class WidgetbookGoldenTestGenerator {
           properties: properties,
           useCase: useCase,
           action: play,
-          skip: shouldSkip,
+          skip: play.skip,
           goldenTestBuilder: goldenTestBuilder,
         );
       }

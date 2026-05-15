@@ -183,6 +183,121 @@ void main() {
       });
     });
 
+    group('should generate golden play action test with skip false', () {
+      bool executed = false;
+      final useCase = WidgetbookUseCase(
+        name: "Test use case",
+        builder: (context) => WidgetbookGoldenTestBuilder(
+          builder: (context) => Text("Hello world"),
+          goldenActions: [
+            GoldenPlayAction(
+              name: "action skip false",
+              callback: (_, _) async {},
+              skip: false,
+            ),
+          ],
+        ),
+      );
+      final renderer = TestWidgetbookGoldenRenderer(
+        renderGoldenPlayActionTestCallback:
+            (useCase, goldenPath, properties, action, skip, goldenTestBuilder) {
+              testWidgets('generated golden play action test', (tester) async {
+                executed = true;
+                expect(goldenPath, ".");
+                expect(skip, false);
+                expect(action.name, "action skip false");
+                expect(action.skip, false);
+                expect(useCase.name, "Test use case");
+              });
+            },
+      );
+
+      WidgetbookGoldenTestGenerator(
+        properties: WidgetbookGoldenTestsProperties(),
+        renderer: renderer,
+      ).generate(nodes: [useCase]);
+
+      tearDownAll(() => expect(executed, true));
+    });
+
+    group('should generate golden play action test with skip true', () {
+      bool executed = false;
+      final useCase = WidgetbookUseCase(
+        name: "Test use case",
+        builder: (context) => WidgetbookGoldenTestBuilder(
+          builder: (context) => Text("Hello world"),
+          goldenActions: [
+            GoldenPlayAction(
+              name: "action skip true",
+              callback: (_, _) async {},
+              skip: true,
+            ),
+          ],
+        ),
+      );
+      final renderer = TestWidgetbookGoldenRenderer(
+        renderGoldenPlayActionTestCallback:
+            (useCase, goldenPath, properties, action, skip, goldenTestBuilder) {
+              testWidgets('generated skipped golden play action test', (
+                tester,
+              ) async {
+                executed = true;
+                expect(goldenPath, ".");
+                expect(skip, true);
+                expect(action.name, "action skip true");
+                expect(action.skip, true);
+                expect(useCase.name, "Test use case");
+              });
+            },
+      );
+
+      WidgetbookGoldenTestGenerator(
+        properties: WidgetbookGoldenTestsProperties(),
+        renderer: renderer,
+      ).generate(nodes: [useCase]);
+
+      tearDownAll(() => expect(executed, true));
+    });
+
+    group('should generate golden play action test with default skip', () {
+      bool executed = false;
+      final useCase = WidgetbookUseCase(
+        name: "Test use case",
+        builder: (context) => WidgetbookGoldenTestBuilder(
+          builder: (context) => Text("Hello world"),
+          goldenActions: [
+            GoldenPlayAction(
+              name: "action default skip",
+              callback: (_, _) async {},
+            ),
+          ],
+        ),
+      );
+      final renderer = TestWidgetbookGoldenRenderer(
+        renderGoldenPlayActionTestCallback:
+            (useCase, goldenPath, properties, action, skip, goldenTestBuilder) {
+              testWidgets(
+                'generated golden play action test with default skip',
+                (tester) async {
+                  executed = true;
+                  expect(goldenPath, ".");
+                  expect(skip, false);
+                  expect(action.name, "action default skip");
+                  expect(action.skip, false);
+                  expect(useCase.name, "Test use case");
+                },
+              );
+            },
+      );
+
+      WidgetbookGoldenTestGenerator(
+        properties: WidgetbookGoldenTestsProperties(),
+        renderer: renderer,
+      ).generate(nodes: [useCase]);
+
+      tearDownAll(() => expect(executed, true));
+    });
+
     group('should not fail if metadata extraction fails', () {
       bool executedMainTest = false;
       final useCase = WidgetbookUseCase(
