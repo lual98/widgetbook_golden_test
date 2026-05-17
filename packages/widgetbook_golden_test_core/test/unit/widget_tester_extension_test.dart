@@ -28,6 +28,41 @@ void main() {
       expect(find.text("Hello world"), findsOneWidget);
     });
 
+    testWidgets('executes pumpBefore and pumpAfter if provided', (
+      tester,
+    ) async {
+      final properties = WidgetbookGoldenTestsProperties();
+      final useCase = WidgetbookUseCase(
+        name: "Test use case",
+        builder: (context) => Text("Hello world"),
+      );
+
+      bool pumpBeforeExecuted = false;
+      bool pumpAfterExecuted = false;
+
+      Future<void> pumpBefore(WidgetTester t) async {
+        pumpBeforeExecuted = true;
+      }
+
+      Future<void> pumpAfter(WidgetTester t) async {
+        pumpAfterExecuted = true;
+      }
+
+      await tester.pumpWidgetbookCase(
+        MockedWidgetbookCase(
+          useCase: useCase,
+          properties: properties,
+          builderAddons: null,
+        ),
+        properties,
+        pumpBefore: pumpBefore,
+        pumpAfter: pumpAfter,
+      );
+
+      expect(pumpBeforeExecuted, isTrue);
+      expect(pumpAfterExecuted, isTrue);
+    });
+
     group("precacheImages", () {
       testWidgets('precaches all but excluded images', (tester) async {
         final properties = WidgetbookGoldenTestsProperties(

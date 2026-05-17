@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_golden_test_core/src/golden_play_action.dart';
 
@@ -41,6 +42,14 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// Optional list of actions to perform during golden tests.
   final List<GoldenPlayAction>? goldenActions;
 
+  /// Optional custom pump function to be executed before precaching images.
+  /// If not set, it will default to `tester.pumpAndSettle()`.
+  final Future<void> Function(WidgetTester tester)? pumpBeforeImagePrecache;
+
+  /// Optional custom pump function to be executed after precaching images.
+  /// If not set, it will default to `tester.pumpAndSettle()`.
+  final Future<void> Function(WidgetTester tester)? pumpAfterImagePrecache;
+
   /// Optional flag to skip the golden test.
   /// This won't skip the golden play actions if they are not skipped by themselves.
   final bool skip;
@@ -58,6 +67,8 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// [child] is required and represents the widget under test.
   /// [constraints] is an optional BoxConstraints to be applied to the widget to be tested.
   /// [goldenActions] is an optional list of actions to execute during the test.
+  /// [pumpBeforeImagePrecache] is an optional custom pump function to be executed before precaching images.
+  /// [pumpAfterImagePrecache] is an optional custom pump function to be executed after precaching images.
   /// [skip] is an optional flag to skip the golden test.
   /// [tags] is an optional list of tags for this golden test. When null, falls back to properties.tags. Set to empty list to clear all tags.
   const WidgetbookGoldenTestBuilder({
@@ -68,6 +79,8 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
     @Deprecated('Use builder instead') this.child,
     this.constraints,
     this.goldenActions,
+    this.pumpBeforeImagePrecache,
+    this.pumpAfterImagePrecache,
     this.skip = false,
     this.tags,
   }) : assert(

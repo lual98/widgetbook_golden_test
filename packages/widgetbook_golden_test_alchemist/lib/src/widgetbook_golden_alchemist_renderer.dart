@@ -28,7 +28,12 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {
-            await tester.pumpWidgetbookCase(widget, properties);
+            await tester.pumpWidgetbookCase(
+              widget,
+              properties,
+              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
+              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
+            );
           },
           properties: properties,
         );
@@ -68,9 +73,18 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {
-            await tester.pumpWidgetbookCase(widget, properties);
+            await tester.pumpWidgetbookCase(
+              widget,
+              properties,
+              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
+              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
+            );
             await action.callback(tester, find);
-            await tester.pumpAndSettle();
+            if (action.customPump != null) {
+              await action.customPump!(tester);
+            } else {
+              await tester.pumpAndSettle();
+            }
           },
           properties: properties,
         );

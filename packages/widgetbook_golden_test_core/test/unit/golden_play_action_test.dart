@@ -12,6 +12,7 @@ void main() {
       expect(action.name, equals(name));
       expect(action.callback, equals(callback));
       expect(action.goldenFinder, isNull);
+      expect(action.customPump, isNull);
     });
 
     test('initializes with optional goldenFinder', () async {
@@ -28,6 +29,24 @@ void main() {
       expect(action.name, equals(name));
       expect(action.callback, equals(callback));
       expect(action.goldenFinder, equals(goldenFinder));
+      expect(action.customPump, isNull);
+    });
+
+    test('initializes with optional customPump', () async {
+      const name = 'Pump Action';
+      Future<void> callback(WidgetTester tester, CommonFinders find) async {}
+      Future<void> customPump(WidgetTester tester) async {}
+
+      var action = GoldenPlayAction(
+        name: name,
+        callback: callback,
+        customPump: customPump,
+      );
+
+      expect(action.name, equals(name));
+      expect(action.callback, equals(callback));
+      expect(action.customPump, equals(customPump));
+      expect(action.goldenFinder, isNull);
     });
 
     test('defaults skip to false', () async {
@@ -51,18 +70,21 @@ void main() {
     test('initializes with all parameters including skip', () async {
       const name = 'Complex Action';
       Future<void> callback(WidgetTester tester, CommonFinders find) async {}
+      Future<void> customPump(WidgetTester tester) async {}
       Finder goldenFinder(CommonFinders find) => find.text('Target');
 
       var action = GoldenPlayAction(
         name: name,
         callback: callback,
         goldenFinder: goldenFinder,
+        customPump: customPump,
         skip: true,
       );
 
       expect(action.name, equals(name));
       expect(action.callback, equals(callback));
       expect(action.goldenFinder, equals(goldenFinder));
+      expect(action.customPump, equals(customPump));
       expect(action.skip, isTrue);
     });
   });
