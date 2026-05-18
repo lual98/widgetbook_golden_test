@@ -41,11 +41,15 @@ void main() {
       final addons = <WidgetbookAddon>[];
       final actions = <GoldenPlayAction>[];
       const strategy = AddonsMergeStrategy.overrideAll;
+      Future<void> pumpBefore(WidgetTester tester) async {}
+      Future<void> pumpAfter(WidgetTester tester) async {}
 
       var builder = WidgetbookGoldenTestBuilder(
         addons: addons,
         addonsMergeStrategy: strategy,
         goldenActions: actions,
+        pumpBeforeImagePrecache: pumpBefore,
+        pumpAfterImagePrecache: pumpAfter,
         skip: true,
         tags: ['custom-tag'],
         builder: _dummyBuilder,
@@ -54,6 +58,8 @@ void main() {
       expect(builder.addons, equals(addons));
       expect(builder.addonsMergeStrategy, equals(strategy));
       expect(builder.goldenActions, equals(actions));
+      expect(builder.pumpBeforeImagePrecache, equals(pumpBefore));
+      expect(builder.pumpAfterImagePrecache, equals(pumpAfter));
       expect(builder.skip, isTrue);
       expect(builder.tags, equals(['custom-tag']));
     });

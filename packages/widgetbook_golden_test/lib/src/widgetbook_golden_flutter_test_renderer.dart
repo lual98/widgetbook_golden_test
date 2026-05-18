@@ -48,7 +48,11 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
       goldenTestBuilder: goldenTestBuilder,
       testBody: (widgetTester, widgetToTest) async {
         await action.callback(widgetTester, find);
-        await widgetTester.pumpAndSettle();
+        if (action.customPump != null) {
+          await action.customPump!(widgetTester);
+        } else {
+          await widgetTester.pumpAndSettle();
+        }
         Finder goldenFinder = action.goldenFinder == null
             ? find.byType(widgetToTest.runtimeType).first
             : action.goldenFinder!.call(find);
@@ -84,7 +88,12 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
               useCase: useCase,
               constraints: goldenTestBuilder?.constraints,
             );
-            await widgetTester.pumpWidgetbookCase(widget, properties);
+            await widgetTester.pumpWidgetbookCase(
+              widget,
+              properties,
+              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
+              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
+            );
             final state = widgetTester.state<MockedWidgetbookCaseState>(
               find.byType(MockedWidgetbookCase),
             );

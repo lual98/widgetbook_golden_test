@@ -6,9 +6,8 @@ import 'package:widgetbook_golden_test/src/widgetbook_golden_flutter_test_render
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
 
 void main() {
-  // TODO: REWORK THE TESTS OF THIS FILE
   group(WidgetbookGoldenFlutterTestRenderer, () {
-    group("calls custom onError when there is an error during the test", () {
+    group("calls custom onTestError when there is an error during the test", () {
       var properties = WidgetbookGoldenTestsProperties(
         onTestError: (details, originalOnError) {
           if (details.exception is ProviderNotFoundException) {
@@ -37,6 +36,36 @@ void main() {
         properties: properties,
         skip: false,
       );
+    });
+
+    group("executes action custom pump", () {
+      bool customPumpExecuted = false;
+      final action = GoldenPlayAction(
+        name: "validate custom pump execution",
+        callback: (tester, find) async {},
+        customPump: (tester) async {
+          await tester.pump();
+          customPumpExecuted = true;
+        },
+      );
+      final properties = WidgetbookGoldenTestsProperties();
+      final useCase = WidgetbookUseCase(
+        name: "custom pump test",
+        builder: (_) => SizedBox.shrink(),
+      );
+
+      final renderer = WidgetbookGoldenFlutterTestRenderer();
+      renderer.renderGoldenPlayActionTest(
+        action: action,
+        useCase: useCase,
+        goldenPath: "./snaphots/",
+        properties: properties,
+        skip: false,
+      );
+
+      tearDownAll(() {
+        expect(customPumpExecuted, true);
+      });
     });
   });
 }

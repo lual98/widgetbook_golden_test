@@ -10,12 +10,25 @@ extension WidgetTesterExtension on WidgetTester {
   /// all images are loaded before taking a golden snapshot.
   Future<void> pumpWidgetbookCase(
     Widget widget,
-    WidgetbookGoldenTestsProperties properties,
-  ) async {
+    WidgetbookGoldenTestsProperties properties, {
+    Future<void> Function(WidgetTester tester)? pumpBefore,
+    Future<void> Function(WidgetTester tester)? pumpAfter,
+  }) async {
     await pumpWidget(widget);
-    await pumpAndSettle();
+
+    if (pumpBefore != null) {
+      await pumpBefore(this);
+    } else {
+      await pumpAndSettle();
+    }
+
     await _precacheImagesAndWait(properties);
-    await pumpAndSettle();
+
+    if (pumpAfter != null) {
+      await pumpAfter(this);
+    } else {
+      await pumpAndSettle();
+    }
   }
 
   /// Precaches the images detected in the currently built widget to make sure

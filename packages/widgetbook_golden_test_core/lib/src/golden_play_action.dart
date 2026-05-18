@@ -25,6 +25,10 @@ class GoldenPlayAction {
   /// Optional finder callback to locate the widget for the golden snapshot.
   final WidgetFinderCallback? goldenFinder;
 
+  /// Optional custom pump function to be executed after the play action and before taking the golden snapshot.
+  /// If not set, it will default to `tester.pumpAndSettle()`.
+  final Future<void> Function(WidgetTester tester)? customPump;
+
   /// Optional flag to skip the golden action test.
   final bool skip;
 
@@ -33,10 +37,13 @@ class GoldenPlayAction {
   /// [name] is required and should describe the action.
   /// [callback] is required and defines the action logic.
   /// [goldenFinder] is optional and can be used to specify a custom finder for the golden image.
+  /// [customPump] is optional and can be used to execute a custom pump after the action.
+  /// [skip] is optional and can be used to skip the golden action test.
   const GoldenPlayAction({
     required this.name,
     required this.callback,
     this.goldenFinder,
+    this.customPump,
     this.skip = false,
   });
 }
