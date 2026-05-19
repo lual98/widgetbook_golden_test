@@ -82,9 +82,7 @@ void main() {
             constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
             addons: [
               ThemeAddon(
-                themes: [
-                  WidgetbookTheme(name: 'Dark', data: ThemeData.dark()),
-                ],
+                themes: [WidgetbookTheme(name: 'Dark', data: ThemeData.dark())],
                 initialTheme: WidgetbookTheme(
                   name: 'Dark',
                   data: ThemeData.dark(),
@@ -224,9 +222,7 @@ void main() {
             constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
             addons: [
               ThemeAddon(
-                themes: [
-                  WidgetbookTheme(name: 'Dark', data: ThemeData.dark()),
-                ],
+                themes: [WidgetbookTheme(name: 'Dark', data: ThemeData.dark())],
                 initialTheme: WidgetbookTheme(
                   name: 'Dark',
                   data: ThemeData.dark(),
