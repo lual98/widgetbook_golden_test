@@ -17,6 +17,7 @@ dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

@@ -19,7 +19,9 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
+  flutter_cache_manager: ^3.4.1
   flutter_lints: ^5.0.0
+  get_it: ^9.2.1
   provider: ^6.1.5+1
   widgetbook_samples: any
 

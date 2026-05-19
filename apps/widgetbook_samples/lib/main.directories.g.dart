@@ -11,6 +11,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
+import 'package:widgetbook_samples/cases/cached_network_image_cases.dart'
+    as _widgetbook_samples_cases_cached_network_image_cases;
 import 'package:widgetbook_samples/cases/image_cases.dart'
     as _widgetbook_samples_cases_image_cases;
 import 'package:widgetbook_samples/cases/list_view.dart'
@@ -27,6 +29,26 @@ import 'package:widgetbook_samples/cases/text_cases.dart'
     as _widgetbook_samples_cases_text_cases;
 
 final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookComponent(
+    name: 'CachedNetworkImage',
+    useCases: [
+      _widgetbook.WidgetbookUseCase(
+        name: 'GetIt cache manager',
+        builder: _widgetbook_samples_cases_cached_network_image_cases
+            .buildCachedNetworkImageUseCase,
+      ),
+      _widgetbook.WidgetbookUseCase(
+        name: 'GetIt cache manager error',
+        builder: _widgetbook_samples_cases_cached_network_image_cases
+            .buildCachedNetworkImageErrorUseCase,
+      ),
+      _widgetbook.WidgetbookUseCase(
+        name: 'GetIt cache manager loading',
+        builder: _widgetbook_samples_cases_cached_network_image_cases
+            .buildCachedNetworkImageLoadingUseCase,
+      ),
+    ],
+  ),
   _widgetbook.WidgetbookComponent(
     name: 'SvgPicture',
     useCases: [
