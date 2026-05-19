@@ -20,7 +20,7 @@ void main() {
 
         final renderer = WidgetbookGoldenFlutterTestRenderer();
         renderer.renderSimpleGoldenTest(
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           useCase: useCase,
           skip: false,
@@ -45,7 +45,7 @@ void main() {
 
             final renderer = WidgetbookGoldenFlutterTestRenderer();
             renderer.renderSimpleGoldenTest(
-              goldenPath: "./snaphots/",
+              goldenPath: "./snapshots/",
               properties: properties,
               useCase: useCase,
               skip: false,
@@ -79,7 +79,7 @@ void main() {
 
           final renderer = WidgetbookGoldenFlutterTestRenderer();
           renderer.renderSimpleGoldenTest(
-            goldenPath: "./snaphots/",
+            goldenPath: "./snapshots/",
             properties: properties,
             useCase: useCase,
             skip: false,
@@ -132,7 +132,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
         );
@@ -162,7 +162,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
         );
@@ -194,7 +194,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
         );

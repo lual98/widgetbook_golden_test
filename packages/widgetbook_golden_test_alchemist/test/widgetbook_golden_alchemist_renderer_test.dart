@@ -20,7 +20,7 @@ void main() {
 
         final renderer = WidgetbookGoldenAlchemistRenderer();
         renderer.renderSimpleGoldenTest(
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           useCase: useCase,
           skip: false,
@@ -42,7 +42,7 @@ void main() {
 
         final renderer = WidgetbookGoldenAlchemistRenderer();
         renderer.renderSimpleGoldenTest(
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           useCase: useCase,
           skip: false,
@@ -73,7 +73,7 @@ void main() {
 
         final renderer = WidgetbookGoldenAlchemistRenderer();
         renderer.renderSimpleGoldenTest(
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           useCase: useCase,
           skip: false,
@@ -123,7 +123,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
         );
@@ -151,7 +151,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
         );
@@ -178,7 +178,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
           goldenTestBuilder: WidgetbookGoldenTestBuilder(
@@ -214,7 +214,7 @@ void main() {
         renderer.renderGoldenPlayActionTest(
           action: action,
           useCase: useCase,
-          goldenPath: "./snaphots/",
+          goldenPath: "./snapshots/",
           properties: properties,
           skip: false,
           goldenTestBuilder: WidgetbookGoldenTestBuilder(

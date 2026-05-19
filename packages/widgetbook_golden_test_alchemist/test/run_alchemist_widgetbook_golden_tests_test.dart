@@ -25,7 +25,7 @@ void main() {
     runAlchemistWidgetbookGoldenTests(
       nodes: nodes,
       properties: WidgetbookGoldenTestsProperties(),
-      goldenSnapshotsOutputPath: "./snaphots/",
+      goldenSnapshotsOutputPath: "./snapshots/",
     );
 
     tearDownAll(() {
