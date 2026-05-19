@@ -30,4 +30,4 @@ migrate_working_dir/
 /build/
 /coverage/
 
-test/integration/failures/
+test/failures/
