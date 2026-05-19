@@ -22,5 +22,7 @@ melos:
       run: melos exec --no-private flutter test --coverage --dart-define=CI=$CI
     update-goldens:
       run: melos exec --no-private flutter test --update-goldens --dart-define=CI=$CI
+    update-goldens-all:
+      run: melos exec flutter test --update-goldens
     ensure-format:
       run: melos exec --no-private dart format . -o none --set-exit-if-changed
