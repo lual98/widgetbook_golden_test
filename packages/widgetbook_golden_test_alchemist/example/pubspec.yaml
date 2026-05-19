@@ -1,5 +1,5 @@
-name: widgetbook_golden_test_example
-description: "Example for widgetbook_golden_test"
+name: widgetbook_golden_test_alchemist_example
+description: "Example for widgetbook_golden_test_alchemist"
 version: 0.0.1
 homepage:
 publish_to: 'none'
@@ -12,11 +12,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  widgetbook_golden_test: any
+  alchemist: ^0.13.0
   widgetbook: ^3.20.2
-  widgetbook_samples: any
   flutter_cache_manager: ^3.4.1
   get_it: ^9.2.1
+  widgetbook_samples: any
+  widgetbook_golden_test_alchemist: any
 
 dev_dependencies:
   flutter_test:

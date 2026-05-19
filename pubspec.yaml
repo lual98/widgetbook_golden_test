@@ -8,6 +8,7 @@ workspace:
   - packages/widgetbook_golden_test
   - packages/widgetbook_golden_test/example
   - packages/widgetbook_golden_test_alchemist
+  - packages/widgetbook_golden_test_alchemist/example
   - packages/widgetbook_golden_test_core
 dev_dependencies:
   melos: ^7.3.0
