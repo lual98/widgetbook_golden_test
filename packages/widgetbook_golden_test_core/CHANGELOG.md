@@ -6,6 +6,7 @@
 - [GoldenPlayAction] now has a [skip] property to configure the skip per golden play action instead of relying on the [skip] property of [WidgetbookGoldenTestBuilder].
 - [GoldenPlayAction] now has a [customPump] property to execute a custom pump function after the action instead of hard-coded `pumpAndSettle()`.
 - [WidgetbookGoldenTestBuilder] now has [pumpBeforeImagePrecache] and [pumpAfterImagePrecache] properties to configure custom pump functions before and after image precaching.
+- Added `MockTestCacheManager` as a mock implementation of `BaseCacheManager` for testing widgets that use `CachedNetworkImage`. Configurable via `WidgetbookGoldenTestsProperties` to return success, error, or loading responses based on URL patterns.
 
 ### Fixed
 - Use runZonedGuarded instead of simple try catch when trying to extract [WidgetbookGoldenTestBuilder] metadata. This solves an issue where no test were being executed when there was an error during the metadata extraction.

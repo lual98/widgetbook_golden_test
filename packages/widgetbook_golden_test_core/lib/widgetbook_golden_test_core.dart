@@ -5,5 +5,6 @@ export 'src/widgetbook_golden_test_generator.dart';
 export 'src/widgetbook_golden_test_renderer.dart';
 export 'src/helpers/ignore_network_image_exception.dart';
 export 'src/helpers/golden_test_zone_runner.dart';
+export 'src/helpers/mock_test_cache_manager.dart';
 export 'src/mocked_widgetbook_case.dart';
 export 'src/widget_tester_extension.dart';
