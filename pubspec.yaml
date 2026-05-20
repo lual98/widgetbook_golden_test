@@ -8,6 +8,7 @@ workspace:
   - packages/widgetbook_golden_test
   - packages/widgetbook_golden_test/example
   - packages/widgetbook_golden_test_alchemist
+  - packages/widgetbook_golden_test_alchemist/example
   - packages/widgetbook_golden_test_core
 dev_dependencies:
   melos: ^7.3.0
@@ -22,5 +23,7 @@ melos:
       run: melos exec --no-private flutter test --coverage --dart-define=CI=$CI
     update-goldens:
       run: melos exec --no-private flutter test --update-goldens --dart-define=CI=$CI
+    update-goldens-all:
+      run: melos exec flutter test --update-goldens
     ensure-format:
       run: melos exec --no-private dart format . -o none --set-exit-if-changed

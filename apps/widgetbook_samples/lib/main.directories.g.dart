@@ -13,6 +13,8 @@
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 import 'package:widgetbook_samples/cases/cached_network_image_cases.dart'
     as _widgetbook_samples_cases_cached_network_image_cases;
+import 'package:widgetbook_samples/cases/circular_progress_indicator.dart'
+    as _widgetbook_samples_cases_circular_progress_indicator;
 import 'package:widgetbook_samples/cases/image_cases.dart'
     as _widgetbook_samples_cases_image_cases;
 import 'package:widgetbook_samples/cases/list_view.dart'
@@ -71,6 +73,21 @@ final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'material',
     children: [
+      _widgetbook.WidgetbookComponent(
+        name: 'CircularProgressIndicator',
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'At 500ms',
+            builder: _widgetbook_samples_cases_circular_progress_indicator
+                .widgetbookUseCase,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'At 800ms',
+            builder: _widgetbook_samples_cases_circular_progress_indicator
+                .widgetbookUseCaseAt800ms,
+          ),
+        ],
+      ),
       _widgetbook.WidgetbookComponent(
         name: 'PopupMenuButton',
         useCases: [
