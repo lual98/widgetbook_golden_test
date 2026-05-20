@@ -25,6 +25,11 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
         goldenTestBuilder: goldenTestBuilder,
         properties: properties,
       ),
+      // Alchemist's default `pumpBeforeTest` is `onlyPumpAndSettle`, which calls
+      // `pumpAndSettle()` after the widget is pumped but before golden capture.
+      // Since `pumpWidgetbookCase` already handles settling internally, we use a
+      // no-op here to avoid redundant double settling.
+      pumpBeforeTest: (tester) async => {},
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {
@@ -70,6 +75,11 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
         goldenTestBuilder: goldenTestBuilder,
         properties: properties,
       ),
+      // Alchemist's default `pumpBeforeTest` is `onlyPumpAndSettle`, which calls
+      // `pumpAndSettle()` after the widget is pumped but before golden capture.
+      // Since `pumpWidgetbookCase` already handles settling internally, we use a
+      // no-op here to avoid redundant double settling.
+      pumpBeforeTest: (tester) async => {},
       pumpWidget: (tester, widget) async {
         return goldenTestZoneRunner(
           testBody: () async {
