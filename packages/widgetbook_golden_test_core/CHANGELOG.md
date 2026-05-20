@@ -10,6 +10,7 @@
 
 ### Fixed
 - Use runZonedGuarded instead of simple try catch when trying to extract [WidgetbookGoldenTestBuilder] metadata. This solves an issue where no test were being executed when there was an error during the metadata extraction.
+- Named first parameter of [onTestError] in [WidgetbookGoldenTestsProperties] to be `error` instead of being unnamed.
 
 ### Changed
 - **Breaking Change**: Golden play actions no longer inherit the builder's skip flag by default, each action must set its own skip property if desired.
