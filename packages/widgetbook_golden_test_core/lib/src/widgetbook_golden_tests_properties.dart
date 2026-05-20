@@ -61,7 +61,7 @@ class WidgetbookGoldenTestsProperties {
   /// Custom function that handles errors during golden tests.
   /// It has access to the original OnError function.
   final Function(
-    FlutterErrorDetails,
+    FlutterErrorDetails error,
     Function(FlutterErrorDetails)? originalOnError,
   )?
   onTestError;
