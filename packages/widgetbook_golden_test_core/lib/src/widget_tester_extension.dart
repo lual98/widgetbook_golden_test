@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook_golden_test_core/widgetbook_golden_test_core.dart';
@@ -36,10 +38,15 @@ extension WidgetTesterExtension on WidgetTester {
   Future<void> _precacheImagesAndWait(
     WidgetbookGoldenTestsProperties properties,
   ) async {
-    await runAsync(() async {
+    if (Zone.current[#inRunAsync] == true) {
       await precacheImages(properties);
       await Future.delayed(const Duration(milliseconds: 100));
-    });
+    } else {
+      await runAsync(() async {
+        await precacheImages(properties);
+        await Future.delayed(const Duration(milliseconds: 100));
+      });
+    }
   }
 
   /// Finds all [Image] widgets in the current tree and precaches their images.

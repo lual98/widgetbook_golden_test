@@ -29,6 +29,8 @@ import 'package:widgetbook_samples/cases/svg_picture.dart'
     as _widgetbook_samples_cases_svg_picture;
 import 'package:widgetbook_samples/cases/text_cases.dart'
     as _widgetbook_samples_cases_text_cases;
+import 'package:widgetbook_samples/cases/text_scroll_cases.dart'
+    as _widgetbook_samples_cases_text_scroll_cases;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookComponent(
@@ -67,6 +69,16 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookUseCase(
         name: 'Network SVG',
         builder: _widgetbook_samples_cases_svg_picture.buildNetworkSvgUseCase,
+      ),
+    ],
+  ),
+  _widgetbook.WidgetbookComponent(
+    name: 'TextScroll',
+    useCases: [
+      _widgetbook.WidgetbookUseCase(
+        name: 'Default',
+        builder: _widgetbook_samples_cases_text_scroll_cases
+            .buildTextScrollDefaultUseCase,
       ),
     ],
   ),

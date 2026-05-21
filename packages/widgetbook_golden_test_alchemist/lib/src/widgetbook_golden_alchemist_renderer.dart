@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:alchemist/alchemist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,44 +19,13 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
     required bool skip,
     WidgetbookGoldenTestBuilder? goldenTestBuilder,
   }) {
-    goldenTest(
-      useCase.name,
+    _runGoldenTest(
+      testName: useCase.name,
       fileName: "$goldenPath/${useCase.name}",
+      useCase: useCase,
+      properties: properties,
       skip: skip,
-      tags: WidgetbookGoldenRenderer.resolveTags(
-        goldenTestBuilder: goldenTestBuilder,
-        properties: properties,
-      ),
-      // Alchemist's default `pumpBeforeTest` is `onlyPumpAndSettle`, which calls
-      // `pumpAndSettle()` after the widget is pumped but before golden capture.
-      // Since `pumpWidgetbookCase` already handles settling internally, we use a
-      // no-op here to avoid redundant double settling.
-      pumpBeforeTest: (tester) async => {},
-      pumpWidget: (tester, widget) async {
-        return goldenTestZoneRunner(
-          testBody: () async {
-            await tester.pumpWidgetbookCase(
-              widget,
-              properties,
-              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
-              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
-            );
-          },
-          properties: properties,
-        );
-      },
-      builder: () {
-        return GoldenTestScenario(
-          constraints: goldenTestBuilder?.constraints ?? const BoxConstraints(),
-          name: useCase.name,
-          child: MockedWidgetbookCase(
-            properties: properties,
-            builderAddons: goldenTestBuilder?.addons,
-            useCase: useCase,
-            includeScaffold: false,
-          ),
-        );
-      },
+      goldenTestBuilder: goldenTestBuilder,
     );
   }
 
@@ -67,9 +38,36 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
     required bool skip,
     WidgetbookGoldenTestBuilder? goldenTestBuilder,
   }) {
-    goldenTest(
-      "${useCase.name} - ${action.name}",
+    _runGoldenTest(
+      testName: "${useCase.name} - ${action.name}",
       fileName: "$goldenPath/${useCase.name} - ${action.name}",
+      useCase: useCase,
+      properties: properties,
+      skip: skip,
+      goldenTestBuilder: goldenTestBuilder,
+      interaction: (tester) async {
+        await action.callback(tester, find);
+        if (action.customPump != null) {
+          await action.customPump!(tester);
+        } else {
+          await tester.pumpAndSettle();
+        }
+      },
+    );
+  }
+
+  void _runGoldenTest({
+    required String testName,
+    required WidgetbookUseCase useCase,
+    required String fileName,
+    required WidgetbookGoldenTestsProperties properties,
+    required bool skip,
+    required WidgetbookGoldenTestBuilder? goldenTestBuilder,
+    Future<void> Function(WidgetTester tester)? interaction,
+  }) {
+    goldenTest(
+      testName,
+      fileName: fileName,
       skip: skip,
       tags: WidgetbookGoldenRenderer.resolveTags(
         goldenTestBuilder: goldenTestBuilder,
@@ -81,19 +79,28 @@ class WidgetbookGoldenAlchemistRenderer implements WidgetbookGoldenRenderer {
       // no-op here to avoid redundant double settling.
       pumpBeforeTest: (tester) async => {},
       pumpWidget: (tester, widget) async {
+        final ignorePendingTimers =
+            goldenTestBuilder?.ignorePendingTimers ?? false;
         return goldenTestZoneRunner(
           testBody: () async {
-            await tester.pumpWidgetbookCase(
-              widget,
-              properties,
-              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
-              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
-            );
-            await action.callback(tester, find);
-            if (action.customPump != null) {
-              await action.customPump!(tester);
+            Future<void> run() async {
+              await tester.pumpWidgetbookCase(
+                widget,
+                properties,
+                pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
+                pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
+              );
+              if (interaction != null) {
+                await interaction(tester);
+              }
+            }
+
+            if (ignorePendingTimers) {
+              await tester.runAsync(() async {
+                await runZoned(run, zoneValues: {#inRunAsync: true});
+              });
             } else {
-              await tester.pumpAndSettle();
+              await run();
             }
           },
           properties: properties,

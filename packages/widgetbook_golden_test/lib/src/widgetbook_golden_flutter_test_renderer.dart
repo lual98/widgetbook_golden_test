@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
@@ -22,12 +24,9 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
       properties: properties,
       skip: skip,
       goldenTestBuilder: goldenTestBuilder,
-      testBody: (widgetTester, widgetToTest) async {
-        await expectLater(
+      goldenFileFullPath: "$goldenPath/${useCase.name}.png",
+      getGoldenFinder: (find, widgetToTest) =>
           find.byType(widgetToTest.runtimeType).first,
-          matchesGoldenFile("$goldenPath/${useCase.name}.png"),
-        );
-      },
     );
   }
 
@@ -46,20 +45,17 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
       properties: properties,
       skip: skip,
       goldenTestBuilder: goldenTestBuilder,
-      testBody: (widgetTester, widgetToTest) async {
+      goldenFileFullPath: "$goldenPath/${useCase.name} - ${action.name}.png",
+      getGoldenFinder: (find, widgetToTest) => action.goldenFinder == null
+          ? find.byType(widgetToTest.runtimeType).first
+          : action.goldenFinder!.call(find),
+      interaction: (widgetTester) async {
         await action.callback(widgetTester, find);
         if (action.customPump != null) {
           await action.customPump!(widgetTester);
         } else {
           await widgetTester.pumpAndSettle();
         }
-        Finder goldenFinder = action.goldenFinder == null
-            ? find.byType(widgetToTest.runtimeType).first
-            : action.goldenFinder!.call(find);
-        await expectLater(
-          goldenFinder,
-          matchesGoldenFile("$goldenPath/${useCase.name} - ${action.name}.png"),
-        );
       },
     );
   }
@@ -70,8 +66,10 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
     required WidgetbookGoldenTestsProperties properties,
     required bool skip,
     required WidgetbookGoldenTestBuilder? goldenTestBuilder,
-    required Future<void> Function(WidgetTester tester, Widget widgetToTest)
-    testBody,
+    required Finder Function(CommonFinders find, Widget widgetToTest)
+    getGoldenFinder,
+    required String goldenFileFullPath,
+    Future<void> Function(WidgetTester tester)? interaction,
   }) {
     testWidgets(
       testName,
@@ -80,6 +78,11 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
         properties: properties,
       ),
       (widgetTester) async {
+        final ignorePendingTimers =
+            goldenTestBuilder?.ignorePendingTimers ?? false;
+
+        late Widget widgetToTest;
+
         await goldenTestZoneRunner(
           testBody: () async {
             final widget = MockedWidgetbookCase(
@@ -88,18 +91,37 @@ class WidgetbookGoldenFlutterTestRenderer implements WidgetbookGoldenRenderer {
               useCase: useCase,
               constraints: goldenTestBuilder?.constraints,
             );
-            await widgetTester.pumpWidgetbookCase(
-              widget,
-              properties,
-              pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
-              pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
-            );
-            final state = widgetTester.state<MockedWidgetbookCaseState>(
-              find.byType(MockedWidgetbookCase),
-            );
-            var widgetToTest = state.widgetToTest!;
 
-            await testBody(widgetTester, widgetToTest);
+            Future<void> run() async {
+              await widgetTester.pumpWidgetbookCase(
+                widget,
+                properties,
+                pumpBefore: goldenTestBuilder?.pumpBeforeImagePrecache,
+                pumpAfter: goldenTestBuilder?.pumpAfterImagePrecache,
+              );
+              final state = widgetTester.state<MockedWidgetbookCaseState>(
+                find.byType(MockedWidgetbookCase),
+              );
+              widgetToTest = state.widgetToTest!;
+
+              if (interaction != null) {
+                await interaction(widgetTester);
+              }
+            }
+
+            if (ignorePendingTimers) {
+              await widgetTester.runAsync(() async {
+                await runZoned(run, zoneValues: {#inRunAsync: true});
+              });
+            } else {
+              await run();
+            }
+
+            final goldenFinder = getGoldenFinder(find, widgetToTest);
+            await expectLater(
+              goldenFinder,
+              matchesGoldenFile(goldenFileFullPath),
+            );
           },
           properties: properties,
         );

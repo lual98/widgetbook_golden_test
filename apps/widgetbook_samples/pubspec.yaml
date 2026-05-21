@@ -20,6 +20,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   get_it: ^9.2.1
+  text_scroll: ^0.2.1
 
 dev_dependencies:
   flutter_test:

@@ -42,6 +42,10 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// Optional list of actions to perform during golden tests.
   final List<GoldenPlayAction>? goldenActions;
 
+  /// Optional flag to ignore pending timers during golden tests.
+  /// This is useful for widgets that use timers (e.g. FutureBuilder with auto-refresh).
+  final bool ignorePendingTimers;
+
   /// Optional custom pump function to be executed before precaching images.
   /// If not set, it will default to `tester.pumpAndSettle()`.
   final Future<void> Function(WidgetTester tester)? pumpBeforeImagePrecache;
@@ -67,6 +71,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
   /// [child] is required and represents the widget under test.
   /// [constraints] is an optional BoxConstraints to be applied to the widget to be tested.
   /// [goldenActions] is an optional list of actions to execute during the test.
+  /// [ignorePendingTimers] is an optional flag to ignore pending timers during golden tests.
   /// [pumpBeforeImagePrecache] is an optional custom pump function to be executed before precaching images.
   /// [pumpAfterImagePrecache] is an optional custom pump function to be executed after precaching images.
   /// [skip] is an optional flag to skip the golden test.
@@ -79,6 +84,7 @@ class WidgetbookGoldenTestBuilder extends StatelessWidget {
     @Deprecated('Use builder instead') this.child,
     this.constraints,
     this.goldenActions,
+    this.ignorePendingTimers = false,
     this.pumpBeforeImagePrecache,
     this.pumpAfterImagePrecache,
     this.skip = false,

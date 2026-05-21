@@ -63,6 +63,32 @@ void main() {
       expect(pumpAfterExecuted, isTrue);
     });
 
+    testWidgets(
+      'pumpWidgetbookCase works inside runAsync when inRunAsync zone is true',
+      (tester) async {
+        final properties = WidgetbookGoldenTestsProperties();
+        final useCase = WidgetbookUseCase(
+          name: "Test use case",
+          builder: (context) => const Text("Hello world"),
+        );
+
+        await tester.runAsync(() async {
+          await runZoned(() async {
+            await tester.pumpWidgetbookCase(
+              MockedWidgetbookCase(
+                useCase: useCase,
+                properties: properties,
+                builderAddons: null,
+              ),
+              properties,
+            );
+          }, zoneValues: {#inRunAsync: true});
+        });
+
+        expect(find.text("Hello world"), findsOneWidget);
+      },
+    );
+
     group("precacheImages", () {
       testWidgets('precaches all but excluded images', (tester) async {
         final properties = WidgetbookGoldenTestsProperties(
