@@ -1,4 +1,4 @@
-## Unreleased
+## 0.5.0
 
 ### Added
 - Added `precacheImagesTimeout` property to `WidgetbookGoldenTestsProperties` to configure the timeout for precaching images.

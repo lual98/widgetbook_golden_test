@@ -1,4 +1,4 @@
-## Unreleased
+## 0.5.0
 - Updated to widgetbook_golden_test_core to 0.5.0. Check the [../../packages/widgetbook_golden_test_core/CHANGELOG.md](../../packages/widgetbook_golden_test_core/CHANGELOG.md) file for more information.
 
 ### Added
