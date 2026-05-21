@@ -130,7 +130,11 @@ class WidgetbookGoldenTestsProperties {
     String? loadingImageUrl,
     Duration? precacheImagesTimeout,
     String? testGroupName,
-    Function(FlutterErrorDetails, Function(FlutterErrorDetails)?)? onTestError,
+    Function(
+      FlutterErrorDetails error,
+      Function(FlutterErrorDetails)? originalOnError,
+    )?
+    onTestError,
     NetworkImageResolver? networkImageResolver,
   }) {
     return WidgetbookGoldenTestsProperties(
