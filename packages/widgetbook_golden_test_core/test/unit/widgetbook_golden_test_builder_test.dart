@@ -50,6 +50,7 @@ void main() {
         goldenActions: actions,
         pumpBeforeImagePrecache: pumpBefore,
         pumpAfterImagePrecache: pumpAfter,
+        ignorePendingTimers: true,
         skip: true,
         tags: ['custom-tag'],
         builder: _dummyBuilder,
@@ -60,8 +61,15 @@ void main() {
       expect(builder.goldenActions, equals(actions));
       expect(builder.pumpBeforeImagePrecache, equals(pumpBefore));
       expect(builder.pumpAfterImagePrecache, equals(pumpAfter));
+      expect(builder.ignorePendingTimers, isTrue);
       expect(builder.skip, isTrue);
       expect(builder.tags, equals(['custom-tag']));
+    });
+
+    test('ignorePendingTimers defaults to false', () {
+      final builder = WidgetbookGoldenTestBuilder(builder: _dummyBuilder);
+
+      expect(builder.ignorePendingTimers, isFalse);
     });
 
     test('tags defaults to null', () {

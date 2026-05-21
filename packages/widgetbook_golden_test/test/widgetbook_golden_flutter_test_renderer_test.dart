@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widgetbook/widgetbook.dart';
@@ -204,5 +206,81 @@ void main() {
         });
       });
     });
+
+    group("renderSimpleGoldenTest with ignorePendingTimers", () {
+      group("ignores pending timers of the widget under test", () {
+        final properties = WidgetbookGoldenTestsProperties();
+        final useCase = WidgetbookUseCase(
+          name: "ignore pending timers test simple",
+          builder: (_) => const _EndlessTimerWidget(),
+        );
+
+        final renderer = WidgetbookGoldenFlutterTestRenderer();
+        renderer.renderSimpleGoldenTest(
+          goldenPath: "./snapshots/",
+          properties: properties,
+          useCase: useCase,
+          skip: false,
+          goldenTestBuilder: WidgetbookGoldenTestBuilder(
+            builder: (context) => const _EndlessTimerWidget(),
+            ignorePendingTimers: true,
+          ),
+        );
+      });
+    });
+
+    group("renderGoldenPlayActionTest with ignorePendingTimers", () {
+      group("ignores pending timers during golden play actions", () {
+        final action = GoldenPlayAction(
+          name: "ignore pending timers action test",
+          callback: (tester, find) async {},
+        );
+        final properties = WidgetbookGoldenTestsProperties();
+        final useCase = WidgetbookUseCase(
+          name: "ignore pending timers test play action",
+          builder: (_) => const _EndlessTimerWidget(),
+        );
+
+        final renderer = WidgetbookGoldenFlutterTestRenderer();
+        renderer.renderGoldenPlayActionTest(
+          action: action,
+          useCase: useCase,
+          goldenPath: "./snapshots/",
+          properties: properties,
+          skip: false,
+          goldenTestBuilder: WidgetbookGoldenTestBuilder(
+            builder: (context) => const _EndlessTimerWidget(),
+            ignorePendingTimers: true,
+          ),
+        );
+      });
+    });
   });
+}
+
+class _EndlessTimerWidget extends StatefulWidget {
+  const _EndlessTimerWidget();
+
+  @override
+  _EndlessTimerWidgetState createState() => _EndlessTimerWidgetState();
+}
+
+class _EndlessTimerWidgetState extends State<_EndlessTimerWidget> {
+  // ignore: unused_field
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(milliseconds: 50), (_) {});
+  }
+
+  @override
+  void dispose() {
+    // Intentionally do not cancel the timer to simulate pending timer
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox();
 }
